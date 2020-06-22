@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "506810616716",
+    "firebase_url": "https://president-bomber-65536.firebaseio.com",
+    "project_id": "president-bomber-65536",
+    "storage_bucket": "president-bomber-65536.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506810616716:android:ab773985741aeffe6fa4a9",
+        "android_client_info": {
+          "package_name": "com.game.presidentbomber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506810616716-mjnn7vqte8u556qrlvnvspfr8f0033e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgUEYtBq3GNuQqANqE26-iS-VGC-arK-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506810616716-mjnn7vqte8u556qrlvnvspfr8f0033e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
