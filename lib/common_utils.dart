@@ -1,16 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
-void checkIfGameExists(String gameId){
+void checkIfGameExists(String gameId, String name){
   return null;
 }
 
-void createGame(String gameId) {
+void createGame(String gameId, String name) {
   CollectionReference data = Firestore.instance.collection("data");
   var doc = {
-    "players": [""],
-    "roles": [""],
+    "players": [name],
+    "roles": [],
     "time": "",
   };
 
   data.document(gameId).setData(doc);
+}
+
+void clearField(TextFieldController) {
+  // Clean up the controller when the widget is disposed.
+  TextFieldController.clear();
 }

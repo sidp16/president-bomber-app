@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presidentbomber/views/GameScreen.dart';
 
+import '../common_utils.dart';
+import '../constants.dart';
+
 class GoBackButton extends StatelessWidget {
   const GoBackButton({
     Key key,
@@ -23,7 +26,7 @@ class GoBackButton extends StatelessWidget {
           Icons.arrow_back,
           size: 20,
         ),
-        label: Text('Go back',
+        label: Text(BACK_BUTTON_MESSAGE,
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w900,
@@ -49,7 +52,6 @@ class JoinGameButton extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         splashColor: Colors.blueAccent,
         onPressed: () {
-          print(gameIdTextFieldController.text);
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -61,7 +63,7 @@ class JoinGameButton extends StatelessWidget {
           Icons.arrow_forward,
           size: 20,
         ),
-        label: Text('Join Game',
+        label: Text(JOIN_GAME_BUTTON_MESSAGE,
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900)));
   }
 }
@@ -89,10 +91,11 @@ class CreateGameButton extends StatelessWidget {
           Icons.add_box,
           size: 20,
         ),
-        label: Text('Create Game!',
+        label: Text(CREATE_GAME_BUTTON_MESSAGE,
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w900,
             )));
   }
 }
+
