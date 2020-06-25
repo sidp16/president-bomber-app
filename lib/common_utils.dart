@@ -15,8 +15,3 @@ void createGame(String gameId, String name) {
 
   data.document(gameId).setData(doc);
 }
-
-void clearField(TextFieldController) {
-  // Clean up the controller when the widget is disposed.
-  TextFieldController.clear();
-}

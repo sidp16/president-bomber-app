@@ -57,8 +57,9 @@ class JoinGameButton extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) =>
                       GameScreen(gameIdTextFieldController.text)));
+              gameIdTextFieldController.clear();
         },
-        // onPressed
+      // onPressed
         icon: Icon(
           Icons.arrow_forward,
           size: 20,
@@ -99,3 +100,34 @@ class CreateGameButton extends StatelessWidget {
   }
 }
 
+class ClearButton extends StatelessWidget {
+  const ClearButton({
+    Key key,
+    @required this.gameIdTextFieldController,
+  }) : super(key: key);
+
+  final TextEditingController gameIdTextFieldController;
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton.icon(
+      color: Colors.red,
+      textColor: Colors.white,
+      disabledColor: Colors.grey,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.all(8.0),
+      splashColor: Colors.redAccent,
+      onPressed: () {
+        gameIdTextFieldController.clear();
+        // onPressed
+      },
+      icon: Icon(
+        Icons.clear,
+        size: 20,
+      ),
+      label: Text("Clear",
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w900)),
+    );
+  }
+}

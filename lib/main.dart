@@ -33,56 +33,60 @@ class MyAppState extends State<MyApp> {
     final wordPair = WordPair.random();
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(
-            title: Text(APP_TITLE),
-            centerTitle: true,
-          ),
-          body: Column(
-              children: <Widget>[
-          Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(child: CreateGameButton(onPressed: () {
-                  String gameId = wordPair.asPascalCase;
-                  setState(() {
-                    pressed = true;
-                    currentGameId = gameId;
-                  });
-                  createGame(gameId, nameTextFieldController.text);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GameScreen(gameId)));
-                })),
-                Container(
-                    child: JoinGameButton(
-                        gameIdTextFieldController:
-                        gameIdTextFieldController))
-              ]),
-              Text(""),
-              Text(pressed ? currentGameId : NO_GAME_ID_MESSAGE,
-                  style: TextStyle(fontSize: 18)),
-              Text(""),
-                Container(
-              child: TextField(
-                controller: gameIdTextFieldController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: JOIN_GAME_TEXT_FIELD_HINT),
-                scrollPadding: EdgeInsets.all(10.0),
-              ),
-              width: 200),
-          Container(
-          child: TextField(
-                controller: nameTextFieldController,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: NAME_TEXT_FIELD_HINT),
-                scrollPadding: EdgeInsets.all(10.0),
-              ),
-              width: 200),
-        ],
-    ),
-  ));
+            appBar: AppBar(
+              title: Text(APP_TITLE),
+              centerTitle: true,
+            ),
+            body: Column(
+                children: <Widget>[
+            Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(child: CreateGameButton(onPressed: () {
+                    String gameId = wordPair.asPascalCase;
+                    setState(() {
+                      pressed = true;
+                      currentGameId = gameId;
+                    });
+                    createGame(gameId, nameTextFieldController.text);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GameScreen(gameId)));
+                    clearField(gameIdTextFieldController);
+                  })),
+                  Container(
+                      child: JoinGameButton(
+                          gameIdTextFieldController:
+                          gameIdTextFieldController)
+                  ),
+                  Container(
+                    child: ClearButton(gameIdTextFieldController: gameIdTextFieldController),
+                  ),
+                ]),
+            Text(""),
+            Text(pressed ? currentGameId : NO_GAME_ID_MESSAGE,
+                style: TextStyle(fontSize: 18)),
+            Text(""),
+            Container(
+                child: TextField(
+                  controller: gameIdTextFieldController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: JOIN_GAME_TEXT_FIELD_HINT),
+                  scrollPadding: EdgeInsets.all(10.0),
+                ),
+                width: 200),
+            Container(
+                child: TextField(
+                  controller: nameTextFieldController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: NAME_TEXT_FIELD_HINT),
+                  scrollPadding: EdgeInsets.all(10.0),
+                ),
+                width: 200)
+              ],
+            )));
   }
 }
