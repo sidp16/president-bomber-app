@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
@@ -29,6 +30,17 @@ class MyAppState extends State<MyApp> {
   final gameIdTextFieldController = TextEditingController();
   final nameTextFieldController = TextEditingController();
 
+
+  final db = Firestore.instance;
+
+  _updateData() async {
+    print(gameIdTextFieldController.text);
+    await db
+        .collection(COLLECTION_NAME)
+        .document(gameIdTextFieldController.text)
+        .updateData({PLAYERS: FieldValue.arrayUnion([nameTextFieldController.text])});
+  }
+
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
     return MaterialApp(
@@ -53,15 +65,38 @@ class MyAppState extends State<MyApp> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => GameScreen(gameId)));
-                    clearField(gameIdTextFieldController);
                   })),
                   Container(
-                      child: JoinGameButton(
-                          gameIdTextFieldController:
-                          gameIdTextFieldController)
+                      child: RaisedButton.icon(
+                        color: Colors.blue,
+                        textColor: Colors.white,
+                        disabledColor: Colors.grey,
+                        disabledTextColor: Colors.black,
+                        padding: EdgeInsets.all(8.0),
+                        splashColor: Colors.blueAccent,
+                        onPressed: () {
+                          _updateData();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      GameScreen(gameIdTextFieldController.text)));
+                        },
+                        icon: Icon(
+                          Icons.arrow_forward,
+                          size: 20,
+                        ),
+                        label: Text(JOIN_GAME_BUTTON_MESSAGE,
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w900
+                          ),
+                        ),
+                      ),
                   ),
                   Container(
-                    child: ClearButton(gameIdTextFieldController: gameIdTextFieldController),
+                    child: ClearButton(gameIdTextFieldController: gameIdTextFieldController,
+                        nameIdTextFieldController: nameTextFieldController),
                   ),
                 ]),
             Text(""),

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'constants.dart';
+
 void checkIfGameExists(String gameId, String name){
   return null;
 }
@@ -15,3 +17,12 @@ void createGame(String gameId, String name) {
 
   data.document(gameId).setData(doc);
 }
+
+//void joinGame(String gameId, String name) {
+//  CollectionReference data = Firestore.instance.collection("data");
+//  var doc = {
+//    "players" + name,
+//  };
+//
+//  data.document(gameId).updateData(doc);
+//}

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presidentbomber/views/GameScreen.dart';
@@ -34,40 +35,39 @@ class GoBackButton extends StatelessWidget {
   }
 }
 
-class JoinGameButton extends StatelessWidget {
-  const JoinGameButton({
-    Key key,
-    @required this.gameIdTextFieldController,
-  }) : super(key: key);
-
-  final TextEditingController gameIdTextFieldController;
-
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton.icon(
-        color: Colors.blue,
-        textColor: Colors.white,
-        disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
-        padding: EdgeInsets.all(8.0),
-        splashColor: Colors.blueAccent,
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      GameScreen(gameIdTextFieldController.text)));
-              gameIdTextFieldController.clear();
-        },
-      // onPressed
-        icon: Icon(
-          Icons.arrow_forward,
-          size: 20,
-        ),
-        label: Text(JOIN_GAME_BUTTON_MESSAGE,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900)));
-  }
-}
+//class JoinGameButton extends StatelessWidget {
+//  const JoinGameButton({
+//    Key key,
+//    @required this.gameIdTextFieldController,
+//  }) : super(key: key);
+//
+//  final TextEditingController gameIdTextFieldController;
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return RaisedButton.icon(
+//        color: Colors.blue,
+//        textColor: Colors.white,
+//        disabledColor: Colors.grey,
+//        disabledTextColor: Colors.black,
+//        padding: EdgeInsets.all(8.0),
+//        splashColor: Colors.blueAccent,
+//        onPressed: () {
+//          Navigator.push(
+//              context,
+//              MaterialPageRoute(
+//                  builder: (context) =>
+//                      GameScreen(gameIdTextFieldController.text)));
+//        },
+//      // onPressed
+//        icon: Icon(
+//          Icons.arrow_forward,
+//          size: 20,
+//        ),
+//        label: Text(JOIN_GAME_BUTTON_MESSAGE,
+//            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900)));
+//  }
+//}
 
 class CreateGameButton extends StatelessWidget {
   final onPressed;
@@ -104,9 +104,11 @@ class ClearButton extends StatelessWidget {
   const ClearButton({
     Key key,
     @required this.gameIdTextFieldController,
+    @required this.nameIdTextFieldController,
   }) : super(key: key);
 
   final TextEditingController gameIdTextFieldController;
+  final TextEditingController nameIdTextFieldController;
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +121,7 @@ class ClearButton extends StatelessWidget {
       splashColor: Colors.redAccent,
       onPressed: () {
         gameIdTextFieldController.clear();
+        nameIdTextFieldController.clear();
         // onPressed
       },
       icon: Icon(
