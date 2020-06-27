@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/views/GameScreen.dart';
+import 'package:presidentbomber/views/OwnerGameScreen.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 
 import 'common_utils.dart';
@@ -64,7 +65,7 @@ class MyAppState extends State<MyApp> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GameScreen(gameId)));
+                            builder: (context) => OwnerGameScreen(gameId)));
                   })),
                   Container(
                       child: RaisedButton.icon(

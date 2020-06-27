@@ -17,12 +17,3 @@ void createGame(String gameId, String name) {
 
   data.document(gameId).setData(doc);
 }
-
-//void joinGame(String gameId, String name) {
-//  CollectionReference data = Firestore.instance.collection("data");
-//  var doc = {
-//    "players" + name,
-//  };
-//
-//  data.document(gameId).updateData(doc);
-//}

@@ -23,7 +23,7 @@ class GameScreen extends StatelessWidget {
           if (!snapshot.hasData) return Text(LOADING_MESSAGE);
 
           return Column(
-//            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(snapshot.data[PLAYERS].toString(),
                   style: TextStyle(fontSize: 25.0)),
@@ -33,7 +33,6 @@ class GameScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 25.0,
                   )),
-              GoBackButton()
             ],
           );
         },
