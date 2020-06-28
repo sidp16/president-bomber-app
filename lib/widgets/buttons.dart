@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:presidentbomber/views/GameScreen.dart';
+import 'package:presidentbomber/views/PlayerGameScreen.dart';
 
 import '../common_utils.dart';
 import '../constants.dart';
@@ -129,8 +129,7 @@ class ClearButton extends StatelessWidget {
         size: 20,
       ),
       label: Text("Clear",
-          style: TextStyle(
-              fontSize: 15, fontWeight: FontWeight.w900)),
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900)),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'constants.dart';
 
-void checkIfGameExists(String gameId, String name){
+void checkIfGameExists(String gameId, String name) {
   return null;
 }
 
@@ -11,7 +11,7 @@ void createGame(String gameId, String name) {
   CollectionReference data = Firestore.instance.collection("data");
   var doc = {
     "players": [name],
-    "roles": [],
+    "roles": [PRESIDENT,BOMBER],
     "time": "",
   };
 
