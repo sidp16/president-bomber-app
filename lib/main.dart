@@ -98,13 +98,24 @@ class MyAppState extends State<MyApp> {
                                     nameTextFieldController.text.isEmpty ? _validate = true : _validate = false;
                                   });
                                   _updateData();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PlayerGameScreen(
-                                                  gameIdTextFieldController
-                                                      .text)));
+                                  if (snapshot.data[PLAYERS].indexOf(nameTextFieldController.text) == 0) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OwnerGameScreen(
+                                                    gameIdTextFieldController
+                                                        .text)));
+                                  }
+                                  if (snapshot.data[PLAYERS].indexOf(nameTextFieldController.text) > 0) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PlayerGameScreen(
+                                                    gameIdTextFieldController
+                                                        .text)));
+                                  }
                                 },
                                 icon: Icon(
                                   Icons.arrow_forward,

@@ -14,7 +14,7 @@ class OwnerGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(gameId),
+        title: Text("$gameId | Owner"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -413,7 +413,7 @@ class OwnerGameScreen extends StatelessWidget {
                 ),
               ),
               Text(""),
-              Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles added",
+              Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles in game",
                   style: TextStyle(
                     fontSize: 20.0,
                   )),

@@ -12,7 +12,7 @@ class PlayerGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(gameId),
+        title: Text("$gameId | Player"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -38,7 +38,7 @@ class PlayerGameScreen extends StatelessWidget {
                 child: Center(
                   child: Column(
                     children: [
-                      Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles added",
+                      Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles in game",
                           style: TextStyle(
                             fontSize: 25.0,
                           )),
