@@ -5,7 +5,6 @@ import 'package:presidentbomber/widgets/buttons.dart';
 
 class PlayerGameScreen extends StatelessWidget {
   final String gameId;
-  int numConnected;
 
   PlayerGameScreen(this.gameId);
 
@@ -13,15 +12,25 @@ class PlayerGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$gameId | $numConnected connected")),
+        title: Text(gameId),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[Colors.blue, Colors.red])),
+        ),
+      ),
       body: StreamBuilder(
         stream: Firestore.instance
             .collection(COLLECTION_NAME)
             .document(this.gameId)
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return Text(LOADING_MESSAGE);
-          numConnected = snapshot.data[PLAYERS].length;
+          if (!snapshot.hasData)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -29,8 +38,14 @@ class PlayerGameScreen extends StatelessWidget {
                 child: Center(
                   child: Column(
                     children: [
+                      Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles added",
+                          style: TextStyle(
+                            fontSize: 25.0,
+                          )),
+                      Text(""),
                       Text(snapshot.data[PLAYERS].toString(),
                           style: TextStyle(fontSize: 25.0)),
+                      Text(""),
                       Text(snapshot.data[ROLES].toString(),
                           style: TextStyle(fontSize: 25.0)),
                       Text(snapshot.data[TIME],

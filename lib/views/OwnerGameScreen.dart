@@ -5,10 +5,8 @@ import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 
-
 class OwnerGameScreen extends StatelessWidget {
   final String gameId;
-  int numberConnected;
 
   OwnerGameScreen(this.gameId);
 
@@ -16,7 +14,14 @@ class OwnerGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("$gameId | $numberConnected connected")
+        title: Text(gameId),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[Colors.blue, Colors.red])),
+        ),
       ),
       body: StreamBuilder(
         stream: Firestore.instance
@@ -24,8 +29,10 @@ class OwnerGameScreen extends StatelessWidget {
             .document(this.gameId)
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return Text(LOADING_MESSAGE);
-          numberConnected = snapshot.data[PLAYERS].length;
+          if (!snapshot.hasData)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -60,8 +67,40 @@ class OwnerGameScreen extends StatelessWidget {
                         BLUE,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 20,
                           fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 103.0,
+                    child: RaisedButton(
+                      onPressed: () {},
+//                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                      padding: EdgeInsets.all(0.0),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.blue, Colors.red],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+//                            borderRadius: BorderRadius.circular(30.0)
+                        ),
+                        child: Container(
+                          constraints: BoxConstraints(
+                              maxWidth: 120.0, minHeight: 50.0),
+                          alignment: Alignment.center,
+                          child: Text(
+                            DISTRIBUTE_ROLES_BUTTON_TEXT,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -93,7 +132,7 @@ class OwnerGameScreen extends StatelessWidget {
                         RED,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 20,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -351,9 +390,19 @@ class OwnerGameScreen extends StatelessWidget {
                         .collection(COLLECTION_NAME)
                         .document(this.gameId)
                         .updateData({
-                      ROLES: FieldValue.arrayRemove([BLUE, RED, SNIPER, GAMBLER,
-                        MASTERMIND, TARGET, DECOY, HERO,
-                        HOTPOTATO, ANARCHIST, TRAVELER]),
+                      ROLES: FieldValue.arrayRemove([
+                        BLUE,
+                        RED,
+                        SNIPER,
+                        GAMBLER,
+                        MASTERMIND,
+                        TARGET,
+                        DECOY,
+                        HERO,
+                        HOTPOTATO,
+                        ANARCHIST,
+                        TRAVELER
+                      ]),
                     });
                   },
                   child: Text(
@@ -364,13 +413,16 @@ class OwnerGameScreen extends StatelessWidget {
                 ),
               ),
               Text(""),
-              Text(snapshot.data[PLAYERS].length.toString() + " players",
-                  style: TextStyle(fontSize: 25.0,)),
+              Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles added",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  )),
+              Text(""),
               Text(snapshot.data[PLAYERS].toString(),
-                  style: TextStyle(fontSize: 25.0)),
+                  style: TextStyle(fontSize: 20.0)),
               Text(""),
               Text(snapshot.data[ROLES].toString(),
-                  style: TextStyle(fontSize: 25.0)),
+                  style: TextStyle(fontSize: 20.0)),
               Text(snapshot.data[TIME], style: TextStyle(fontSize: 25.0)),
             ],
           );

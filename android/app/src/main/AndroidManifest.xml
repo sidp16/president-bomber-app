@@ -8,7 +8,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="presidentbomber"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/bomb2">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
