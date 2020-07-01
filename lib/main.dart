@@ -18,6 +18,19 @@ void main() {
   ));
 }
 
+checkifEmpty(String text) {
+  if (text.length == 0) {
+    return true;
+  }
+  return null;
+}
+
+class Routes {
+  static const String playerPage = '/player';
+  static const String ownerPage = '/owner';
+  static const String homePage = '/home';
+}
+
 class MyApp extends StatefulWidget {
   @override
   MyAppState createState() {
@@ -48,6 +61,13 @@ class MyAppState extends State<MyApp> {
     bool _validate = false;
 
     return MaterialApp(
+        routes: {
+          Routes.playerPage: (BuildContext context) => PlayerGameScreen(
+              gameIdTextFieldController.text, nameTextFieldController.text),
+          Routes.ownerPage: (BuildContext context) => OwnerGameScreen(
+              gameIdTextFieldController.text, nameTextFieldController.text),
+          Routes.homePage: (BuildContext context) => MyApp(),
+        },
         home: Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -66,7 +86,8 @@ class MyAppState extends State<MyApp> {
                     .document(currentGameId)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData)
+                    return Center(child: CircularProgressIndicator());
                   return Column(
                     children: <Widget>[
                       Row(
@@ -82,8 +103,9 @@ class MyAppState extends State<MyApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          OwnerGameScreen(gameId)));
+                                      builder: (context) => OwnerGameScreen(
+                                          gameId,
+                                          nameTextFieldController.text)));
                             })),
                             Container(
                               child: RaisedButton.icon(
@@ -94,26 +116,28 @@ class MyAppState extends State<MyApp> {
                                 padding: EdgeInsets.all(8.0),
                                 splashColor: Colors.blueAccent,
                                 onPressed: () {
-                                  setState(() {
-                                    nameTextFieldController.text.isEmpty ? _validate = true : _validate = false;
-                                  });
                                   _updateData();
-                                  if (snapshot.data[PLAYERS].indexOf(nameTextFieldController.text) == 0) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PlayerGameScreen(
+                                                  gameIdTextFieldController
+                                                      .text,
+                                                  nameTextFieldController
+                                                      .text)));
+                                  if (snapshot.data[PLAYERS].indexOf(
+                                          nameTextFieldController.text) ==
+                                      0) {
+                                    _updateData();
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 OwnerGameScreen(
                                                     gameIdTextFieldController
-                                                        .text)));
-                                  }
-                                  if (snapshot.data[PLAYERS].indexOf(nameTextFieldController.text) > 0) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PlayerGameScreen(
-                                                    gameIdTextFieldController
+                                                        .text,
+                                                    nameTextFieldController
                                                         .text)));
                                   }
                                 },
@@ -145,7 +169,8 @@ class MyAppState extends State<MyApp> {
                           child: TextField(
                             controller: gameIdTextFieldController,
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.lock_open, color: Colors.grey, size: 20),
+                                prefixIcon: Icon(Icons.lock,
+                                    color: Colors.grey, size: 20),
                                 border: OutlineInputBorder(),
                                 labelText: JOIN_GAME_TEXT_FIELD_HINT),
                             scrollPadding: EdgeInsets.all(10.0),
@@ -156,10 +181,11 @@ class MyAppState extends State<MyApp> {
                           child: TextFormField(
                             controller: nameTextFieldController,
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.person, color: Colors.grey, size: 20),
+                                prefixIcon: Icon(Icons.person,
+                                    color: Colors.grey, size: 20),
                                 border: OutlineInputBorder(),
                                 labelText: NAME_TEXT_FIELD_HINT,
-                                errorText: _validate ? "Can't be empty" : null),
+                                errorText: nameTextFieldController.text.isEmpty ? 'Empty' : null),
                             scrollPadding: EdgeInsets.all(10.0),
                           ),
                           width: 200)

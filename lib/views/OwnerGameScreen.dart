@@ -3,18 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/main.dart';
+import 'package:presidentbomber/testing.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 
 class OwnerGameScreen extends StatelessWidget {
   final String gameId;
+  final String name;
 
-  OwnerGameScreen(this.gameId);
+  OwnerGameScreen(this.gameId, this.name);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$gameId | Owner"),
+        title: Text("$gameId | Owner Console"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -76,8 +78,12 @@ class OwnerGameScreen extends StatelessWidget {
                   Container(
                     height: 103.0,
                     child: RaisedButton(
-                      onPressed: () {},
-//                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                      onPressed: () {
+                        List rolesShuffled =
+                            new List.from(snapshot.data[ROLES].shuffle());
+                        List playerShuffled =
+                            new List.from(snapshot.data[PLAYERS].shuffle());
+                      },
                       padding: EdgeInsets.all(0.0),
                       child: Ink(
                         decoration: BoxDecoration(
@@ -89,8 +95,8 @@ class OwnerGameScreen extends StatelessWidget {
 //                            borderRadius: BorderRadius.circular(30.0)
                         ),
                         child: Container(
-                          constraints: BoxConstraints(
-                              maxWidth: 120.0, minHeight: 50.0),
+                          constraints:
+                              BoxConstraints(maxWidth: 120.0, minHeight: 50.0),
                           alignment: Alignment.center,
                           child: Text(
                             DISTRIBUTE_ROLES_BUTTON_TEXT,
@@ -98,8 +104,7 @@ class OwnerGameScreen extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w900
-                            ),
+                                fontWeight: FontWeight.w900),
                           ),
                         ),
                       ),
@@ -377,43 +382,78 @@ class OwnerGameScreen extends StatelessWidget {
                 ],
               ),
               Text(""),
-              Container(
-                child: RaisedButton(
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  disabledColor: Colors.greenAccent,
-                  disabledTextColor: Colors.black,
-                  padding: EdgeInsets.fromLTRB(130, 5, 130, 5),
-                  splashColor: Colors.redAccent,
-                  onPressed: () {
-                    Firestore.instance
-                        .collection(COLLECTION_NAME)
-                        .document(this.gameId)
-                        .updateData({
-                      ROLES: FieldValue.arrayRemove([
-                        BLUE,
-                        RED,
-                        SNIPER,
-                        GAMBLER,
-                        MASTERMIND,
-                        TARGET,
-                        DECOY,
-                        HERO,
-                        HOTPOTATO,
-                        ANARCHIST,
-                        TRAVELER
-                      ]),
-                    });
-                  },
-                  child: Text(
-                    CLEAR,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    child: RaisedButton(
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      disabledColor: Colors.greenAccent,
+                      disabledTextColor: Colors.black,
+                      padding: EdgeInsets.fromLTRB(50, 5, 50, 5),
+                      splashColor: Colors.redAccent,
+                      onPressed: () {
+                        Firestore.instance
+                            .collection(COLLECTION_NAME)
+                            .document(this.gameId)
+                            .updateData({
+                          ROLES: FieldValue.arrayRemove([
+                            BLUE,
+                            RED,
+                            SNIPER,
+                            GAMBLER,
+                            MASTERMIND,
+                            TARGET,
+                            DECOY,
+                            HERO,
+                            HOTPOTATO,
+                            ANARCHIST,
+                            TRAVELER
+                          ]),
+                        });
+                      },
+                      child: Text(
+                        CLEAR,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w900),
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    child: RaisedButton(
+                      color: Colors.blueGrey,
+                      textColor: Colors.white,
+                      disabledColor: Colors.greenAccent,
+                      disabledTextColor: Colors.black,
+                      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      splashColor: Colors.blueGrey,
+                      onPressed: () {
+                        Firestore.instance
+                            .collection(COLLECTION_NAME)
+                            .document(this.gameId)
+                            .updateData({
+                          PLAYERS: FieldValue.arrayRemove([this.name])
+                        });
+                        Navigator.pushNamed(context, Routes.homePage);
+                      },
+                      child: Text(
+                        LEAVE_GAME,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Text(""),
-              Text(snapshot.data[PLAYERS].length.toString() + " in lobby, " + snapshot.data[ROLES].length.toString() + " roles in game",
+              Text(
+                  snapshot.data[PLAYERS].length.toString() +
+                      " in lobby, " +
+                      snapshot.data[ROLES].length.toString() +
+                      " roles in game",
                   style: TextStyle(
                     fontSize: 20.0,
                   )),

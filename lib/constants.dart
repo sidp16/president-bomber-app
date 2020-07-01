@@ -26,3 +26,4 @@ final RED = 'Red';
 final PRESIDENT = 'President';
 final BOMBER = 'Bomber';
 final DISTRIBUTE_ROLES_BUTTON_TEXT = 'Distribute';
+final LEAVE_GAME = 'Leave Game (BUGGY)';
