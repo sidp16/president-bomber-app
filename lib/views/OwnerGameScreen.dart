@@ -1,17 +1,22 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/testing.dart';
+import 'package:presidentbomber/views/PlayerGameScreen.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 import 'dart:collection';
 
 class OwnerGameScreen extends StatelessWidget {
   final String gameId;
   final String name;
+  int _counter = 180;
+  Timer _timer;
 
   OwnerGameScreen(this.gameId, this.name);
 
@@ -36,8 +41,7 @@ class OwnerGameScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(
-              child: CircularProgressIndicator(),
-            );
+              child: CircularProgressIndicator());
           Map distributions = snapshot.data["distributions"];
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -88,25 +92,53 @@ class OwnerGameScreen extends StatelessWidget {
                             Firestore.instance.collection(COLLECTION_NAME);
                         snapshot.data[ROLES].shuffle();
                         snapshot.data[PLAYERS].shuffle();
+                        int playerListLength = snapshot.data[PLAYERS].length;
+
                         var newDoc = {
                           "players": snapshot.data[PLAYERS],
-                          "roles": [PRESIDENT,BOMBER],
+                          "roles": [PRESIDENT, BOMBER],
                           "time": 0,
                           "distributions": {
+//                            for (int i = 0; playerListLength - 1 != null; i++)
+//                              {
+//                                snapshot.data[PLAYERS][i]: snapshot.data[ROLES]
+//                                    [i],
                             snapshot.data[PLAYERS][0]: snapshot.data[ROLES][0],
                             snapshot.data[PLAYERS][1]: snapshot.data[ROLES][1],
                             snapshot.data[PLAYERS][2]: snapshot.data[ROLES][2],
                             snapshot.data[PLAYERS][3]: snapshot.data[ROLES][3],
                             snapshot.data[PLAYERS][4]: snapshot.data[ROLES][4],
                             snapshot.data[PLAYERS][5]: snapshot.data[ROLES][5],
-                            snapshot.data[PLAYERS][6]: snapshot.data[ROLES][6],
-                          },
+                          }
                         };
 
                         Firestore.instance
                             .collection(COLLECTION_NAME)
                             .document(this.gameId)
                             .setData(newDoc);
+
+//                        Center(
+//                          child: AlertDialog(
+//                            title: Text("Role"),
+//                            content: Text(
+//                                "Your Role: " +
+//                                    snapshot.data[DISTRIBUTIONS][name].toString(),
+//                                style: TextStyle(fontSize: 20.0)),
+//                            actions: [
+//                              FlatButton(
+//                                child: Text("Approve"),
+//                                onPressed: () {},
+//                              ),
+//                            ],
+//                            elevation: 25.0,
+//                          ),
+//                        );
+//
+//                        showDialog(
+//                          context: context,
+//                          builder: (_) => AlertDialog(),
+//                          barrierDismissible: false,
+//                        );
                       },
                       padding: EdgeInsets.all(0.0),
                       child: Ink(
@@ -215,24 +247,62 @@ class OwnerGameScreen extends StatelessWidget {
                     fontSize: 20.0,
                   )),
               Text(""),
-              Text(snapshot.data[PLAYERS].toString(),
-                  style: TextStyle(fontSize: 20.0)),
+              Center(
+                child: Text(snapshot.data[PLAYERS].toString().replaceAll("[", "").replaceAll("]", ""),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0)),
+              ),
               Text(""),
-              Text(snapshot.data[ROLES].toString(),
-                  style: TextStyle(fontSize: 20.0)),
 //              Text(snapshot.data[TIME].toString(),
 //                  style: TextStyle(fontSize: 25.0)),
-//              distributions.containsKey(name)
-//                  ? Text(snapshot.data[DISTRIBUTIONS][this.name].toString(),
-//                      style: TextStyle(fontSize: 20.0))
-//                  : null, Text("no role"),
+              Text(snapshot.data[ROLES].toString().replaceAll("[", "").replaceAll("]", ""),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20.0)),
               Text(""),
               Text(
                   "Your Role: " + snapshot.data[DISTRIBUTIONS][name].toString(),
-                  style: TextStyle(fontSize: 20.0))
+                  style: TextStyle(fontSize: 20.0)),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+
+
+class LeaveGameButton extends StatelessWidget {
+  const LeaveGameButton({
+    Key key,
+    @required this.gameId,
+    @required this.name,
+  }) : super(key: key);
+
+  final String gameId;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      color: Colors.blueGrey,
+      textColor: Colors.white,
+      disabledColor: Colors.greenAccent,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      splashColor: Colors.blueGrey,
+      onPressed: () {
+        Firestore.instance
+            .collection(COLLECTION_NAME)
+            .document(this.gameId)
+            .updateData({
+          PLAYERS: FieldValue.arrayRemove([this.name])
+        });
+      },
+      child: Text(
+        LEAVE_GAME,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }

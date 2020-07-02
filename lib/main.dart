@@ -63,10 +63,12 @@ class MyAppState extends State<MyApp> {
 
     return MaterialApp(
         routes: {
-          Routes.playerPage: (BuildContext context) => PlayerGameScreen(
-              gameIdTextFieldController.text, nameTextFieldController.text),
-          Routes.ownerPage: (BuildContext context) => OwnerGameScreen(
-              gameIdTextFieldController.text, nameTextFieldController.text),
+          Routes.playerPage: (BuildContext context) =>
+              PlayerGameScreen(
+                  gameIdTextFieldController.text, nameTextFieldController.text),
+          Routes.ownerPage: (BuildContext context) =>
+              OwnerGameScreen(
+                  gameIdTextFieldController.text, nameTextFieldController.text),
           Routes.homePage: (BuildContext context) => MyApp(),
         },
         home: Scaffold(
@@ -79,6 +81,43 @@ class MyAppState extends State<MyApp> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: <Color>[Colors.blue, Colors.red])),
+              ),
+            ),
+            drawer: Drawer(
+              child: ListView(
+                children: [
+                  DrawerHeader(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: <Color>[Colors.blueAccent, Colors.lightBlueAccent],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Center(
+                          child: Text("President and Bomber!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 35, color: Colors.white)))),
+                  ListTile(
+                      title: Text("Home",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 20))),
+                  ListTile(
+                      title: Text("Rules",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 20))),
+                  ListTile(
+                      title: Text("Characters",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 20))),
+                  ListTile(
+                      title: Text("About us",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 20))),
+                  ListTile(
+                      title: Text("Report",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 20))),
+                ],
               ),
             ),
             body: StreamBuilder(
@@ -104,9 +143,10 @@ class MyAppState extends State<MyApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => OwnerGameScreen(
-                                          gameId,
-                                          nameTextFieldController.text)));
+                                      builder: (context) =>
+                                          OwnerGameScreen(
+                                              gameId,
+                                              nameTextFieldController.text)));
                             })),
                             Container(
                               child: RaisedButton.icon(
@@ -128,7 +168,7 @@ class MyAppState extends State<MyApp> {
                                                   nameTextFieldController
                                                       .text)));
                                   if (snapshot.data[PLAYERS].indexOf(
-                                          nameTextFieldController.text) ==
+                                      nameTextFieldController.text) ==
                                       0) {
                                     _updateData();
                                     Navigator.push(
@@ -157,9 +197,9 @@ class MyAppState extends State<MyApp> {
                             Container(
                               child: ClearButton(
                                   gameIdTextFieldController:
-                                      gameIdTextFieldController,
+                                  gameIdTextFieldController,
                                   nameIdTextFieldController:
-                                      nameTextFieldController),
+                                  nameTextFieldController),
                             ),
                           ]),
                       Text(""),
@@ -186,7 +226,9 @@ class MyAppState extends State<MyApp> {
                                     color: Colors.grey, size: 20),
                                 border: OutlineInputBorder(),
                                 labelText: NAME_TEXT_FIELD_HINT,
-                                errorText: nameTextFieldController.text.isEmpty ? 'Empty' : null),
+                                errorText: nameTextFieldController.text.isEmpty
+                                    ? 'Empty'
+                                    : null),
                             scrollPadding: EdgeInsets.all(10.0),
                           ),
                           width: 200)

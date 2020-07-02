@@ -15,7 +15,7 @@ class PlayerGameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$gameId | Player"),
+        title: Text("$gameId | Player View"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -32,13 +32,13 @@ class PlayerGameScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
-          if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        OwnerGameScreen(this.gameId, this.name)));
-          }
+//          if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
+//            Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                    builder: (context) =>
+//                        OwnerGameScreen(this.gameId, this.name)));
+//          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -48,22 +48,32 @@ class PlayerGameScreen extends StatelessWidget {
                     children: [
                       Text(
                           snapshot.data[PLAYERS].length.toString() +
-                             IN_LOBBY_MESSAGE +
+                              IN_LOBBY_MESSAGE +
                               snapshot.data[ROLES].length.toString() +
                               NUMBER_OF_ROLES_MESSAGE,
                           style: TextStyle(
                             fontSize: 25.0,
                           )),
                       Text(""),
-                      Text(snapshot.data[PLAYERS].toString(),
-                          style: TextStyle(fontSize: 25.0)),
+                      Center(
+                        child: Text(
+                            snapshot.data[PLAYERS].toString().replaceAll("[", "").replaceAll("]", ""),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 25.0)),
+                      ),
                       Text(""),
-                      Text(snapshot.data[ROLES].toString(),
+//                      Text(snapshot.data[TIME].toString(),
+//                          style: TextStyle(fontSize: 25.0)),
+                      Text(
+                          snapshot.data[ROLES].toString().replaceAll("[", "").replaceAll("]", ""),
+                          textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 25.0)),
                       Text(""),
                       Text(
-                          "Your Role: " + snapshot.data[DISTRIBUTIONS][name].toString(),
-                          style: TextStyle(fontSize: 25.0)),
+                          "Your Role: " +
+                              snapshot.data[DISTRIBUTIONS][name].toString(),
+                          style: TextStyle(
+                              fontSize: 25.0)),
                       Text(""),
                       LeaveGameButton(gameId: gameId, name: name),
                     ],
