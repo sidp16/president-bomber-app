@@ -13,6 +13,7 @@ void createGame(String gameId, String name) {
     "players": [name],
     "roles": [PRESIDENT,BOMBER],
     "time": "",
+    "distributions": {},
   };
 
   data.document(gameId).setData(doc);

@@ -27,3 +27,6 @@ final PRESIDENT = 'President';
 final BOMBER = 'Bomber';
 final DISTRIBUTE_ROLES_BUTTON_TEXT = 'Distribute';
 final LEAVE_GAME = 'Leave Game (BUGGY)';
+final NUMBER_OF_ROLES_MESSAGE =  ' roles in game';
+final IN_LOBBY_MESSAGE =  ' in lobby, ';
+final DISTRIBUTIONS = 'distributions';

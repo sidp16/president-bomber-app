@@ -48,9 +48,9 @@ class PlayerGameScreen extends StatelessWidget {
                     children: [
                       Text(
                           snapshot.data[PLAYERS].length.toString() +
-                              " in lobby, " +
+                             IN_LOBBY_MESSAGE +
                               snapshot.data[ROLES].length.toString() +
-                              " roles in game",
+                              NUMBER_OF_ROLES_MESSAGE,
                           style: TextStyle(
                             fontSize: 25.0,
                           )),
@@ -60,34 +60,12 @@ class PlayerGameScreen extends StatelessWidget {
                       Text(""),
                       Text(snapshot.data[ROLES].toString(),
                           style: TextStyle(fontSize: 25.0)),
-                      Text(snapshot.data[TIME],
+                      Text(snapshot.data[TIME].toString(),
                           style: TextStyle(
                             fontSize: 25.0,
                           )),
                       Container(
-                        child: RaisedButton(
-                          color: Colors.blueGrey,
-                          textColor: Colors.white,
-                          disabledColor: Colors.greenAccent,
-                          disabledTextColor: Colors.black,
-                          padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
-                          splashColor: Colors.blueGrey,
-                          onPressed: () {
-                            Firestore.instance
-                                .collection(COLLECTION_NAME)
-                                .document(this.gameId)
-                                .updateData({
-                              PLAYERS: FieldValue.arrayRemove([this.name])
-                            });
-                            Navigator.pushNamed(context, Routes.homePage);
-                          },
-                          child: Text(
-                            LEAVE_GAME,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w900),
-                          ),
-                        ),
+                        child: LeaveGameButton(gameId: gameId, name: name),
                       ),
                     ],
                   ),
@@ -96,6 +74,43 @@ class PlayerGameScreen extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class LeaveGameButton extends StatelessWidget {
+  const LeaveGameButton({
+    Key key,
+    @required this.gameId,
+    @required this.name,
+  }) : super(key: key);
+
+  final String gameId;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      color: Colors.blueGrey,
+      textColor: Colors.white,
+      disabledColor: Colors.greenAccent,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
+      splashColor: Colors.blueGrey,
+      onPressed: () {
+        Firestore.instance
+            .collection(COLLECTION_NAME)
+            .document(this.gameId)
+            .updateData({
+          PLAYERS: FieldValue.arrayRemove([this.name])
+        });
+        Navigator.pushNamed(context, Routes.homePage);
+      },
+      child: Text(
+        LEAVE_GAME,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
