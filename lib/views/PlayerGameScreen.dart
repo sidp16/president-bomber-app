@@ -60,10 +60,11 @@ class PlayerGameScreen extends StatelessWidget {
                       Text(""),
                       Text(snapshot.data[ROLES].toString(),
                           style: TextStyle(fontSize: 25.0)),
-                      Text(snapshot.data[TIME].toString(),
-                          style: TextStyle(
-                            fontSize: 25.0,
-                          )),
+                      Text(""),
+                      Text(
+                          "Your Role: " + snapshot.data[DISTRIBUTIONS][name].toString(),
+                          style: TextStyle(fontSize: 25.0)),
+                      Text(""),
                       Container(
                         child: LeaveGameButton(gameId: gameId, name: name),
                       ),
