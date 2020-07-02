@@ -60,9 +60,9 @@ class OwnerGameScreen extends StatelessWidget {
 
                         var newDocument = {
                           "players": snapshot.data[PLAYERS],
-                          "roles": [arrayRoles],
+                          "roles": arrayRoles,
                           "time": "",
-                          "distributions": {snapshot.data[DISTRIBUTIONS]}
+                          "distributions": {},
                         };
 
                         Firestore.instance
@@ -96,10 +96,10 @@ class OwnerGameScreen extends StatelessWidget {
                           "distributions": {
                             snapshot.data[PLAYERS][0]: snapshot.data[ROLES][0],
                             snapshot.data[PLAYERS][1]: snapshot.data[ROLES][1],
-//                            snapshot.data[PLAYERS][2]: snapshot.data[ROLES][2],
-//                            snapshot.data[PLAYERS][3]: snapshot.data[ROLES][3],
-//                            snapshot.data[PLAYERS][4]: snapshot.data[ROLES][4],
-//                            snapshot.data[PLAYERS][5]: snapshot.data[ROLES][5],
+                            snapshot.data[PLAYERS][2]: snapshot.data[ROLES][2],
+                            snapshot.data[PLAYERS][3]: snapshot.data[ROLES][3],
+                            snapshot.data[PLAYERS][4]: snapshot.data[ROLES][4],
+                            snapshot.data[PLAYERS][5]: snapshot.data[ROLES][5],
                           },
                         };
 
@@ -150,7 +150,7 @@ class OwnerGameScreen extends StatelessWidget {
                           "players": snapshot.data[PLAYERS],
                           "roles": arrayRoles,
                           "time": "",
-                          "distributions": {snapshot.data[distributions]}
+                          "distributions": {},
                         };
 
                         Firestore.instance
