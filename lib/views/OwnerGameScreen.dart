@@ -88,10 +88,9 @@ class OwnerGameScreen extends StatelessWidget {
                             Firestore.instance.collection(COLLECTION_NAME);
                         snapshot.data[ROLES].shuffle();
                         snapshot.data[PLAYERS].shuffle();
-
                         var newDoc = {
                           "players": snapshot.data[PLAYERS],
-                          "roles": snapshot.data[ROLES],
+                          "roles": [PRESIDENT,BOMBER],
                           "time": 0,
                           "distributions": {
                             snapshot.data[PLAYERS][0]: snapshot.data[ROLES][0],
@@ -100,6 +99,7 @@ class OwnerGameScreen extends StatelessWidget {
                             snapshot.data[PLAYERS][3]: snapshot.data[ROLES][3],
                             snapshot.data[PLAYERS][4]: snapshot.data[ROLES][4],
                             snapshot.data[PLAYERS][5]: snapshot.data[ROLES][5],
+                            snapshot.data[PLAYERS][6]: snapshot.data[ROLES][6],
                           },
                         };
 
@@ -174,57 +174,35 @@ class OwnerGameScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    child: SniperButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: GamblerButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: MastermindButton(gameId: gameId),
-                  ),
+                  SniperButton(gameId: gameId),
+                  GamblerButton(gameId: gameId),
+                  MastermindButton(gameId: gameId),
                 ],
               ),
               Text(""),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    child: TargetButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: HeroButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: DecoyButton(gameId: gameId),
-                  ),
+                  TargetButton(gameId: gameId),
+                  HeroButton(gameId: gameId),
+                  DecoyButton(gameId: gameId),
                 ],
               ),
               Text(""),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    child: HotPotatoButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: AnarchistButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: TravelerButton(gameId: gameId),
-                  ),
+                  HotPotatoButton(gameId: gameId),
+                  AnarchistButton(gameId: gameId),
+                  TravelerButton(gameId: gameId),
                 ],
               ),
               Text(""),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    child: ClearRolesButton(gameId: gameId),
-                  ),
-                  Container(
-                    child: LeaveGameButton(gameId: gameId, name: name),
-                  ),
+                  ClearRolesButton(gameId: gameId),
+                  LeaveGameButton(gameId: gameId, name: name),
                 ],
               ),
               Text(""),
