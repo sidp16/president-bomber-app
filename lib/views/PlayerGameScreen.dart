@@ -49,17 +49,20 @@ class PlayerGameScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Text('President & Bomber',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 18.0)),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w800)),
                     )
                   ],
                 ))),
-            CustomListTile(Icons.home, 'Home', () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyApp())
-              )}),
+            CustomListTile(
+                Icons.home,
+                'Home',
+                () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyApp()))
+                    }),
             CustomListTile(Icons.person, 'Characters', () => {}),
             CustomListTile(Icons.library_books, 'Rules', () => {}),
             CustomListTile(Icons.accessibility, 'About Me', () => {}),

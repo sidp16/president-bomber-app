@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -62,6 +64,7 @@ class MyAppState extends State<MyApp> {
     bool _validate = false;
 
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         routes: {
           Routes.playerPage: (BuildContext context) => PlayerGameScreen(
               gameIdTextFieldController.text, nameTextFieldController.text),
@@ -98,34 +101,42 @@ class MyAppState extends State<MyApp> {
                       child: Container(
                           child: Column(
                         children: [
-                          Material(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              elevation: 30,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset('images/bombpic.png',
-                                    width: 90, height: 90),
-                              )),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Material(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
+                                  elevation: 30,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('images/president.png',
+                                        width: 90, height: 90),
+                                  )),
+                              Material(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
+                                  elevation: 30,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('images/bombpic.png',
+                                        width: 90, height: 90),
+                                  ))
+                            ],
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Text('President & Bomber',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18.0)),
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w800)),
                           )
                         ],
                       ))),
-                  CustomListTile(
-                      Icons.home,
-                      'Home',
-                      () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyApp()))
-                          }),
-                  CustomListTile(Icons.person, 'Characters', () => {}),
                   CustomListTile(Icons.library_books, 'Rules', () => {}),
+                  CustomListTile(Icons.contacts, 'Characters', () => {}),
+                  CustomListTile(Icons.build, 'App Usage', () => {}),
                   CustomListTile(Icons.accessibility, 'About Me', () => {}),
                   CustomListTile(Icons.report_problem, 'Report', () => {}),
                 ],
@@ -218,6 +229,7 @@ class MyAppState extends State<MyApp> {
                       Text(""),
                       Container(
                           child: TextField(
+                            obscureText: true,
                             controller: gameIdTextFieldController,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.lock,
@@ -229,17 +241,15 @@ class MyAppState extends State<MyApp> {
                           width: 200),
                       Text(""),
                       Container(
-                          child: TextFormField(
+                          child: TextField(
                             controller: nameTextFieldController,
                             decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.person,
                                     color: Colors.grey, size: 20),
                                 border: OutlineInputBorder(),
-                                labelText: NAME_TEXT_FIELD_HINT,
-                                errorText: nameTextFieldController.text.isEmpty
-                                    ? 'Empty'
-                                    : null),
+                                labelText: NAME_TEXT_FIELD_HINT),
                             scrollPadding: EdgeInsets.all(10.0),
+                            maxLength: 10,
                           ),
                           width: 200)
                     ],
@@ -267,7 +277,7 @@ class CustomListTile extends StatelessWidget {
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey.shade400))),
           child: InkWell(
-              splashColor: Colors.blueAccent,
+              splashColor: Colors.grey,
               onTap: onTap,
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -276,7 +286,8 @@ class CustomListTile extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Icon(icon, size: 27.0),
+                          child: Icon(icon,
+                              size: 27.0),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),

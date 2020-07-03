@@ -58,17 +58,20 @@ class OwnerGameScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Text('President & Bomber',
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 18.0)),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w800)),
                     )
                   ],
                 ))),
-            CustomListTile(Icons.home, 'Home', () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyApp())
-              )}),
+            CustomListTile(
+                Icons.home,
+                'Home',
+                () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyApp()))
+                    }),
             CustomListTile(Icons.person, 'Characters', () => {}),
             CustomListTile(Icons.library_books, 'Rules', () => {}),
             CustomListTile(Icons.accessibility, 'About Me', () => {}),
@@ -141,7 +144,7 @@ class OwnerGameScreen extends StatelessWidget {
                           "roles": [PRESIDENT, BOMBER],
                           "time": 0,
                           "distributions": {
-//                            for (int i = 0; playerListLength - 1 != null; i++)
+//                            for (int i = 0; playerListLength - 1; i++)
 //                              {
 //                                snapshot.data[PLAYERS][i]: snapshot.data[ROLES]
 //                                    [i],
@@ -276,7 +279,7 @@ class OwnerGameScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                padding: const EdgeInsets.fromLTRB(0, 4, 0, 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -323,7 +326,8 @@ class OwnerGameScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
                 child: Text(
-                    "Your Role: " + snapshot.data[DISTRIBUTIONS][name].toString(),
+                    "Your Role: " +
+                        snapshot.data[DISTRIBUTIONS][name].toString(),
                     style: TextStyle(fontSize: 20.0)),
               ),
             ],

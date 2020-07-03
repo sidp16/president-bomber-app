@@ -1,5 +1,5 @@
 final APP_TITLE = 'President & Bomber!';
-final JOIN_GAME_TEXT_FIELD_HINT = "Enter Game ID";
+final JOIN_GAME_TEXT_FIELD_HINT = "Game ID";
 final NO_GAME_ID_MESSAGE = "No Game ID found...";
 final LOADING_MESSAGE = 'Loading data...';
 final COLLECTION_NAME = 'data';
