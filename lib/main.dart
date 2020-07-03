@@ -88,35 +88,45 @@ class MyAppState extends State<MyApp> {
                 children: [
                   DrawerHeader(
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: <Color>[Colors.blueAccent, Colors.lightBlueAccent],
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Colors.blueAccent,
+                            Colors.lightBlueAccent
+                          ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
                       ),
-                      child: Center(
-                          child: Text("President and Bomber!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 35, color: Colors.white)))),
-                  ListTile(
-                      title: Text("Home",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 20))),
-                  ListTile(
-                      title: Text("Rules",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 20))),
-                  ListTile(
-                      title: Text("Characters",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 20))),
-                  ListTile(
-                      title: Text("About us",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 20))),
-                  ListTile(
-                      title: Text("Report",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 20))),
+                      child: Container(
+                          child: Column(
+                            children: [
+                              Material(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                                  elevation: 30,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset('images/bombpic.png',
+                                        width: 90, height: 90),
+                                  )),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text('President & Bomber',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18.0)),
+                              )
+                            ],
+                          ))),
+                  CustomListTile(Icons.home, 'Home', () => {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => MyApp())
+                  )}),
+                  CustomListTile(Icons.person, 'Characters', () => {}),
+                  CustomListTile(Icons.library_books, 'Rules', () => {}),
+                  CustomListTile(Icons.accessibility, 'About Me', () => {}),
+                  CustomListTile(Icons.report_problem, 'Report', () => {}),
                 ],
               ),
             ),
@@ -235,5 +245,49 @@ class MyAppState extends State<MyApp> {
                     ],
                   );
                 })));
+  }
+}
+
+class CustomListTile extends StatelessWidget {
+  IconData icon;
+  String text;
+  Function onTap;
+
+  CustomListTile(this.icon, this.text, this.onTap);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+      child: Container(
+        height: 60,
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey.shade400))),
+          child: InkWell(
+              splashColor: Colors.blueAccent,
+              onTap: onTap,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(icon, size: 27.0),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(text, style: TextStyle(fontSize: 20.0)),
+                        ),
+                      ],
+                    ),
+                    Icon(Icons.arrow_right)
+                  ])),
+        ),
+      ),
+    );
   }
 }

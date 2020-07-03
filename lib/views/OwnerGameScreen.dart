@@ -33,6 +33,44 @@ class OwnerGameScreen extends StatelessWidget {
                   colors: <Color>[Colors.blue, Colors.red])),
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[Colors.blueAccent, Colors.lightBlueAccent],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Container(
+                    child: Column(
+                  children: [
+                    Material(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        elevation: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset('images/bombpic.png',
+                              width: 90, height: 90),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text('President & Bomber',
+                          style:
+                              TextStyle(color: Colors.white, fontSize: 18.0)),
+                    )
+                  ],
+                ))),
+            CustomListTile(Icons.home, 'Home', () => {}),
+            CustomListTile(Icons.person, 'Characters', () => {}),
+            CustomListTile(Icons.library_books, 'Rules', () => {}),
+            CustomListTile(Icons.accessibility, 'About Me', () => {}),
+            CustomListTile(Icons.report_problem, 'Report', () => {}),
+          ],
+        ),
+      ),
       body: StreamBuilder(
         stream: Firestore.instance
             .collection(COLLECTION_NAME)
@@ -40,8 +78,7 @@ class OwnerGameScreen extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
-            return Center(
-              child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           Map distributions = snapshot.data["distributions"];
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -117,36 +154,34 @@ class OwnerGameScreen extends StatelessWidget {
                             .document(this.gameId)
                             .setData(newDoc);
 
-//                        Center(
-//                          child: AlertDialog(
-//                            title: Text("Role"),
-//                            content: Text(
-//                                "Your Role: " +
-//                                    snapshot.data[DISTRIBUTIONS][name].toString(),
-//                                style: TextStyle(fontSize: 20.0)),
-//                            actions: [
-//                              FlatButton(
-//                                child: Text("Approve"),
-//                                onPressed: () {},
-//                              ),
-//                            ],
-//                            elevation: 25.0,
-//                          ),
-//                        );
-//
-//                        showDialog(
-//                          context: context,
-//                          builder: (_) => AlertDialog(),
-//                          barrierDismissible: false,
-//                        );
+                        AlertDialog(
+                          title: Text("Role"),
+                          content: Text(
+                              "Your Role: " +
+                                  snapshot.data[DISTRIBUTIONS][name].toString(),
+                              style: TextStyle(fontSize: 20.0)),
+                          actions: [
+                            FlatButton(
+                              child: Text("Approve"),
+                              onPressed: () {},
+                            ),
+                          ],
+                          elevation: 25.0,
+                        );
+
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(),
+                          barrierDismissible: false,
+                        );
                       },
                       padding: EdgeInsets.all(0.0),
                       child: Ink(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.blue, Colors.red],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+                            colors: [Colors.cyan, Colors.pinkAccent],
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight,
                           ),
 //                            borderRadius: BorderRadius.circular(30.0)
                         ),
@@ -202,66 +237,90 @@ class OwnerGameScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(""),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SniperButton(gameId: gameId),
-                  GamblerButton(gameId: gameId),
-                  MastermindButton(gameId: gameId),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 15, 0, 9),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SniperButton(gameId: gameId),
+                    GamblerButton(gameId: gameId),
+                    MastermindButton(gameId: gameId),
+                  ],
+                ),
               ),
-              Text(""),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TargetButton(gameId: gameId),
-                  HeroButton(gameId: gameId),
-                  DecoyButton(gameId: gameId),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TargetButton(gameId: gameId),
+                    HeroButton(gameId: gameId),
+                    DecoyButton(gameId: gameId),
+                  ],
+                ),
               ),
-              Text(""),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  HotPotatoButton(gameId: gameId),
-                  AnarchistButton(gameId: gameId),
-                  TravelerButton(gameId: gameId),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HotPotatoButton(gameId: gameId),
+                    AnarchistButton(gameId: gameId),
+                    TravelerButton(gameId: gameId),
+                  ],
+                ),
               ),
-              Text(""),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ClearRolesButton(gameId: gameId),
-                  LeaveGameButton(gameId: gameId, name: name),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ClearRolesButton(gameId: gameId),
+                    LeaveGameButton(gameId: gameId, name: name),
+                  ],
+                ),
               ),
-              Text(""),
-              Text(
-                  snapshot.data[PLAYERS].length.toString() +
-                      IN_LOBBY_MESSAGE +
-                      snapshot.data[ROLES].length.toString() +
-                      NUMBER_OF_ROLES_MESSAGE,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  )),
-              Text(""),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+                child: Text(
+                    snapshot.data[PLAYERS].length.toString() +
+                        IN_LOBBY_MESSAGE +
+                        snapshot.data[ROLES].length.toString() +
+                        NUMBER_OF_ROLES_MESSAGE,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    )),
+              ),
               Center(
-                child: Text(snapshot.data[PLAYERS].toString().replaceAll("[", "").replaceAll("]", ""),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                  child: Text(
+                      snapshot.data[PLAYERS]
+                          .toString()
+                          .replaceAll("[", "")
+                          .replaceAll("]", ""),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20.0)),
+                ),
+              ),
+//              Text(snapshot.data[TIME].toString(),
+//                  style: TextStyle(fontSize: 25.0)),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                child: Text(
+                    snapshot.data[ROLES]
+                        .toString()
+                        .replaceAll("[", "")
+                        .replaceAll("]", ""),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20.0)),
               ),
-              Text(""),
-//              Text(snapshot.data[TIME].toString(),
-//                  style: TextStyle(fontSize: 25.0)),
-              Text(snapshot.data[ROLES].toString().replaceAll("[", "").replaceAll("]", ""),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20.0)),
-              Text(""),
-              Text(
-                  "Your Role: " + snapshot.data[DISTRIBUTIONS][name].toString(),
-                  style: TextStyle(fontSize: 20.0)),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                child: Text(
+                    "Your Role: " + snapshot.data[DISTRIBUTIONS][name].toString(),
+                    style: TextStyle(fontSize: 20.0)),
+              ),
             ],
           );
         },
@@ -269,8 +328,6 @@ class OwnerGameScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 class LeaveGameButton extends StatelessWidget {
   const LeaveGameButton({
@@ -289,7 +346,7 @@ class LeaveGameButton extends StatelessWidget {
       textColor: Colors.white,
       disabledColor: Colors.greenAccent,
       disabledTextColor: Colors.black,
-      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
       splashColor: Colors.blueGrey,
       onPressed: () {
         Firestore.instance

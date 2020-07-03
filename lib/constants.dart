@@ -28,5 +28,5 @@ final BOMBER = 'Bomber';
 final DISTRIBUTE_ROLES_BUTTON_TEXT = 'Distribute';
 final LEAVE_GAME = 'Leave Game';
 final NUMBER_OF_ROLES_MESSAGE =  ' roles in game';
-final IN_LOBBY_MESSAGE =  ' in lobby, ';
+final IN_LOBBY_MESSAGE =  ' in lobby / ';
 final DISTRIBUTIONS = 'distributions';

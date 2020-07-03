@@ -35,40 +35,6 @@ class GoBackButton extends StatelessWidget {
   }
 }
 
-//class JoinGameButton extends StatelessWidget {
-//  const JoinGameButton({
-//    Key key,
-//    @required this.gameIdTextFieldController,
-//  }) : super(key: key);
-//
-//  final TextEditingController gameIdTextFieldController;
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return RaisedButton.icon(
-//        color: Colors.blue,
-//        textColor: Colors.white,
-//        disabledColor: Colors.grey,
-//        disabledTextColor: Colors.black,
-//        padding: EdgeInsets.all(8.0),
-//        splashColor: Colors.blueAccent,
-//        onPressed: () {
-//          Navigator.push(
-//              context,
-//              MaterialPageRoute(
-//                  builder: (context) =>
-//                      GameScreen(gameIdTextFieldController.text)));
-//        },
-//      // onPressed
-//        icon: Icon(
-//          Icons.arrow_forward,
-//          size: 20,
-//        ),
-//        label: Text(JOIN_GAME_BUTTON_MESSAGE,
-//            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900)));
-//  }
-//}
-
 class CreateGameButton extends StatelessWidget {
   final onPressed;
 
@@ -186,7 +152,7 @@ class ClearRolesButton extends StatelessWidget {
       textColor: Colors.white,
       disabledColor: Colors.greenAccent,
       disabledTextColor: Colors.black,
-      padding: EdgeInsets.fromLTRB(50, 5, 50, 5),
+      padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
       splashColor: Colors.redAccent,
       onPressed: () {
         Firestore.instance
