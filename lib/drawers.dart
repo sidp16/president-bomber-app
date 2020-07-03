@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:presidentbomber/drawerTiles.dart';
 
 import 'main.dart';
-import 'views/OwnerGameScreen.dart';
 
 class PlayerOwnerDrawer extends StatelessWidget {
   const PlayerOwnerDrawer({

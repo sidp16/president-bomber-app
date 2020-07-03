@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:presidentbomber/views/PlayerGameScreen.dart';
 
-import '../common_utils.dart';
 import '../constants.dart';
 
 class GoBackButton extends StatelessWidget {
@@ -678,8 +676,11 @@ class BlueHostageButton extends StatelessWidget {
 
 
 class JoinGameButton extends StatelessWidget {
+  final onPressed;
+
   const JoinGameButton({
-    Key key, Null Function() onPressed,
+    Key key,
+    @required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -691,8 +692,7 @@ class JoinGameButton extends StatelessWidget {
       disabledTextColor: Colors.black,
       padding: EdgeInsets.all(8.0),
       splashColor: Colors.blueAccent,
-      onPressed: () {
-      },
+      onPressed: this.onPressed,
       icon: Icon(
         Icons.arrow_forward,
         size: 20,

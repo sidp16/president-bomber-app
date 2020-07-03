@@ -2,11 +2,10 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:presidentbomber/constants.dart';
-import 'package:presidentbomber/drawer.dart';
+import 'package:presidentbomber/drawers.dart';
 import 'package:presidentbomber/text_fields.dart';
 import 'package:presidentbomber/text_on_screen.dart';
 import 'package:presidentbomber/views/PlayerGameScreen.dart';
@@ -15,19 +14,11 @@ import 'package:presidentbomber/widgets/buttons.dart';
 
 import 'common_utils.dart';
 
-final wordPair = WordPair.random();
-
 void main() {
   runApp(MaterialApp(
     title: APP_TITLE,
     home: MyApp(),
   ));
-}
-
-class Routes {
-  static const String playerPage = '/player';
-  static const String ownerPage = '/owner';
-  static const String homePage = '/home';
 }
 
 class MyApp extends StatefulWidget {
@@ -42,7 +33,6 @@ class MyAppState extends State<MyApp> {
   String currentGameId = NO_GAME_ID_MESSAGE;
   final gameIdTextFieldController = TextEditingController();
   final nameTextFieldController = TextEditingController();
-
   final db = Firestore.instance;
 
   _updateData() async {
@@ -57,17 +47,8 @@ class MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
-    bool _validate = false;
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        routes: {
-          Routes.playerPage: (BuildContext context) => PlayerGameScreen(
-              gameIdTextFieldController.text, nameTextFieldController.text),
-          Routes.ownerPage: (BuildContext context) => OwnerGameScreen(
-              gameIdTextFieldController.text, nameTextFieldController.text),
-          Routes.homePage: (BuildContext context) => MyApp(),
-        },
         home: Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -101,26 +82,22 @@ class MyAppState extends State<MyApp> {
                                 currentGameId = gameId;
                               });
                               createGame(gameId, nameTextFieldController.text);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OwnerGameScreen(
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => OwnerGameScreen(
                                           gameId,
                                           nameTextFieldController.text)));
                             })),
                             Container(
                               child: JoinGameButton(onPressed: () {
                                 _updateData();
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => PlayerGameScreen(gameIdTextFieldController.text,
-                                        nameTextFieldController.text)));
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => PlayerGameScreen(
+                                            gameIdTextFieldController.text,
+                                            nameTextFieldController.text)));
                                 if (snapshot.data[PLAYERS].indexOf(
-                                    nameTextFieldController.text) ==
-                                    0) {
+                                        nameTextFieldController.text) == 0) {
                                   _updateData();
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => OwnerGameScreen(
-                                      gameIdTextFieldController.text,
-                                      nameTextFieldController.text)));
+                                              gameIdTextFieldController.text,
+                                              nameTextFieldController.text)));
                                 }
                               }),
                             ),
@@ -130,9 +107,12 @@ class MyAppState extends State<MyApp> {
                                 nameIdTextFieldController:
                                     nameTextFieldController),
                           ]),
-                      NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
-                      gameIDTextField(gameIdTextFieldController: gameIdTextFieldController),
-                      nameTextField(nameTextFieldController: nameTextFieldController)
+                      NoGameIDMessage(
+                          pressed: pressed, currentGameId: currentGameId),
+                      gameIDTextField(
+                          gameIdTextFieldController: gameIdTextFieldController),
+                      nameTextField(
+                          nameTextFieldController: nameTextFieldController)
                     ],
                   );
                 })));
