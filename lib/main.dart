@@ -63,12 +63,10 @@ class MyAppState extends State<MyApp> {
 
     return MaterialApp(
         routes: {
-          Routes.playerPage: (BuildContext context) =>
-              PlayerGameScreen(
-                  gameIdTextFieldController.text, nameTextFieldController.text),
-          Routes.ownerPage: (BuildContext context) =>
-              OwnerGameScreen(
-                  gameIdTextFieldController.text, nameTextFieldController.text),
+          Routes.playerPage: (BuildContext context) => PlayerGameScreen(
+              gameIdTextFieldController.text, nameTextFieldController.text),
+          Routes.ownerPage: (BuildContext context) => OwnerGameScreen(
+              gameIdTextFieldController.text, nameTextFieldController.text),
           Routes.homePage: (BuildContext context) => MyApp(),
         },
         home: Scaffold(
@@ -99,30 +97,33 @@ class MyAppState extends State<MyApp> {
                       ),
                       child: Container(
                           child: Column(
-                            children: [
-                              Material(
-                                  borderRadius:
+                        children: [
+                          Material(
+                              borderRadius:
                                   BorderRadius.all(Radius.circular(30)),
-                                  elevation: 30,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset('images/bombpic.png',
-                                        width: 90, height: 90),
-                                  )),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text('President & Bomber',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18.0)),
-                              )
-                            ],
-                          ))),
-                  CustomListTile(Icons.home, 'Home', () => {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) => MyApp())
-                  )}),
+                              elevation: 30,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset('images/bombpic.png',
+                                    width: 90, height: 90),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('President & Bomber',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18.0)),
+                          )
+                        ],
+                      ))),
+                  CustomListTile(
+                      Icons.home,
+                      'Home',
+                      () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyApp()))
+                          }),
                   CustomListTile(Icons.person, 'Characters', () => {}),
                   CustomListTile(Icons.library_books, 'Rules', () => {}),
                   CustomListTile(Icons.accessibility, 'About Me', () => {}),
@@ -153,10 +154,9 @@ class MyAppState extends State<MyApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          OwnerGameScreen(
-                                              gameId,
-                                              nameTextFieldController.text)));
+                                      builder: (context) => OwnerGameScreen(
+                                          gameId,
+                                          nameTextFieldController.text)));
                             })),
                             Container(
                               child: RaisedButton.icon(
@@ -178,7 +178,7 @@ class MyAppState extends State<MyApp> {
                                                   nameTextFieldController
                                                       .text)));
                                   if (snapshot.data[PLAYERS].indexOf(
-                                      nameTextFieldController.text) ==
+                                          nameTextFieldController.text) ==
                                       0) {
                                     _updateData();
                                     Navigator.push(
@@ -207,9 +207,9 @@ class MyAppState extends State<MyApp> {
                             Container(
                               child: ClearButton(
                                   gameIdTextFieldController:
-                                  gameIdTextFieldController,
+                                      gameIdTextFieldController,
                                   nameIdTextFieldController:
-                                  nameTextFieldController),
+                                      nameTextFieldController),
                             ),
                           ]),
                       Text(""),

@@ -63,7 +63,12 @@ class OwnerGameScreen extends StatelessWidget {
                     )
                   ],
                 ))),
-            CustomListTile(Icons.home, 'Home', () => {}),
+            CustomListTile(Icons.home, 'Home', () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyApp())
+              )}),
             CustomListTile(Icons.person, 'Characters', () => {}),
             CustomListTile(Icons.library_books, 'Rules', () => {}),
             CustomListTile(Icons.accessibility, 'About Me', () => {}),

@@ -54,7 +54,12 @@ class PlayerGameScreen extends StatelessWidget {
                     )
                   ],
                 ))),
-            CustomListTile(Icons.home, 'Home', () => {}),
+            CustomListTile(Icons.home, 'Home', () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyApp())
+              )}),
             CustomListTile(Icons.person, 'Characters', () => {}),
             CustomListTile(Icons.library_books, 'Rules', () => {}),
             CustomListTile(Icons.accessibility, 'About Me', () => {}),
@@ -70,13 +75,13 @@ class PlayerGameScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
-//          if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
-//            Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                    builder: (context) =>
-//                        OwnerGameScreen(this.gameId, this.name)));
-//          }
+          if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        OwnerGameScreen(this.gameId, this.name)));
+          }
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -84,40 +89,48 @@ class PlayerGameScreen extends StatelessWidget {
                 child: Center(
                   child: Column(
                     children: [
-                      Text(
-                          snapshot.data[PLAYERS].length.toString() +
-                              IN_LOBBY_MESSAGE +
-                              snapshot.data[ROLES].length.toString() +
-                              NUMBER_OF_ROLES_MESSAGE,
-                          style: TextStyle(
-                            fontSize: 25.0,
-                          )),
-                      Text(""),
-                      Center(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            snapshot.data[PLAYERS]
+                            snapshot.data[PLAYERS].length.toString() +
+                                IN_LOBBY_MESSAGE +
+                                snapshot.data[ROLES].length.toString() +
+                                NUMBER_OF_ROLES_MESSAGE,
+                            style: TextStyle(
+                              fontSize: 25.0,
+                            )),
+                      ),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              snapshot.data[PLAYERS]
+                                  .toString()
+                                  .replaceAll("[", "")
+                                  .replaceAll("]", ""),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 25.0)),
+                        ),
+                      ),
+//                      Text(snapshot.data[TIME].toString(),
+//                          style: TextStyle(fontSize: 25.0)),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            snapshot.data[ROLES]
                                 .toString()
                                 .replaceAll("[", "")
                                 .replaceAll("]", ""),
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 25.0)),
                       ),
-                      Text(""),
-//                      Text(snapshot.data[TIME].toString(),
-//                          style: TextStyle(fontSize: 25.0)),
-                      Text(
-                          snapshot.data[ROLES]
-                              .toString()
-                              .replaceAll("[", "")
-                              .replaceAll("]", ""),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 25.0)),
-                      Text(""),
-                      Text(
-                          "Your Role: " +
-                              snapshot.data[DISTRIBUTIONS][name].toString(),
-                          style: TextStyle(fontSize: 25.0)),
-                      Text(""),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            "Your Role: " +
+                                snapshot.data[DISTRIBUTIONS][name].toString(),
+                            style: TextStyle(fontSize: 25.0)),
+                      ),
                       LeaveGameButton(gameId: gameId, name: name),
                     ],
                   ),
