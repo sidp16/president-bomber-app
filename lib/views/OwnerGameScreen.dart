@@ -7,6 +7,7 @@ import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/drawers.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 
+import '../alert_dialogs.dart';
 import '../text_on_screen.dart';
 
 class OwnerGameScreen extends StatelessWidget {
@@ -109,7 +110,7 @@ class OwnerGameScreen extends StatelessWidget {
               PlayersListMessage(snapshot.data[PLAYERS]),
               RolesListMessage(snapshot.data[ROLES]),
               UniqueRoleMessage(snapshot.data[DISTRIBUTIONS][name], name),
-            ],
+          ],
           );
         },
       ),
