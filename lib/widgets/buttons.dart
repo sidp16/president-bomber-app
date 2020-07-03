@@ -461,3 +461,248 @@ class GamblerButton extends StatelessWidget {
     );
   }
 }
+
+
+class LeaveGameButton extends StatelessWidget {
+
+  final String gameId;
+  final String name;
+
+  LeaveGameButton(this.gameId, this.name);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      color: Colors.blueGrey,
+      textColor: Colors.white,
+      disabledColor: Colors.greenAccent,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
+      splashColor: Colors.blueGrey,
+      onPressed: () {
+        Firestore.instance
+            .collection(COLLECTION_NAME)
+            .document(this.gameId)
+            .updateData({
+          PLAYERS: FieldValue.arrayRemove([this.name])
+        });
+      },
+      child: Text(
+        LEAVE_GAME,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+      ),
+    );
+  }
+}
+
+class RedHostageButton extends StatelessWidget {
+  final String gameId;
+  var playersList;
+  var rolesList;
+
+  RedHostageButton(this.gameId, this.rolesList, this.playersList);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      color: Colors.red,
+      textColor: Colors.white,
+      disabledColor: Colors.grey,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.all(40.0),
+      splashColor: Colors.redAccent,
+      onPressed: () {
+        List arrayRoles = new List.from(this.rolesList);
+        arrayRoles.add(RED);
+
+        var newDocument = {
+          "players": this.playersList,
+          "roles": arrayRoles,
+          "time": "",
+          "distributions": {},
+        };
+
+        Firestore.instance
+            .collection(COLLECTION_NAME)
+            .document(this.gameId)
+            .setData(newDocument);
+      },
+      child: Text(
+        RED,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w900,
+        ),
+      ),
+    );
+  }
+}
+
+class DistributeButton extends StatelessWidget {
+  final String gameId;
+  final String name;
+  var playersList;
+  var rolesList;
+  var uniqueRole;
+
+  DistributeButton(this.gameId, this.name, this.rolesList, this.playersList,
+      this.uniqueRole);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      onPressed: () {
+        CollectionReference data =
+        Firestore.instance.collection(COLLECTION_NAME);
+        this.rolesList.shuffle();
+        this.playersList.shuffle();
+        int playerListLength = this.playersList.length;
+
+        var newDoc = {
+          "players": this.playersList,
+          "roles": [PRESIDENT, BOMBER],
+          "time": 0,
+          "distributions": {
+//                            for (int i = 0; playerListLength - 1; i++)
+//                              {
+//                                snapshot.data[PLAYERS][i]: snapshot.data[ROLES]
+//                                    [i],
+            this.playersList[0]: this.rolesList[0],
+            this.playersList[1]: this.rolesList[1],
+            this.playersList[2]: this.rolesList[2],
+            this.playersList[3]: this.rolesList[3],
+            this.playersList[4]: this.rolesList[4],
+            this.playersList[5]: this.rolesList[5],
+          }
+        };
+
+        Firestore.instance
+            .collection(COLLECTION_NAME)
+            .document(this.gameId)
+            .setData(newDoc);
+
+        AlertDialog(
+          title: Text("Role"),
+          content: Text(
+              "Your Role: " +
+                  this.uniqueRole.toString(),
+              style: TextStyle(fontSize: 20.0)),
+          actions: [
+            FlatButton(
+              child: Text("Approve"),
+              onPressed: () {},
+            ),
+          ],
+          elevation: 25.0,
+        );
+
+        showDialog(
+          context: context,
+          builder: (_) => AlertDialog(),
+          barrierDismissible: false,
+        );
+      },
+      padding: EdgeInsets.all(0.0),
+      child: Ink(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.cyan, Colors.pinkAccent],
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+          ),
+//                            borderRadius: BorderRadius.circular(30.0)
+        ),
+        child: Container(
+          constraints:
+          BoxConstraints(maxWidth: 120.0, minHeight: 50.0),
+          alignment: Alignment.center,
+          child: Text(
+            DISTRIBUTE_ROLES_BUTTON_TEXT,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w900),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BlueHostageButton extends StatelessWidget {
+  final String gameId;
+  var rolesList;
+  var playersList;
+
+  BlueHostageButton(this.gameId, this.rolesList, this.playersList);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      color: Colors.lightBlue,
+      textColor: Colors.white,
+      disabledColor: Colors.grey,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.all(40.0),
+      splashColor: Colors.lightBlueAccent,
+      onPressed: () {
+        List arrayRoles = new List.from(this.rolesList);
+        arrayRoles.add(BLUE);
+
+        var newDocument = {
+          "players": this.playersList,
+          "roles": arrayRoles,
+          "time": "",
+          "distributions": {},
+        };
+
+        Firestore.instance
+            .collection(COLLECTION_NAME)
+            .document(this.gameId)
+            .setData(newDocument);
+      },
+      child: Text(
+        BLUE,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w900,
+        ),
+      ),
+    );
+  }
+}
+
+
+class JoinGameButton extends StatelessWidget {
+  const JoinGameButton({
+    Key key, Null Function() onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton.icon(
+      color: Colors.blue,
+      textColor: Colors.white,
+      disabledColor: Colors.grey,
+      disabledTextColor: Colors.black,
+      padding: EdgeInsets.all(8.0),
+      splashColor: Colors.blueAccent,
+      onPressed: () {
+      },
+      icon: Icon(
+        Icons.arrow_forward,
+        size: 20,
+      ),
+      label: Text(
+        JOIN_GAME_BUTTON_MESSAGE,
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w900),
+      ),
+    );
+  }
+}

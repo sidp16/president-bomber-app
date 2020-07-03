@@ -5,6 +5,8 @@ import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/views/OwnerGameScreen.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 
+import '../drawer.dart';
+
 class PlayerGameScreen extends StatelessWidget {
   final String gameId;
   final String name;
@@ -24,52 +26,7 @@ class PlayerGameScreen extends StatelessWidget {
                   colors: <Color>[Colors.blue, Colors.red])),
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[Colors.blueAccent, Colors.lightBlueAccent],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Container(
-                    child: Column(
-                  children: [
-                    Material(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        elevation: 30,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset('images/bombpic.png',
-                              width: 90, height: 90),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text('President & Bomber',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w800)),
-                    )
-                  ],
-                ))),
-            CustomListTile(
-                Icons.home,
-                'Home',
-                () => {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyApp()))
-                    }),
-            CustomListTile(Icons.person, 'Characters', () => {}),
-            CustomListTile(Icons.library_books, 'Rules', () => {}),
-            CustomListTile(Icons.accessibility, 'About Me', () => {}),
-            CustomListTile(Icons.report_problem, 'Report', () => {}),
-          ],
-        ),
-      ),
+      drawer: PlayerOwnerDrawer(),
       body: StreamBuilder(
         stream: Firestore.instance
             .collection(COLLECTION_NAME)
