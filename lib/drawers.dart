@@ -74,7 +74,15 @@ class PlayerOwnerDrawer extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => CharacterRulesScreen()))
                   }),
-          CustomListTile(Icons.library_books, 'Rules', () => {}),
+          CustomListTile(
+              Icons.library_books,
+              'Rules',
+              () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CharacterRulesScreen()))
+                  }),
           CustomListTile(Icons.build, 'App Usage', () => {}),
           CustomListTile(Icons.accessibility, 'About Me', () => {}),
           CustomListTile(Icons.report_problem, 'Report', () => {}),

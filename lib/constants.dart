@@ -30,3 +30,6 @@ final LEAVE_GAME = 'Leave Game';
 final NUMBER_OF_ROLES_MESSAGE =  ' roles in game';
 final IN_LOBBY_MESSAGE =  ' in lobby / ';
 final DISTRIBUTIONS = 'distributions';
+final RULES_CHARACTERS_SCREEN_TITLE = 'Characters & Rules';
+const CHARACTERS = 'Characters';
+const RULES = 'Rules';

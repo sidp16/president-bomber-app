@@ -175,8 +175,7 @@ class ClearRolesButton extends StatelessWidget {
       child: Text(
         CLEAR,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -210,8 +209,7 @@ class TravelerButton extends StatelessWidget {
       child: Text(
         TRAVELER,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -245,8 +243,7 @@ class AnarchistButton extends StatelessWidget {
       child: Text(
         ANARCHIST,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -280,8 +277,7 @@ class HotPotatoButton extends StatelessWidget {
       child: Text(
         HOTPOTATO,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -315,8 +311,7 @@ class DecoyButton extends StatelessWidget {
       child: Text(
         DECOY,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -350,8 +345,7 @@ class HeroButton extends StatelessWidget {
       child: Text(
         HERO,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -385,8 +379,7 @@ class TargetButton extends StatelessWidget {
       child: Text(
         TARGET,
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
@@ -460,9 +453,7 @@ class GamblerButton extends StatelessWidget {
   }
 }
 
-
 class LeaveGameButton extends StatelessWidget {
-
   final String gameId;
   final String name;
 
@@ -553,7 +544,7 @@ class DistributeButton extends StatelessWidget {
     return RaisedButton(
       onPressed: () {
         CollectionReference data =
-        Firestore.instance.collection(COLLECTION_NAME);
+            Firestore.instance.collection(COLLECTION_NAME);
         this.rolesList.shuffle();
         this.playersList.shuffle();
         int playerListLength = this.playersList.length;
@@ -581,28 +572,28 @@ class DistributeButton extends StatelessWidget {
             .document(this.gameId)
             .setData(newDoc);
 
-        AlertDialog(
-          title: Text("Role"),
-          content: Text(
-              "Your Role: " +
-                  this.uniqueRole.toString(),
-              style: TextStyle(fontSize: 20.0)),
-          actions: [
-            FlatButton(
-              child: Text("Approve"),
-              onPressed: () {},
-            ),
-          ],
-          elevation: 25.0,
-        );
-
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(),
-          barrierDismissible: false,
-        );
+//        AlertDialog(
+//          title: Text("Role"),
+//          content: Text(
+//              "Your Role: " +
+//                  this.uniqueRole.toString(),
+//              style: TextStyle(fontSize: 20.0)),
+//          actions: [
+//            FlatButton(
+//              child: Text("Approve"),
+//              onPressed: () {},
+//            ),
+//          ],
+//          elevation: 25.0,
+//        );
+//
+//        showDialog(
+//          context: context,
+//          builder: (_) => AlertDialog(),
+//          barrierDismissible: false,
+//        );
       },
-      padding: EdgeInsets.all(0.0),
+      padding: EdgeInsets.all(0),
       child: Ink(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -613,16 +604,13 @@ class DistributeButton extends StatelessWidget {
 //                            borderRadius: BorderRadius.circular(30.0)
         ),
         child: Container(
-          constraints:
-          BoxConstraints(maxWidth: 120.0, minHeight: 50.0),
+          constraints: BoxConstraints(maxWidth: 120.0, minHeight: 50.0),
           alignment: Alignment.center,
           child: Text(
             DISTRIBUTE_ROLES_BUTTON_TEXT,
             textAlign: TextAlign.center,
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w900),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900),
           ),
         ),
       ),
@@ -674,7 +662,6 @@ class BlueHostageButton extends StatelessWidget {
   }
 }
 
-
 class JoinGameButton extends StatelessWidget {
   final onPressed;
 
@@ -699,9 +686,7 @@ class JoinGameButton extends StatelessWidget {
       ),
       label: Text(
         JOIN_GAME_BUTTON_MESSAGE,
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w900),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
       ),
     );
   }
