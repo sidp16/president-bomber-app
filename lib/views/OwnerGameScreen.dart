@@ -145,13 +145,13 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                       style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 10,
                       ),
                     ),
               Text('$_counter',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 10,
                   )),
             ],
           );

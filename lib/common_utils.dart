@@ -11,7 +11,6 @@ void createGame(String gameId, String name) {
   var doc = {
     "players": [name],
     "roles": [PRESIDENT,BOMBER],
-    "time": "",
     "distributions": {},
   };
 

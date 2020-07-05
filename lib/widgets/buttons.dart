@@ -552,19 +552,15 @@ class DistributeButton extends StatelessWidget {
         var newDoc = {
           "players": this.playersList,
           "roles": [PRESIDENT, BOMBER],
-          "time": 0,
           "distributions": {
-//                            for (int i = 0; playerListLength - 1; i++)
-//                              {
-//                                snapshot.data[PLAYERS][i]: snapshot.data[ROLES]
-//                                    [i],
             this.playersList[0]: this.rolesList[0],
             this.playersList[1]: this.rolesList[1],
             this.playersList[2]: this.rolesList[2],
             this.playersList[3]: this.rolesList[3],
             this.playersList[4]: this.rolesList[4],
             this.playersList[5]: this.rolesList[5],
-          }
+          },
+          "gameStart": DateTime.now(),
         };
 
         Firestore.instance
