@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/drawers.dart';
+import 'package:presidentbomber/information_cards.dart';
 import 'package:presidentbomber/roles_and_descriptions.dart';
 
 void main() => runApp(CharacterRulesScreen());
@@ -33,51 +34,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(
-          child: ListView.builder(
-//                physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: roles.length,
-              itemBuilder: (context, index) {
-                return Align(
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 20),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withAlpha(20),
-                                    blurRadius: 10.0),
-                              ]),
-                          child: Card(
-                            child: ListTile(
-                              onTap: () {},
-                              title: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text(roles[index],
-                                    style: TextStyle(fontSize: 20)),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(roleDescriptions[index],
-                                    style: TextStyle(fontSize: 17)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }),
-        ),
+        CharacterInformationCard(),
       ],
     ),
     Text(

@@ -6,6 +6,7 @@ class RolesLobbyMessage extends StatelessWidget {
   var rolesList;
 
   RolesLobbyMessage(this.playersList, this.rolesList);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +17,7 @@ class RolesLobbyMessage extends StatelessWidget {
               this.rolesList.length.toString() +
               NUMBER_OF_ROLES_MESSAGE,
           style: TextStyle(
-            fontSize: 15.0,
+            fontSize: 20.0,
           )),
     );
   }
@@ -27,14 +28,18 @@ class UniqueRoleMessage extends StatelessWidget {
   var uniqueRole;
 
   UniqueRoleMessage(this.uniqueRole, this.name);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Text(
-          "Your Role: " +
-              this.uniqueRole.toString().replaceAll("null", "NONE"),
-          style: TextStyle(fontSize: 15.0)),
+          "" +
+              this
+                  .uniqueRole
+                  .toString()
+                  .replaceAll("null", "None assigned yet"),
+          style: TextStyle(fontSize: 20.0)),
     );
   }
 }
@@ -49,19 +54,18 @@ class PlayersListMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Text(
-          this.playersList
+          this
+              .playersList
               .toString()
               .replaceAll("[", "")
               .replaceAll("]", ""),
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15.0)),
+          style: TextStyle(fontSize: 20.0)),
     );
   }
 }
 
 class RolesListMessage extends StatelessWidget {
   var rolesList;
-
 
   RolesListMessage(this.rolesList);
 
@@ -70,12 +74,12 @@ class RolesListMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Text(
-          this.rolesList
+          this
+              .rolesList
               .toString()
               .replaceAll("[", "")
               .replaceAll("]", ""),
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15.0)),
+          style: TextStyle(fontSize: 20.0)),
     );
   }
 }

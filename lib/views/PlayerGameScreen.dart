@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/information_cards.dart';
 import 'package:presidentbomber/text_on_screen.dart';
 import 'package:presidentbomber/views/OwnerGameScreen.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
@@ -35,6 +36,18 @@ class PlayerGameScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
+          List informationTitles = [
+            'Members and Roles',
+            'Players in Game',
+            'Roles in Game',
+            'Your Role'
+          ];
+          List informationSubtext = [
+            RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
+            PlayersListMessage(snapshot.data[PLAYERS]),
+            RolesListMessage(snapshot.data[ROLES]),
+            UniqueRoleMessage(snapshot.data[DISTRIBUTIONS][name], name)
+          ];
           if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
             Navigator.push(
                 context,
@@ -45,19 +58,7 @@ class PlayerGameScreen extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Container(
-                child: Center(
-                  child: Column(
-                    children: [
-                      RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
-                      PlayersListMessage(snapshot.data[PLAYERS]),
-                      RolesListMessage(snapshot.data[ROLES]),
-                      UniqueRoleMessage(snapshot.data[DISTRIBUTIONS][name], name),
-                      LeaveGameButton(gameId, name)
-                    ],
-                  ),
-                ),
-              ),
+              PlayerInformationCard(informationTitles: informationTitles, informationSubtext: informationSubtext),
             ],
           );
         },
