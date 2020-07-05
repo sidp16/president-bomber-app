@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
+  audioplayers: any
   flutter_launcher_icons: "^0.7.3"
   flutter_test:
     sdk: flutter
@@ -52,7 +53,6 @@ flutter:
   assets:
     - images/bombpic.png
     - images/president.png
-#     - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:audioplayers/audio_cache.dart';
+
 
 import '../constants.dart';
 
@@ -150,7 +152,7 @@ class ClearRolesButton extends StatelessWidget {
       textColor: Colors.white,
       disabledColor: Colors.greenAccent,
       disabledTextColor: Colors.black,
-      padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
+      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       splashColor: Colors.redAccent,
       onPressed: () {
         Firestore.instance
@@ -466,7 +468,7 @@ class LeaveGameButton extends StatelessWidget {
       textColor: Colors.white,
       disabledColor: Colors.greenAccent,
       disabledTextColor: Colors.black,
-      padding: EdgeInsets.fromLTRB(40, 5, 40, 5),
+      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       splashColor: Colors.blueGrey,
       onPressed: () {
         Firestore.instance
@@ -549,6 +551,9 @@ class DistributeButton extends StatelessWidget {
         this.playersList.shuffle();
         int playerListLength = this.playersList.length;
 
+        DateTime gameStart = new DateTime.now();
+        DateTime gameEnd = gameStart.add(new Duration(minutes: 3));
+
         var newDoc = {
           "players": this.playersList,
           "roles": [PRESIDENT, BOMBER],
@@ -560,8 +565,8 @@ class DistributeButton extends StatelessWidget {
             this.playersList[4]: this.rolesList[4],
             this.playersList[5]: this.rolesList[5],
           },
-          "gameStart": DateTime.now(),
-        };
+        "gameStart": new DateTime.now(),
+      };
 
         Firestore.instance
             .collection(COLLECTION_NAME)

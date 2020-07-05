@@ -21,17 +21,16 @@ class OwnerGameScreen extends StatefulWidget {
 }
 
 class _OwnerGameScreenState extends State<OwnerGameScreen> {
-  int _counter = 10;
   Timer _timer;
+  int _counter = 300;
 
   void _startTimer() {
-    _counter = 10;
     if (_timer != null) {
       _timer.cancel();
     }
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        if (_counter > 0) {
+        if (_counter >= 0) {
           _counter--;
         } else {
           _timer.cancel();
@@ -138,20 +137,20 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               RolesListMessage(snapshot.data[ROLES]),
               UniqueRoleMessage(
                   snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-              (_counter > 0)
-                  ? Text("")
-                  : Text(
-                      "DONE!",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      ),
-                    ),
+//              (_counter > 0)
+//                  ? Text("")
+//                  : Text(
+//                      "DONE!",
+//                      style: TextStyle(
+//                        color: Colors.green,
+//                        fontWeight: FontWeight.bold,
+//                        fontSize: 10,
+//                      ),
+//                    ),
               Text('$_counter',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontSize: 30,
                   )),
             ],
           );

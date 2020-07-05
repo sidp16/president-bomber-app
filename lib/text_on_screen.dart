@@ -16,7 +16,7 @@ class RolesLobbyMessage extends StatelessWidget {
               this.rolesList.length.toString() +
               NUMBER_OF_ROLES_MESSAGE,
           style: TextStyle(
-            fontSize: 20.0,
+            fontSize: 15.0,
           )),
     );
   }
@@ -34,7 +34,7 @@ class UniqueRoleMessage extends StatelessWidget {
       child: Text(
           "Your Role: " +
               this.uniqueRole.toString().replaceAll("null", "NONE"),
-          style: TextStyle(fontSize: 20.0)),
+          style: TextStyle(fontSize: 15.0)),
     );
   }
 }
@@ -54,7 +54,7 @@ class PlayersListMessage extends StatelessWidget {
               .replaceAll("[", "")
               .replaceAll("]", ""),
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20.0)),
+          style: TextStyle(fontSize: 15.0)),
     );
   }
 }
@@ -75,7 +75,7 @@ class RolesListMessage extends StatelessWidget {
               .replaceAll("[", "")
               .replaceAll("]", ""),
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20.0)),
+          style: TextStyle(fontSize: 15.0)),
     );
   }
 }
