@@ -1,13 +1,15 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
-import 'package:presidentbomber/information_cards.dart';
-import 'package:presidentbomber/text_on_screen.dart';
-import 'package:presidentbomber/views/OwnerGameScreen.dart';
+import 'package:presidentbomber/views/information_cards.dart';
+import 'package:presidentbomber/views/messages/players_list_message.dart';
+import 'package:presidentbomber/views/messages/roles_list_message.dart';
+import 'package:presidentbomber/views/messages/roles_lobby_message.dart';
+import 'package:presidentbomber/views/messages/unique_role_message.dart';
+import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
+import 'package:presidentbomber/views/timer/round_timer.dart';
 
-import '../drawers.dart';
+import '../drawer/drawers.dart';
 
 class PlayerGameScreen extends StatefulWidget {
   final String gameId;
@@ -42,40 +44,25 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
-          int _counter = snapshot.data['gameEnd'].toDate().difference(DateTime.now()).inSeconds;
-          Timer _timer;
 
-          _startTimer() {
-            if (_timer != null) {
-              _timer.cancel();
-            }
-            _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-              setState(() {
-                if (_counter > 0) {
-                  _counter--;
-                } else {
-                  _timer.cancel();
-                  _counter = 0;
-                }
-              });
-            });
+          int secondsLeft;
+
+          var gameEnd = snapshot.data['gameEnd'];
+          if (gameEnd != null) {
+            secondsLeft = gameEnd.toDate().difference(DateTime.now()).inSeconds;
           }
 
-          List informationTitles = [
-            'Members and Roles',
-            'Players in Game',
-            'Roles in Game',
-            'Your Role',
-            'Timer'
-          ];
           List informationSubtext = [
             RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
             PlayersListMessage(snapshot.data[PLAYERS]),
             RolesListMessage(snapshot.data[ROLES]),
             UniqueRoleMessage(
                 snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-            TimerMessage(counter: _counter)
+            secondsLeft != null
+                ? RoundTimer(secondsLeft)
+                : Text("Waiting for owner to start!")
           ];
+
           if (snapshot.data[PLAYERS].indexOf(this.widget.name) == 0) {
             Navigator.push(
                 context,
@@ -86,9 +73,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              PlayerInformationCard(
-                  informationTitles: informationTitles,
-                  informationSubtext: informationSubtext),
+              PlayerInformationCard(informationSubtext: informationSubtext),
             ],
           );
         },

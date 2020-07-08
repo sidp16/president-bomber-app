@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 
-class gameIDTextField extends StatelessWidget {
-  const gameIDTextField({
+class GameIDTextField extends StatelessWidget {
+  const GameIDTextField({
     Key key,
     @required this.gameIdTextFieldController,
   }) : super(key: key);
@@ -18,8 +17,7 @@ class gameIDTextField extends StatelessWidget {
           child: TextField(
             controller: gameIdTextFieldController,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock,
-                    color: Colors.grey, size: 20),
+                prefixIcon: Icon(Icons.lock, color: Colors.grey, size: 20),
                 border: OutlineInputBorder(),
                 labelText: JOIN_GAME_TEXT_FIELD_HINT),
             scrollPadding: EdgeInsets.all(10.0),
@@ -29,8 +27,8 @@ class gameIDTextField extends StatelessWidget {
   }
 }
 
-class nameTextField extends StatelessWidget {
-  const nameTextField({
+class NameTextField extends StatelessWidget {
+  const NameTextField({
     Key key,
     @required this.nameTextFieldController,
   }) : super(key: key);
@@ -45,8 +43,7 @@ class nameTextField extends StatelessWidget {
           child: TextField(
             controller: nameTextFieldController,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person,
-                    color: Colors.grey, size: 20),
+                prefixIcon: Icon(Icons.person, color: Colors.grey, size: 20),
                 border: OutlineInputBorder(),
                 labelText: NAME_TEXT_FIELD_HINT),
             scrollPadding: EdgeInsets.all(10.0),

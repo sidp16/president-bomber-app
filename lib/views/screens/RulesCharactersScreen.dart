@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
-import 'package:presidentbomber/drawers.dart';
-import 'package:presidentbomber/information_cards.dart';
-import 'package:presidentbomber/roles_and_descriptions.dart';
+import 'package:presidentbomber/views/drawer/drawers.dart';
+import 'package:presidentbomber/views/information_cards.dart';
 
 void main() => runApp(CharacterRulesScreen());
 
@@ -28,8 +27,6 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions = <Widget>[
     Column(
       mainAxisSize: MainAxisSize.min,

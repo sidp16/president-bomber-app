@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
-  IconData icon;
-  String text;
-  Function onTap;
+  final IconData icon;
+  final String text;
+  final Function onTap;
 
   CustomListTile(this.icon, this.text, this.onTap);
 
@@ -28,8 +28,7 @@ class CustomListTile extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Icon(icon,
-                              size: 27.0),
+                          child: Icon(icon, size: 27.0),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),

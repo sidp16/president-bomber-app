@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-
-import 'roles_and_descriptions.dart';
+import 'package:presidentbomber/constants.dart';
 
 class PlayerInformationCard extends StatelessWidget {
   const PlayerInformationCard({
     Key key,
-    @required this.informationTitles,
     @required this.informationSubtext,
   }) : super(key: key);
 
-  final List informationTitles;
   final List informationSubtext;
 
   @override
@@ -42,7 +39,7 @@ class PlayerInformationCard extends StatelessWidget {
                             onTap: () {},
                             title: Padding(
                               padding: const EdgeInsets.all(6.0),
-                              child: Text(informationTitles[index],
+                              child: Text(INFORMATION_TILES[index],
                                   style: TextStyle(fontSize: 22)),
                             ),
                             subtitle: Padding(
@@ -72,7 +69,7 @@ class CharacterInformationCard extends StatelessWidget {
       child: ListView.builder(
 //                physics: BouncingScrollPhysics(),
           shrinkWrap: true,
-          itemCount: roles.length,
+          itemCount: ALL_ROLES.length,
           itemBuilder: (context, index) {
             return Align(
               child: Expanded(
@@ -95,12 +92,12 @@ class CharacterInformationCard extends StatelessWidget {
                           onTap: () {},
                           title: Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: Text(roles[index],
+                            child: Text(ALL_ROLES[index],
                                 style: TextStyle(fontSize: 20)),
                           ),
                           subtitle: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(roleDescriptions[index],
+                            child: Text(ROLE_DESCRIPTIONS[index],
                                 style: TextStyle(fontSize: 17)),
                           ),
                         ),
