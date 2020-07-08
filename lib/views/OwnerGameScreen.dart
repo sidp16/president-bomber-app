@@ -73,7 +73,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                     BlueHostageButton(widget.gameId, snapshot.data[ROLES],
                         snapshot.data[PLAYERS]),
                     Container(
-                      height: 102,
+                      height: 103,
                       child: DistributeButton(
                           widget.gameId,
                           widget.name,
