@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/drawers.dart';
 import 'package:presidentbomber/widgets/buttons.dart';
 
-import '../alert_dialogs.dart';
 import '../text_on_screen.dart';
 
 class OwnerGameScreen extends StatefulWidget {
@@ -137,6 +137,21 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               RolesListMessage(snapshot.data[ROLES]),
               UniqueRoleMessage(
                   snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
+              StreamBuilder(
+                stream: Firestore.instance
+                    .collection(COLLECTION_NAME)
+                    .document(this.widget.gameId)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(snapshot.data['gameEnd'].toDate()
+                        .difference(DateTime.now())
+                        .inSeconds
+                        .toString(), style: TextStyle(fontSize: 20),),
+                  );
+                }
+              )
 //              (_counter > 0)
 //                  ? Text("")
 //                  : Text(
@@ -147,11 +162,11 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
 //                        fontSize: 10,
 //                      ),
 //                    ),
-              Text('$_counter',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  )),
+//              Text('$_counter',
+//                  style: TextStyle(
+//                    fontWeight: FontWeight.bold,
+//                    fontSize: 30,
+//                  )),
             ],
           );
         },

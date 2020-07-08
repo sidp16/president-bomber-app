@@ -16,9 +16,8 @@ class RolesLobbyMessage extends StatelessWidget {
               IN_LOBBY_MESSAGE +
               this.rolesList.length.toString() +
               NUMBER_OF_ROLES_MESSAGE,
-          style: TextStyle(
-            fontSize: 20.0,
-          )),
+          style: TextStyle(fontSize: 20.0,),
+          textAlign: TextAlign.center),
     );
   }
 }
@@ -34,12 +33,9 @@ class UniqueRoleMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Text(
-          "" +
-              this
-                  .uniqueRole
-                  .toString()
-                  .replaceAll("null", "None assigned yet"),
-          style: TextStyle(fontSize: 20.0)),
+          this.uniqueRole.toString().replaceAll("null", "None assigned yet"),
+          style: TextStyle(fontSize: 20.0),
+          textAlign: TextAlign.center),
     );
   }
 }
@@ -53,13 +49,12 @@ class PlayersListMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
-      child: Text(
-          this
-              .playersList
-              .toString()
-              .replaceAll("[", "")
-              .replaceAll("]", ""),
-          style: TextStyle(fontSize: 20.0)),
+      child: Center(
+        child: Text(
+            this.playersList.toString().replaceAll("[", "").replaceAll("]", ""),
+            style: TextStyle(fontSize: 20.0),
+            textAlign: TextAlign.center),
+      ),
     );
   }
 }
@@ -73,13 +68,12 @@ class RolesListMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
-      child: Text(
-          this
-              .rolesList
-              .toString()
-              .replaceAll("[", "")
-              .replaceAll("]", ""),
-          style: TextStyle(fontSize: 20.0)),
+      child: Center(
+        child: Text(
+            this.rolesList.toString().replaceAll("[", "").replaceAll("]", ""),
+            style: TextStyle(fontSize: 20.0),
+            textAlign: TextAlign.center),
+      ),
     );
   }
 }

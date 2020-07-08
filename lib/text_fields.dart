@@ -16,7 +16,6 @@ class gameIDTextField extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: TextField(
-            obscureText: true,
             controller: gameIdTextFieldController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock,

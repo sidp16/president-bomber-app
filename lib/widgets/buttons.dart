@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:audioplayers/audio_cache.dart';
 
-
 import '../constants.dart';
 
 class GoBackButton extends StatelessWidget {
@@ -551,22 +550,20 @@ class DistributeButton extends StatelessWidget {
         this.playersList.shuffle();
         int playerListLength = this.playersList.length;
 
-        DateTime gameStart = new DateTime.now();
-        DateTime gameEnd = gameStart.add(new Duration(minutes: 3));
-
         var newDoc = {
           "players": this.playersList,
           "roles": [PRESIDENT, BOMBER],
           "distributions": {
             this.playersList[0]: this.rolesList[0],
             this.playersList[1]: this.rolesList[1],
-            this.playersList[2]: this.rolesList[2],
-            this.playersList[3]: this.rolesList[3],
-            this.playersList[4]: this.rolesList[4],
-            this.playersList[5]: this.rolesList[5],
+//            this.playersList[2]: this.rolesList[2],
+//            this.playersList[3]: this.rolesList[3],
+//            this.playersList[4]: this.rolesList[4],
+//            this.playersList[5]: this.rolesList[5],
           },
-        "gameStart": new DateTime.now(),
-      };
+          "gameStart": new DateTime.now(),
+          "gameEnd": DateTime.now().add(new Duration(minutes: 3))
+        };
 
         Firestore.instance
             .collection(COLLECTION_NAME)

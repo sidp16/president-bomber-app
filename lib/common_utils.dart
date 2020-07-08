@@ -12,6 +12,8 @@ void createGame(String gameId, String name) {
     "players": [name],
     "roles": [PRESIDENT,BOMBER],
     "distributions": {},
+    "gameStart": DateTime.now(),
+    "gameEnd": DateTime.now()
   };
 
   data.document(gameId).setData(doc);

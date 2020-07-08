@@ -18,21 +18,20 @@ class PlayerInformationCard extends StatelessWidget {
       child: Center(
         child: Expanded(
           child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: 4,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Align(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment
-                        .spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
                         margin: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 20),
                         decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(50)),
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withAlpha(20),
@@ -43,13 +42,12 @@ class PlayerInformationCard extends StatelessWidget {
                             onTap: () {},
                             title: Padding(
                               padding: const EdgeInsets.all(6.0),
-                              child: Text(informationTitles[index], style: TextStyle(fontSize: 22)
-                              ),
+                              child: Text(informationTitles[index],
+                                  style: TextStyle(fontSize: 22)),
                             ),
                             subtitle: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: informationSubtext[index]
-                            ),
+                                padding: const EdgeInsets.all(3.0),
+                                child: informationSubtext[index]),
                           ),
                         ),
                       ),
@@ -86,8 +84,7 @@ class CharacterInformationCard extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 20),
                       decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(50)),
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.black.withAlpha(20),

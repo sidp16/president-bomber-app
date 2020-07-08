@@ -37,10 +37,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         CharacterInformationCard(),
       ],
     ),
-    Text(
-      'Rules',
-      style: optionStyle,
-    ),
+    Text("Rules Page"),
   ];
 
   void _onItemTapped(int index) {

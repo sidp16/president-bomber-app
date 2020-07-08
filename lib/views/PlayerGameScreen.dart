@@ -46,7 +46,8 @@ class PlayerGameScreen extends StatelessWidget {
             RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
             PlayersListMessage(snapshot.data[PLAYERS]),
             RolesListMessage(snapshot.data[ROLES]),
-            UniqueRoleMessage(snapshot.data[DISTRIBUTIONS][name], name)
+            UniqueRoleMessage(
+                snapshot.data[DISTRIBUTIONS][name], name),
           ];
           if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
             Navigator.push(
@@ -58,7 +59,9 @@ class PlayerGameScreen extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              PlayerInformationCard(informationTitles: informationTitles, informationSubtext: informationSubtext),
+              PlayerInformationCard(
+                  informationTitles: informationTitles,
+                  informationSubtext: informationSubtext),
             ],
           );
         },
