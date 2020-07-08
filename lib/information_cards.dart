@@ -19,7 +19,7 @@ class PlayerInformationCard extends StatelessWidget {
         child: Expanded(
           child: ListView.builder(
               physics: BouncingScrollPhysics(),
-              itemCount: 4,
+              itemCount: 5,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Align(

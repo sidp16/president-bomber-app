@@ -536,9 +536,10 @@ class DistributeButton extends StatelessWidget {
   var playersList;
   var rolesList;
   var uniqueRole;
+  var timer;
 
   DistributeButton(this.gameId, this.name, this.rolesList, this.playersList,
-      this.uniqueRole);
+      this.uniqueRole, this.timer);
 
   @override
   Widget build(BuildContext context) {
@@ -569,7 +570,8 @@ class DistributeButton extends StatelessWidget {
             .collection(COLLECTION_NAME)
             .document(this.gameId)
             .setData(newDoc);
-
+        
+        this.timer();
 //        AlertDialog(
 //          title: Text("Role"),
 //          content: Text(

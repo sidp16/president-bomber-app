@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
@@ -36,11 +38,13 @@ class PlayerGameScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
+          int _counter = snapshot.data['gameEnd'].toDate().difference(DateTime.now()).inSeconds;
           List informationTitles = [
             'Members and Roles',
             'Players in Game',
             'Roles in Game',
             'Your Role'
+            'Timer'
           ];
           List informationSubtext = [
             RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
@@ -48,6 +52,7 @@ class PlayerGameScreen extends StatelessWidget {
             RolesListMessage(snapshot.data[ROLES]),
             UniqueRoleMessage(
                 snapshot.data[DISTRIBUTIONS][name], name),
+            TimerMessage(),
           ];
           if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
             Navigator.push(
