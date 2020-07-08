@@ -491,7 +491,9 @@ class RedHostageButton extends StatelessWidget {
   var playersList;
   var rolesList;
 
-  RedHostageButton(this.gameId, this.rolesList, this.playersList);
+  var gameEnd;
+
+  RedHostageButton(this.gameId, this.rolesList, this.playersList, this.gameEnd);
 
   @override
   Widget build(BuildContext context) {
@@ -510,6 +512,7 @@ class RedHostageButton extends StatelessWidget {
           "players": this.playersList,
           "roles": arrayRoles,
           "time": "",
+          "gameEnd": this.gameEnd,
           "distributions": {},
         };
 
@@ -570,7 +573,7 @@ class DistributeButton extends StatelessWidget {
             .collection(COLLECTION_NAME)
             .document(this.gameId)
             .setData(newDoc);
-        
+
         this.timer();
 //        AlertDialog(
 //          title: Text("Role"),
@@ -622,8 +625,9 @@ class BlueHostageButton extends StatelessWidget {
   final String gameId;
   var rolesList;
   var playersList;
+  var gameEnd;
 
-  BlueHostageButton(this.gameId, this.rolesList, this.playersList);
+  BlueHostageButton(this.gameId, this.rolesList, this.playersList, this.gameEnd);
 
   @override
   Widget build(BuildContext context) {
@@ -642,6 +646,7 @@ class BlueHostageButton extends StatelessWidget {
           "players": this.playersList,
           "roles": arrayRoles,
           "time": "",
+          "gameEnd": this.gameEnd,
           "distributions": {},
         };
 

@@ -6,21 +6,25 @@ import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/information_cards.dart';
 import 'package:presidentbomber/text_on_screen.dart';
 import 'package:presidentbomber/views/OwnerGameScreen.dart';
-import 'package:presidentbomber/widgets/buttons.dart';
 
 import '../drawers.dart';
 
-class PlayerGameScreen extends StatelessWidget {
+class PlayerGameScreen extends StatefulWidget {
   final String gameId;
   final String name;
 
   PlayerGameScreen(this.gameId, this.name);
 
   @override
+  _PlayerGameScreenState createState() => _PlayerGameScreenState();
+}
+
+class _PlayerGameScreenState extends State<PlayerGameScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$gameId | Player View"),
+        title: Text("${widget.gameId} | Player View"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -33,17 +37,35 @@ class PlayerGameScreen extends StatelessWidget {
       body: StreamBuilder(
         stream: Firestore.instance
             .collection(COLLECTION_NAME)
-            .document(this.gameId)
+            .document(this.widget.gameId)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
           int _counter = snapshot.data['gameEnd'].toDate().difference(DateTime.now()).inSeconds;
+          Timer _timer;
+
+          _startTimer() {
+            if (_timer != null) {
+              _timer.cancel();
+            }
+            _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+              setState(() {
+                if (_counter > 0) {
+                  _counter--;
+                } else {
+                  _timer.cancel();
+                  _counter = 0;
+                }
+              });
+            });
+          }
+
           List informationTitles = [
             'Members and Roles',
             'Players in Game',
             'Roles in Game',
-            'Your Role'
+            'Your Role',
             'Timer'
           ];
           List informationSubtext = [
@@ -51,15 +73,15 @@ class PlayerGameScreen extends StatelessWidget {
             PlayersListMessage(snapshot.data[PLAYERS]),
             RolesListMessage(snapshot.data[ROLES]),
             UniqueRoleMessage(
-                snapshot.data[DISTRIBUTIONS][name], name),
-            TimerMessage(),
+                snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
+            TimerMessage(counter: _counter)
           ];
-          if (snapshot.data[PLAYERS].indexOf(this.name) == 0) {
+          if (snapshot.data[PLAYERS].indexOf(this.widget.name) == 0) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        OwnerGameScreen(this.gameId, this.name)));
+                        OwnerGameScreen(this.widget.gameId, this.widget.name)));
           }
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

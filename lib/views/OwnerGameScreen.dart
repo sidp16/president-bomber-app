@@ -61,7 +61,6 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               });
             });
           }
-
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -71,7 +70,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     BlueHostageButton(widget.gameId, snapshot.data[ROLES],
-                        snapshot.data[PLAYERS]),
+                        snapshot.data[PLAYERS], snapshot.data['gameEnd']),
                     Container(
                       height: 103,
                       child: DistributeButton(
@@ -82,7 +81,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                           snapshot.data[DISTRIBUTIONS][widget.name], _startTimer()),
                     ),
                     RedHostageButton(widget.gameId, snapshot.data[ROLES],
-                        snapshot.data[PLAYERS]),
+                        snapshot.data[PLAYERS], snapshot.data['gameEnd']),
                   ],
                 ),
               ),
@@ -152,10 +151,13 @@ class TimerMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('$_counter',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        ));
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text('$_counter',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          )),
+    );
   }
 }
