@@ -34,6 +34,7 @@ const RULES_CHARACTERS_SCREEN_TITLE = 'Characters & Rules';
 const CHARACTERS = 'Characters';
 const RULES = 'Rules';
 const GAME_END = "gameEnd";
+const WAITING_FOR_TIMER_MESSAGE = "Waiting for creator to start!";
 
 const List ALL_ROLES = [
   'Bomber',
@@ -67,7 +68,7 @@ const List ROLE_DESCRIPTIONS = [
   'You have no allegiance. You win if you are sent to a different room as a hostage at the end of MOST rounds. Hence, you would have to be moved 2 times in a 3 round game.',
 ];
 
-List INFORMATION_TILES = [
+const List INFORMATION_TILES = [
   'Members and Roles',
   'Players in Game',
   'Roles in Game',

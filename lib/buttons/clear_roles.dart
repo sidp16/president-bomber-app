@@ -13,12 +13,12 @@ class ClearRolesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: Colors.blueGrey,
+      color: Colors.blue,
       textColor: Colors.white,
       disabledColor: Colors.greenAccent,
       disabledTextColor: Colors.black,
+      splashColor: Colors.blueAccent,
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-      splashColor: Colors.redAccent,
       onPressed: () => resetRoles(gameId),
       child: Text(
         CLEAR,

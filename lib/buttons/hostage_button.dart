@@ -12,12 +12,12 @@ class HostageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: Colors.red,
+      color: color,
       textColor: Colors.white,
       disabledColor: Colors.grey,
       disabledTextColor: Colors.black,
       padding: EdgeInsets.all(40.0),
-      splashColor: Colors.redAccent,
+      splashColor: splashColor,
       onPressed: () => uploadRole(gameId, role),
       child: Text(
         role,

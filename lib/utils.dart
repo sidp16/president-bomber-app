@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:presidentbomber/main.dart';
 
 import 'constants.dart';
+import 'views/screens/RulesCharactersScreen.dart';
 
 void createGame(String gameId, String name) {
   CollectionReference data = Firestore.instance.collection("data");
@@ -87,4 +90,14 @@ void distributeRoles(String gameId, List roles, List players) {
       .collection(COLLECTION_NAME)
       .document(gameId)
       .setData(newDoc);
+}
+
+Future moveToCharacterRulesScreen(BuildContext context) {
+  return Navigator.push(
+      context, MaterialPageRoute(builder: (context) => CharacterRulesScreen()));
+}
+
+Future moveToHomePage(BuildContext context) {
+  return Navigator.push(
+      context, MaterialPageRoute(builder: (context) => MyApp()));
 }

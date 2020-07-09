@@ -4,7 +4,8 @@ class TimerMessage extends StatelessWidget {
   const TimerMessage({
     Key key,
     @required int counter,
-  }) : _counter = counter, super(key: key);
+  })  : _counter = counter,
+        super(key: key);
 
   final int _counter;
 
@@ -13,8 +14,8 @@ class TimerMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text('$_counter',
+          textAlign: TextAlign.center,
           style: TextStyle(
-            fontWeight: FontWeight.bold,
             fontSize: 20,
           )),
     );

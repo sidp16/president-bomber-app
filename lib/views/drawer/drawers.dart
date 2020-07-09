@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:presidentbomber/images/bomb_image.dart';
+import 'package:presidentbomber/images/president_image.dart';
 import 'package:presidentbomber/views/drawer/drawerTiles.dart';
-import 'package:presidentbomber/views/screens/RulesCharactersScreen.dart';
+import 'package:presidentbomber/views/messages/president_bomber_title_in_drawer.dart';
 
-import '../../main.dart';
+import '../../utils.dart';
 
 class PlayerOwnerDrawer extends StatelessWidget {
   const PlayerOwnerDrawer({
@@ -28,59 +30,18 @@ class PlayerOwnerDrawer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Material(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          elevation: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('images/president.png',
-                                width: 90, height: 90),
-                          )),
-                      Material(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          elevation: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('images/bombpic.png',
-                                width: 90, height: 90),
-                          )),
+                      PresidentImage(),
+                      BombImage(),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text('President & Bomber',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w800)),
-                  )
+                  PresidentBomberTitleInDrawer()
                 ],
               )),
-          CustomListTile(
-              Icons.home,
-              'Home',
-              () => {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyApp()))
-                  }),
-          CustomListTile(
-              Icons.person,
-              'Characters',
-              () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CharacterRulesScreen()))
-                  }),
-          CustomListTile(
-              Icons.library_books,
-              'Rules',
-              () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CharacterRulesScreen()))
-                  }),
+          CustomListTile(Icons.home, 'Home', () => {moveToHomePage(context)}),
+          CustomListTile(Icons.person, 'Characters',
+              () => {moveToCharacterRulesScreen(context)}),
+          CustomListTile(Icons.library_books, 'Rules',
+              () => {moveToCharacterRulesScreen(context)}),
           CustomListTile(Icons.build, 'App Usage', () => {}),
           CustomListTile(Icons.accessibility, 'About Me', () => {}),
           CustomListTile(Icons.report_problem, 'Report', () => {}),
@@ -114,52 +75,17 @@ class HomeScreenDrawer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Material(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          elevation: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('images/president.png',
-                                width: 90, height: 90),
-                          )),
-                      Material(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          elevation: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('images/bombpic.png',
-                                width: 90, height: 90),
-                          )),
+                      PresidentImage(),
+                      BombImage(),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text('President & Bomber',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w800)),
-                  )
+                  PresidentBomberTitleInDrawer()
                 ],
               ))),
-          CustomListTile(
-              Icons.person,
-              'Characters',
-              () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CharacterRulesScreen()))
-                  }),
-          CustomListTile(
-              Icons.library_books,
-              'Rules',
-              () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CharacterRulesScreen()))
-                  }),
+          CustomListTile(Icons.person, 'Characters',
+              () => {moveToCharacterRulesScreen(context)}),
+          CustomListTile(Icons.library_books, 'Rules',
+              () => {moveToCharacterRulesScreen(context)}),
           CustomListTile(Icons.build, 'App Usage', () => {}),
           CustomListTile(Icons.accessibility, 'About Me', () => {}),
           CustomListTile(Icons.report_problem, 'Report', () => {}),
@@ -191,42 +117,12 @@ class CharacterRulesDrawer extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Material(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          elevation: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('images/president.png',
-                                width: 90, height: 90),
-                          )),
-                      Material(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          elevation: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.asset('images/bombpic.png',
-                                width: 90, height: 90),
-                          )),
-                    ],
+                    children: [PresidentImage(), BombImage()],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text('President & Bomber',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w800)),
-                  )
+                  PresidentBomberTitleInDrawer()
                 ],
               )),
-          CustomListTile(
-              Icons.home,
-              'Home',
-              () => {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyApp()))
-                  }),
+          CustomListTile(Icons.home, 'Home', () => {moveToHomePage(context)}),
           CustomListTile(Icons.build, 'App Usage', () => {}),
           CustomListTile(Icons.accessibility, 'About Me', () => {}),
           CustomListTile(Icons.report_problem, 'Report', () => {}),

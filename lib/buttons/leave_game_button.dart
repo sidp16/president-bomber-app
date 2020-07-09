@@ -11,12 +11,12 @@ class LeaveGameButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: Colors.blueGrey,
+      color: Colors.red,
       textColor: Colors.white,
       disabledColor: Colors.greenAccent,
       disabledTextColor: Colors.black,
+      splashColor: Colors.redAccent,
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-      splashColor: Colors.blueGrey,
       onPressed: () => removePlayerFromGame(gameId, name),
       child: Text(
         LEAVE_GAME,

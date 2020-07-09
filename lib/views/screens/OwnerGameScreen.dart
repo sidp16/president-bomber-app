@@ -72,89 +72,12 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
             snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
         currentRoundTimer != null
             ? currentRoundTimer
-            : Text("Waiting for creator to start!"),
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(WAITING_FOR_TIMER_MESSAGE,
+                    style: TextStyle(fontSize: 20)),
+              ),
       ],
-    );
-  }
-
-  Padding buildRoleRow3() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SpecialRoleButton(
-              gameId: widget.gameId,
-              role: HOTPOTATO,
-              colour: Colors.red,
-              splashColour: Colors.redAccent),
-          SpecialRoleButton(
-              gameId: widget.gameId,
-              role: ANARCHIST,
-              colour: Colors.red,
-              splashColour: Colors.redAccent),
-          SpecialRoleButton(
-              gameId: widget.gameId,
-              role: TRAVELER,
-              colour: Colors.red,
-              splashColour: Colors.redAccent),
-        ],
-      ),
-    );
-  }
-
-  Padding buildRoleRow2() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SpecialRoleButton(
-            gameId: widget.gameId,
-            role: TRAVELER,
-            colour: Colors.red,
-            splashColour: Colors.redAccent,
-          ),
-          SpecialRoleButton(
-            gameId: widget.gameId,
-            role: HERO,
-            splashColour: Colors.red,
-            colour: Colors.redAccent,
-          ),
-          SpecialRoleButton(
-            gameId: widget.gameId,
-            role: DECOY,
-            splashColour: Colors.red,
-            colour: Colors.redAccent,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Padding buildRoleRow1() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 15, 0, 9),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SpecialRoleButton(
-              gameId: widget.gameId,
-              role: SNIPER,
-              colour: Colors.red,
-              splashColour: Colors.redAccent),
-          SpecialRoleButton(
-              gameId: widget.gameId,
-              role: GAMBLER,
-              colour: Colors.red,
-              splashColour: Colors.redAccent),
-          SpecialRoleButton(
-              gameId: widget.gameId,
-              role: MASTERMIND,
-              colour: Colors.red,
-              splashColour: Colors.redAccent),
-        ],
-      ),
     );
   }
 
@@ -189,6 +112,87 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               role: RED,
               color: Colors.red,
               splashColor: Colors.redAccent),
+        ],
+      ),
+    );
+  }
+
+  Padding buildRoleRow1() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 15, 0, 9),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SpecialRoleButton(
+              gameId: widget.gameId,
+              role: SNIPER,
+              colour: Colors.indigo,
+              splashColour: Colors.indigoAccent),
+          SpecialRoleButton(
+              gameId: widget.gameId,
+              role: GAMBLER,
+              colour: Colors.indigo,
+              splashColour: Colors.indigoAccent),
+          SpecialRoleButton(
+              gameId: widget.gameId,
+              role: MASTERMIND,
+              colour: Colors.indigo,
+              splashColour: Colors.indigoAccent),
+        ],
+      ),
+    );
+  }
+
+  Padding buildRoleRow2() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SpecialRoleButton(
+            gameId: widget.gameId,
+            role: TRAVELER,
+            colour: Colors.indigo,
+            splashColour: Colors.indigoAccent,
+          ),
+          SpecialRoleButton(
+            gameId: widget.gameId,
+            role: HERO,
+            splashColour: Colors.indigoAccent,
+            colour: Colors.indigo,
+          ),
+          SpecialRoleButton(
+            gameId: widget.gameId,
+            role: DECOY,
+            splashColour: Colors.indigoAccent,
+            colour: Colors.indigo,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding buildRoleRow3() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SpecialRoleButton(
+              gameId: widget.gameId,
+              role: HOTPOTATO,
+              colour: Colors.indigo,
+              splashColour: Colors.indigoAccent),
+          SpecialRoleButton(
+              gameId: widget.gameId,
+              role: ANARCHIST,
+              colour: Colors.indigo,
+              splashColour: Colors.indigoAccent),
+          SpecialRoleButton(
+              gameId: widget.gameId,
+              role: TRAVELER,
+              colour: Colors.indigo,
+              splashColour: Colors.indigoAccent),
         ],
       ),
     );
