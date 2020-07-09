@@ -1,6 +1,6 @@
-# presidentbomber
+# President & Bomber
 
-first flutter project, app for the game president bomber
+An app to play the game President & Bomber AKA Two Rooms and a Boom. Made from scratch by myself.
 
 ## Getting Started
 
