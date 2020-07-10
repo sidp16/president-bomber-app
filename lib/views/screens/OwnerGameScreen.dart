@@ -70,13 +70,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         RolesListMessage(snapshot.data[ROLES]),
         UniqueRoleMessage(
             snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-        currentRoundTimer != null
-            ? currentRoundTimer
-            : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(WAITING_FOR_TIMER_MESSAGE,
-                    style: TextStyle(fontSize: 20)),
-              ),
+        buildRoundTimer(snapshot),
       ],
     );
   }
@@ -100,11 +94,6 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                   // Distribute roles (update db)
                   distributeRoles(widget.gameId, snapshot.data[ROLES],
                       snapshot.data[PLAYERS]);
-
-                  // Calculate how many seconds left
-                  setState(() {
-                    currentRoundTimer = new RoundTimer(180);
-                  });
                 }),
           ),
           HostageButton(
@@ -209,5 +198,15 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         ],
       ),
     );
+  }
+
+  Widget buildRoundTimer(AsyncSnapshot snapshot) {
+    return snapshot.data[GAME_END] != null
+        ? RoundTimer(snapshot.data[GAME_END])
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+                Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20)),
+          );
   }
 }

@@ -45,22 +45,13 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
 
-          int secondsLeft;
-
-          var gameEnd = snapshot.data['gameEnd'];
-          if (gameEnd != null) {
-            secondsLeft = gameEnd.toDate().difference(DateTime.now()).inSeconds;
-          }
-
           List informationSubtext = [
             RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
             PlayersListMessage(snapshot.data[PLAYERS]),
             RolesListMessage(snapshot.data[ROLES]),
             UniqueRoleMessage(
                 snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-            secondsLeft != null
-                ? RoundTimer(secondsLeft)
-                : Text("Waiting for owner to start!")
+            buildRoundTimer(snapshot)
           ];
 
           if (snapshot.data[PLAYERS].indexOf(this.widget.name) == 0) {
@@ -79,5 +70,15 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
         },
       ),
     );
+  }
+
+  Widget buildRoundTimer(AsyncSnapshot snapshot) {
+    return snapshot.data[GAME_END] != null
+        ? RoundTimer(snapshot.data[GAME_END])
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+                Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20)),
+          );
   }
 }
