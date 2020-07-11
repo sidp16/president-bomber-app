@@ -51,7 +51,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
             RolesListMessage(snapshot.data[ROLES]),
             UniqueRoleMessage(
                 snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-            buildRoundTimer(snapshot)
+            buildRoundTimer(context, snapshot)
           ];
 
           if (snapshot.data[PLAYERS].indexOf(this.widget.name) == 0) {
@@ -72,13 +72,18 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
     );
   }
 
-  Widget buildRoundTimer(AsyncSnapshot snapshot) {
-    return snapshot.data[GAME_END] != null
-        ? RoundTimer(snapshot.data[GAME_END])
-        : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-                Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20)),
-          );
+  Widget buildRoundTimer(BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.data[GAME_END] != null) {
+      int secondsLeft =
+          snapshot.data[GAME_END].toDate().difference(DateTime.now()).inSeconds;
+      if (secondsLeft > 0) {
+        return RoundTimer(snapshot.data[GAME_END]);
+      }
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20)),
+    );
   }
 }

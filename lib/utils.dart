@@ -85,10 +85,14 @@ void distributeRoles(String gameId, List roles, List players) {
     "gameEnd": DateTime.now().add(new Duration(minutes: 3))
   };
 
-  Firestore.instance
-      .collection(COLLECTION_NAME)
-      .document(gameId)
-      .setData(newDoc);
+  try {
+    Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameId)
+        .setData(newDoc);
+  } on Exception catch (e) {
+    print("Firebase errored while doing upload! $e");
+  }
 }
 
 Future moveToCharacterRulesScreen(BuildContext context) {

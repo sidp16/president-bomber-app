@@ -17,18 +17,20 @@ class _RoundTimerState extends State<RoundTimer> {
 
   @override
   void initState() {
-    _counter = widget.gameEnd.toDate().difference(DateTime.now()).inSeconds;
-    _timer = Timer.periodic(Duration(seconds: 1), (_) => updateCounter());
     super.initState();
+    _timer = Timer.periodic(Duration(seconds: 1), (_) => _updateCounter());
   }
 
-  updateCounter() {
+  void _updateCounter() {
+    _counter = widget.gameEnd.toDate().difference(DateTime.now()).inSeconds;
     if (_counter > 0) {
       setState(() {
         _counter--;
       });
     } else {
-      _timer.cancel();
+      setState(() {
+        _timer.cancel();
+      });
     }
   }
 
