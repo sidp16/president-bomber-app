@@ -82,7 +82,7 @@ void distributeRoles(String gameId, List roles, List players) {
       players[1]: shuffledRoles[1],
     },
     "gameStart": new DateTime.now(),
-    "gameEnd": DateTime.now().add(new Duration(minutes: 3))
+    "gameEnd": DateTime.now().add(new Duration(minutes: 3, seconds: 2))
   };
 
   try {
