@@ -11,8 +11,6 @@ import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/fields/text_fields.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/messages/no_gameid_message.dart';
-import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
-import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
 
 import 'utils.dart';
 
@@ -35,8 +33,8 @@ class MyAppState extends State<MyApp> {
   String currentGameId = NO_GAME_ID_MESSAGE;
   final gameIdTextFieldController = TextEditingController();
   final nameTextFieldController = TextEditingController();
-
-  bool nameIsEmpty() => nameTextFieldController.text.isEmpty;
+  final GlobalKey<FormState> _gameIdFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _nameFormKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
@@ -73,10 +71,19 @@ class MyAppState extends State<MyApp> {
       children: <Widget>[
         buildUtilityButtons(wordPair, context, snapshot),
         NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
-        GameIDTextField(gameIdTextFieldController: gameIdTextFieldController),
-        NameTextField(
-            nameTextFieldController: nameTextFieldController,
-            validate: nameIsEmpty())
+        Form(
+          key: _gameIdFormKey,
+          child: Column(
+            children: [
+              GameIDTextField(
+                  gameIdTextFieldController: gameIdTextFieldController),
+            ],
+          ),
+        ),
+        Form(
+            key: _nameFormKey,
+            child: NameTextField(
+                nameTextFieldController: nameTextFieldController)),
       ],
     );
   }
@@ -87,65 +94,31 @@ class MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(child: CreateGameButton(onPressed: () {
-            checkIfNameEnteredWhenCreatingGame(wordPair, context);
+            if (!_nameFormKey.currentState.validate()) {
+              _gameIdFormKey.currentState.reset();
+              return;
+            }
+            _gameIdFormKey.currentState.reset();
+            _nameFormKey.currentState.save();
+            print(nameTextFieldController.text);
           })),
           Container(
             child: JoinGameButton(onPressed: () {
-              checkIfNameEnteredWhenJoiningGame(snapshot, context);
+              if (!_gameIdFormKey.currentState.validate() &&
+                  !_nameFormKey.currentState.validate()) {
+                return;
+              }
+              _gameIdFormKey.currentState.save();
+              _nameFormKey.currentState.save();
+
+              print(nameTextFieldController.text);
+              print(gameIdTextFieldController.text);
             }),
           ),
           ClearButton(
               gameIdTextFieldController: gameIdTextFieldController,
               nameIdTextFieldController: nameTextFieldController),
         ]);
-  }
-
-  void checkIfNameEnteredWhenJoiningGame(
-      AsyncSnapshot snapshot, BuildContext context) {
-    print("the name text field is ${nameIsEmpty()}");
-
-    if ((snapshot.data[PLAYERS].indexOf(nameTextFieldController.text) == 0) &&
-        !nameIsEmpty()) {
-      print("THIS IF WORKS");
-      addPlayer();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => OwnerGameScreen(
-                  gameIdTextFieldController.text.trim(),
-                  nameTextFieldController.text.trim())));
-    } else if (!nameIsEmpty()) {
-      print("THIS ELSE IS BEING INITIATED");
-      addPlayer();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PlayerGameScreen(
-                  gameIdTextFieldController.text.trim(),
-                  nameTextFieldController.text.trim())));
-    }
-  }
-
-  void checkIfNameEnteredWhenCreatingGame(
-      WordPair wordPair, BuildContext context) {
-    String gameId = wordPair.asPascalCase;
-    setState(() {
-      pressed = true;
-      currentGameId = gameId;
-    });
-
-    if (nameIsEmpty()) {
-      setState(() {
-        currentGameId = NO_GAME_ID_MESSAGE;
-      });
-    } else {
-      createGame(gameId, nameTextFieldController.text.trim());
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  OwnerGameScreen(gameId, nameTextFieldController.text)));
-    }
   }
 
   void addPlayer() => addPlayerToGame(
