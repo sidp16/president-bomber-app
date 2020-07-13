@@ -37,7 +37,7 @@ class PlayerOwnerDrawer extends StatelessWidget {
                   PresidentBomberTitleInDrawer()
                 ],
               )),
-          CustomListTile(Icons.home, 'Home', () => {moveToHomePage(context)}),
+          CustomListTile(Icons.home, 'Home', () => {Navigator.pop(context)}),
           CustomListTile(Icons.person, 'Characters',
               () => {moveToCharacterRulesScreen(context)}),
           CustomListTile(Icons.library_books, 'Rules',

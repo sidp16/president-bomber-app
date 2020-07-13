@@ -9,6 +9,7 @@ import 'package:presidentbomber/buttons/create_game.dart';
 import 'package:presidentbomber/buttons/join_game_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/fields/text_fields.dart';
+import 'package:presidentbomber/views/dialogs/NoGameFoundDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/messages/no_gameid_message.dart';
 import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
@@ -100,13 +101,68 @@ class MyAppState extends State<MyApp> {
           })),
           Container(
             child: JoinGameButton(onPressed: () {
-              validateFieldsAndJoinGame();
+              validateFieldsAndJoinGame(context, snapshot);
             }),
           ),
           ClearButton(
               gameIdTextFieldController: gameIdTextFieldController,
               nameIdTextFieldController: nameTextFieldController),
         ]);
+  }
+
+  Future<void> validateFieldsAndJoinGame(
+      BuildContext context, AsyncSnapshot snapshot) async {
+    {
+      if (!_gameIdFormKey.currentState.validate() &&
+          !_nameFormKey.currentState.validate()) {
+        return;
+      }
+      _gameIdFormKey.currentState.save();
+      _nameFormKey.currentState.save();
+      addPlayerToGame(gameIdTextFieldController.text.trim(),
+          nameTextFieldController.text.trim());
+
+      return await moveToCorrectScreen(context, snapshot);
+    }
+  }
+
+  moveToCorrectScreen(BuildContext context, AsyncSnapshot snapshot) async {
+    final gameIDCheck = await Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameIdTextFieldController.text.trim())
+        .get();
+
+    if (gameIDCheck == null || !gameIDCheck.exists) {
+      return buildNoGameFoundDialog(context);
+    }
+    if (snapshot.data[PLAYERS].indexOf(nameTextFieldController.text.trim()) ==
+        0) {
+      return Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OwnerGameScreen(
+                    gameIdTextFieldController.text.trim(),
+                    nameTextFieldController.text.trim(),
+                  )));
+    } else {
+      return Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PlayerGameScreen(
+                    gameIdTextFieldController.text.trim(),
+                    nameTextFieldController.text.trim(),
+                  )));
+    }
+  }
+
+  Future<void> buildNoGameFoundDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return NoGameFoundAlert();
+      },
+    );
   }
 
   void validateFieldAndCreateGame(WordPair wordPair) {
@@ -132,24 +188,5 @@ class MyAppState extends State<MyApp> {
         MaterialPageRoute(
             builder: (context) => OwnerGameScreen(
                 currentGameId, nameTextFieldController.text.trim())));
-  }
-
-  void validateFieldsAndJoinGame() {
-    if (!_gameIdFormKey.currentState.validate() &&
-        !_nameFormKey.currentState.validate()) {
-      return;
-    }
-    _gameIdFormKey.currentState.save();
-    _nameFormKey.currentState.save();
-    addPlayerToGame(gameIdTextFieldController.text.trim(),
-        nameTextFieldController.text.trim());
-
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PlayerGameScreen(
-                  gameIdTextFieldController.text.trim(),
-                  nameTextFieldController.text.trim(),
-                )));
   }
 }

@@ -205,7 +205,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
       int secondsLeft =
           snapshot.data[GAME_END].toDate().difference(DateTime.now()).inSeconds;
       print("$secondsLeft seconds left.");
-      if (secondsLeft > 0) {
+      if (secondsLeft >= 0) {
         print("seconds left is bigger than zero");
         return RoundTimer(snapshot.data[GAME_END]);
       }

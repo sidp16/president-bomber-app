@@ -28,13 +28,15 @@ class PlayerInformationCard extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 20),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100)),
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withAlpha(20),
                                   blurRadius: 10.0),
                             ]),
                         child: Card(
+                          color: Colors.lightBlue[200],
                           child: ListTile(
                             onTap: () {},
                             title: Padding(
