@@ -11,6 +11,8 @@ import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/fields/text_fields.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/messages/no_gameid_message.dart';
+import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
+import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
 
 import 'utils.dart';
 
@@ -72,6 +74,10 @@ class MyAppState extends State<MyApp> {
         buildUtilityButtons(wordPair, context, snapshot),
         NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
         Form(
+            key: _nameFormKey,
+            child: NameTextField(
+                nameTextFieldController: nameTextFieldController)),
+        Form(
           key: _gameIdFormKey,
           child: Column(
             children: [
@@ -80,10 +86,6 @@ class MyAppState extends State<MyApp> {
             ],
           ),
         ),
-        Form(
-            key: _nameFormKey,
-            child: NameTextField(
-                nameTextFieldController: nameTextFieldController)),
       ],
     );
   }
@@ -94,25 +96,11 @@ class MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(child: CreateGameButton(onPressed: () {
-            if (!_nameFormKey.currentState.validate()) {
-              _gameIdFormKey.currentState.reset();
-              return;
-            }
-            _gameIdFormKey.currentState.reset();
-            _nameFormKey.currentState.save();
-            print(nameTextFieldController.text);
+            validateFieldAndCreateGame(wordPair);
           })),
           Container(
             child: JoinGameButton(onPressed: () {
-              if (!_gameIdFormKey.currentState.validate() &&
-                  !_nameFormKey.currentState.validate()) {
-                return;
-              }
-              _gameIdFormKey.currentState.save();
-              _nameFormKey.currentState.save();
-
-              print(nameTextFieldController.text);
-              print(gameIdTextFieldController.text);
+              validateFieldsAndJoinGame();
             }),
           ),
           ClearButton(
@@ -121,6 +109,47 @@ class MyAppState extends State<MyApp> {
         ]);
   }
 
-  void addPlayer() => addPlayerToGame(
-      gameIdTextFieldController.text, nameTextFieldController.text);
+  void validateFieldAndCreateGame(WordPair wordPair) {
+    if (!_nameFormKey.currentState.validate()) {
+      gameIdTextFieldController.clear();
+      _gameIdFormKey.currentState.reset();
+      return;
+    }
+
+    String gameId = wordPair.asPascalCase;
+    setState(() {
+      pressed = true;
+      currentGameId = gameId;
+    });
+
+    gameIdTextFieldController.clear();
+    _gameIdFormKey.currentState.reset();
+    _nameFormKey.currentState.save();
+    createGame(gameId, nameTextFieldController.text.trim());
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OwnerGameScreen(
+                currentGameId, nameTextFieldController.text.trim())));
+  }
+
+  void validateFieldsAndJoinGame() {
+    if (!_gameIdFormKey.currentState.validate() &&
+        !_nameFormKey.currentState.validate()) {
+      return;
+    }
+    _gameIdFormKey.currentState.save();
+    _nameFormKey.currentState.save();
+    addPlayerToGame(gameIdTextFieldController.text.trim(),
+        nameTextFieldController.text.trim());
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlayerGameScreen(
+                  gameIdTextFieldController.text.trim(),
+                  nameTextFieldController.text.trim(),
+                )));
+  }
 }

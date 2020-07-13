@@ -84,7 +84,9 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20)),
+      child: Center(
+          child:
+              Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20))),
     );
   }
 }

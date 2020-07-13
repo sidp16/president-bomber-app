@@ -5,7 +5,6 @@ const LOADING_MESSAGE = 'Loading data...';
 const COLLECTION_NAME = 'data';
 const PLAYERS = 'players';
 const ROLES = 'roles';
-const TIME = 'time';
 const BACK_BUTTON_MESSAGE = 'Go back';
 const JOIN_GAME_BUTTON_MESSAGE = 'Join Game';
 const CREATE_GAME_BUTTON_MESSAGE = 'Create Game';
@@ -35,7 +34,7 @@ const CHARACTERS = 'Characters';
 const RULES = 'Rules';
 const GAME_END = "gameEnd";
 const WAITING_FOR_TIMER_MESSAGE = "Waiting for creator to start!";
-
+const WAITING_FOR_DISTRIBUTION_MESSAGE = "Waiting for creator to distribute!";
 const List ALL_ROLES = [
   'Bomber',
   'President',
