@@ -25,6 +25,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text("${widget.gameId} | Player View"),
         flexibleSpace: Container(
