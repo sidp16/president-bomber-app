@@ -17,9 +17,10 @@ class GameIDTextField extends StatelessWidget {
           child: TextField(
             controller: gameIdTextFieldController,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock, color: Colors.grey, size: 20),
-                border: OutlineInputBorder(),
-                labelText: JOIN_GAME_TEXT_FIELD_HINT),
+              prefixIcon: Icon(Icons.lock, color: Colors.grey, size: 20),
+              border: OutlineInputBorder(),
+              labelText: JOIN_GAME_TEXT_FIELD_HINT,
+            ),
             scrollPadding: EdgeInsets.all(10.0),
           ),
         ),
@@ -31,9 +32,11 @@ class NameTextField extends StatelessWidget {
   const NameTextField({
     Key key,
     @required this.nameTextFieldController,
+    @required this.validate,
   }) : super(key: key);
 
   final TextEditingController nameTextFieldController;
+  final bool validate;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +46,11 @@ class NameTextField extends StatelessWidget {
           child: TextField(
             controller: nameTextFieldController,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person, color: Colors.grey, size: 20),
-                border: OutlineInputBorder(),
-                labelText: NAME_TEXT_FIELD_HINT),
+              prefixIcon: Icon(Icons.person, color: Colors.grey, size: 20),
+              border: OutlineInputBorder(),
+              labelText: NAME_TEXT_FIELD_HINT,
+              errorText: validate ? 'This is empty bruv' : null,
+            ),
             scrollPadding: EdgeInsets.all(10.0),
             maxLength: 10,
           ),

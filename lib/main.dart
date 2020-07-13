@@ -36,6 +36,8 @@ class MyAppState extends State<MyApp> {
   final gameIdTextFieldController = TextEditingController();
   final nameTextFieldController = TextEditingController();
 
+  bool nameIsEmpty() => nameTextFieldController.text.isEmpty;
+
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
 
@@ -72,7 +74,9 @@ class MyAppState extends State<MyApp> {
         buildUtilityButtons(wordPair, context, snapshot),
         NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
         GameIDTextField(gameIdTextFieldController: gameIdTextFieldController),
-        NameTextField(nameTextFieldController: nameTextFieldController)
+        NameTextField(
+            nameTextFieldController: nameTextFieldController,
+            validate: nameIsEmpty())
       ],
     );
   }
@@ -83,46 +87,65 @@ class MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Container(child: CreateGameButton(onPressed: () {
-            String gameId = wordPair.asPascalCase;
-            setState(() {
-              pressed = true;
-              currentGameId = gameId;
-            });
-
-            createGame(gameId, nameTextFieldController.text);
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        OwnerGameScreen(gameId, nameTextFieldController.text)));
+            checkIfNameEnteredWhenCreatingGame(wordPair, context);
           })),
           Container(
             child: JoinGameButton(onPressed: () {
-              addPlayer();
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PlayerGameScreen(
-                          gameIdTextFieldController.text,
-                          nameTextFieldController.text)));
-              if (snapshot.data[PLAYERS]
-                      .indexOf(nameTextFieldController.text) ==
-                  0) {
-                addPlayer();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OwnerGameScreen(
-                            gameIdTextFieldController.text,
-                            nameTextFieldController.text)));
-              }
+              checkIfNameEnteredWhenJoiningGame(snapshot, context);
             }),
           ),
           ClearButton(
               gameIdTextFieldController: gameIdTextFieldController,
               nameIdTextFieldController: nameTextFieldController),
         ]);
+  }
+
+  void checkIfNameEnteredWhenJoiningGame(
+      AsyncSnapshot snapshot, BuildContext context) {
+    print("the name text field is ${nameIsEmpty()}");
+
+    if ((snapshot.data[PLAYERS].indexOf(nameTextFieldController.text) == 0) &&
+        !nameIsEmpty()) {
+      print("THIS IF WORKS");
+      addPlayer();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OwnerGameScreen(
+                  gameIdTextFieldController.text.trim(),
+                  nameTextFieldController.text.trim())));
+    } else if (!nameIsEmpty()) {
+      print("THIS ELSE IS BEING INITIATED");
+      addPlayer();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PlayerGameScreen(
+                  gameIdTextFieldController.text.trim(),
+                  nameTextFieldController.text.trim())));
+    }
+  }
+
+  void checkIfNameEnteredWhenCreatingGame(
+      WordPair wordPair, BuildContext context) {
+    String gameId = wordPair.asPascalCase;
+    setState(() {
+      pressed = true;
+      currentGameId = gameId;
+    });
+
+    if (nameIsEmpty()) {
+      setState(() {
+        currentGameId = NO_GAME_ID_MESSAGE;
+      });
+    } else {
+      createGame(gameId, nameTextFieldController.text.trim());
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  OwnerGameScreen(gameId, nameTextFieldController.text)));
+    }
   }
 
   void addPlayer() => addPlayerToGame(
