@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
-import 'package:presidentbomber/views/dialogs/NoGameFoundDialog.dart';
 import 'package:presidentbomber/views/dialogs/RoleDetailsDialog.dart';
 
 StreamSubscription<DocumentSnapshot> subscription;
@@ -69,25 +68,12 @@ class PlayerInformationCard extends StatelessWidget {
   }
 
   void showRoleDetailsDialog(BuildContext context) {
-    final DocumentReference documentReference =
-        Firestore.instance.document("data/$gameID/distributions");
-    subscription = documentReference.snapshots().listen((datasnapshot) {
-      if (datasnapshot.data.containsKey(name)) {
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return RoleDetailsDialog(role: role);
-            });
-      } else {
-        showDialog(
-            context: null,
-            barrierDismissible: true,
-            builder: (BuildContext context) {
-              return NoGameFoundAlert();
-            });
-      }
-    });
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return RoleDetailsDialog(role: role);
+        });
   }
 }
 

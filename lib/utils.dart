@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -71,20 +72,20 @@ void removePlayerFromGame(String gameId, String name) =>
 
 void distributeRoles(String gameId, List roles, List players) {
   List shuffledRoles = List.from(roles);
+  List shuffledPlayers = List.from(players);
   shuffledRoles.shuffle();
+  shuffledPlayers.shuffle();
+  Map distributions = new HashMap<String, String>();
 
-  // TODO: Write a for loop!
+  for (int i = 0; i < shuffledRoles.length; i++) {
+    distributions.putIfAbsent(
+        shuffledPlayers[i], () => shuffledRoles[i] as String);
+  }
+
   var newDoc = {
     "players": players,
-    "roles": [PRESIDENT, BOMBER],
-    "distributions": {
-      players[0]: shuffledRoles[0],
-      players[1]: shuffledRoles[1],
-      players[2]: shuffledRoles[2],
-      players[3]: shuffledRoles[3],
-      players[4]: shuffledRoles[4],
-      players[5]: shuffledRoles[5],
-    },
+    "roles": roles,
+    "distributions": distributions,
     "gameStart": new DateTime.now(),
     "gameEnd": DateTime.now().add(new Duration(minutes: 3, seconds: 2))
   };
