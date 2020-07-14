@@ -66,8 +66,11 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               PlayerInformationCard(
-                  informationSubtext: informationSubtext,
-                  role: snapshot.data[DISTRIBUTIONS][widget.name]),
+                informationSubtext: informationSubtext,
+                role: snapshot.data[DISTRIBUTIONS][widget.name],
+                gameID: this.widget.gameId,
+                name: this.widget.name,
+              ),
             ],
           );
         },
