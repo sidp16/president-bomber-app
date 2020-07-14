@@ -80,6 +80,10 @@ void distributeRoles(String gameId, List roles, List players) {
     "distributions": {
       players[0]: shuffledRoles[0],
       players[1]: shuffledRoles[1],
+      players[2]: shuffledRoles[2],
+      players[3]: shuffledRoles[3],
+      players[4]: shuffledRoles[4],
+      players[5]: shuffledRoles[5],
     },
     "gameStart": new DateTime.now(),
     "gameEnd": DateTime.now().add(new Duration(minutes: 3, seconds: 2))

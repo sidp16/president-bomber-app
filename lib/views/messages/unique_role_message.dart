@@ -12,7 +12,6 @@ class UniqueRoleMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
       child: Text(
-          // TODO: Make constants
           this
               .uniqueRole
               .toString()

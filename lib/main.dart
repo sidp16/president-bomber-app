@@ -158,7 +158,7 @@ class MyAppState extends State<MyApp> {
   Future<void> buildNoGameFoundDialog(BuildContext context) {
     return showDialog<void>(
       context: context,
-      barrierDismissible: true, // user must tap button!
+      barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return NoGameFoundAlert();
       },

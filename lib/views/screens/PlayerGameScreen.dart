@@ -65,7 +65,9 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              PlayerInformationCard(informationSubtext: informationSubtext),
+              PlayerInformationCard(
+                  informationSubtext: informationSubtext,
+                  role: snapshot.data[DISTRIBUTIONS][widget.name]),
             ],
           );
         },

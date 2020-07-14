@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:presidentbomber/constants.dart';
 
-class NoGameFoundAlert extends StatelessWidget {
-  const NoGameFoundAlert({
+class RoleDetailsDialog extends StatelessWidget {
+  const RoleDetailsDialog({
     Key key,
+    @required this.role,
   }) : super(key: key);
+
+  final String role;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Game Not Found!'),
+      title: Text('$role Role Details'),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text('Please enter a valid ID!'),
+            Text(ROLE_DESCRIPTIONS[ALL_ROLES.indexOf(role)]),
           ],
         ),
       ),
