@@ -39,7 +39,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: <Color>[Colors.blue, Colors.red])),
+                  colors: <Color>[Colors.lightBlue, Colors.blue])),
         ),
       ),
       drawer: PlayerOwnerDrawer(),

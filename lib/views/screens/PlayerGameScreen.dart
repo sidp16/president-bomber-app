@@ -33,7 +33,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: <Color>[Colors.blue, Colors.red])),
+                  colors: <Color>[Colors.lightBlue, Colors.blue])),
         ),
       ),
       drawer: PlayerOwnerDrawer(),
@@ -55,7 +55,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
             buildRoundTimer(context, snapshot)
           ];
 
-          if (snapshot.data['owner'] == this.widget.name) {
+          if (snapshot.data[OWNER] == this.widget.name) {
             Navigator.push(
                 context,
                 MaterialPageRoute(

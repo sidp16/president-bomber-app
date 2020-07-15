@@ -20,8 +20,8 @@ class OwnerLeaveGameButton extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       onPressed: () => {
         removeOwnerFromGame(gameId, name),
+        moveToHomePage(context),
         addNewOwner(gameId, players),
-        Navigator.pop(context)
       },
       child: Text(
         LEAVE_GAME,

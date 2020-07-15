@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,7 +50,7 @@ class MyAppState extends State<MyApp> {
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: <Color>[Colors.blue, Colors.red])),
+                        colors: <Color>[Colors.lightBlue, Colors.blue])),
               ),
             ),
             drawer: HomeScreenDrawer(),
@@ -80,12 +78,8 @@ class MyAppState extends State<MyApp> {
                 nameTextFieldController: nameTextFieldController)),
         Form(
           key: _gameIdFormKey,
-          child: Column(
-            children: [
-              GameIDTextField(
-                  gameIdTextFieldController: gameIdTextFieldController),
-            ],
-          ),
+          child: GameIDTextField(
+              gameIdTextFieldController: gameIdTextFieldController),
         ),
       ],
     );
@@ -127,32 +121,49 @@ class MyAppState extends State<MyApp> {
   }
 
   moveToCorrectScreen(BuildContext context, AsyncSnapshot snapshot) async {
-    final gameIDCheck = await Firestore.instance
+    final ownerGameIDChecks = await Firestore.instance
         .collection(COLLECTION_NAME)
         .document(gameIdTextFieldController.text.trim())
         .get();
 
-    if (gameIDCheck == null || !gameIDCheck.exists) {
+    if (ownerGameIDChecks == null || !ownerGameIDChecks.exists) {
       return buildNoGameFoundDialog(context);
     }
-    if (gameIDCheck.data['owner'] == nameTextFieldController.text.trim()) {
-      print("Reached the owner check if!");
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => OwnerGameScreen(
-                    gameIdTextFieldController.text.trim(),
-                    nameTextFieldController.text.trim(),
-                  )));
+    if (ownerGameIDChecks.data[OWNER] == nameTextFieldController.text.trim() ||
+        ownerGameIDChecks.data[OWNER] == null) {
+      addOwnerIfGameEmpty();
+      moveToOwnerScreen(context);
     } else {
-      return Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PlayerGameScreen(
-                    gameIdTextFieldController.text.trim(),
-                    nameTextFieldController.text.trim(),
-                  )));
+      return moveToPlayerScreen(context);
     }
+  }
+
+  Future moveToPlayerScreen(BuildContext context) {
+    return Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlayerGameScreen(
+                  gameIdTextFieldController.text.trim(),
+                  nameTextFieldController.text.trim(),
+                )));
+  }
+
+  void moveToOwnerScreen(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => OwnerGameScreen(
+                  gameIdTextFieldController.text.trim(),
+                  nameTextFieldController.text.trim(),
+                )));
+  }
+
+  void addOwnerIfGameEmpty() {
+    String name = nameTextFieldController.text.trim();
+    Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameIdTextFieldController.text.trim())
+        .updateData({OWNER: '$name'});
   }
 
   Future<void> buildNoGameFoundDialog(BuildContext context) {

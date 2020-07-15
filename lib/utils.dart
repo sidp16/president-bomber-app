@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:presidentbomber/main.dart';
 
 import 'constants.dart';
-import 'views/screens/RulesCharactersScreen.dart';
 
 void createGame(String gameId, String name) {
   CollectionReference data = Firestore.instance.collection("data");
@@ -68,7 +67,7 @@ void addUniqueRole(String gameId, String role) =>
 void removeOwnerFromGame(String gameId, String name) =>
     Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
       PLAYERS: FieldValue.arrayRemove([name]),
-      'owner': FieldValue.delete()
+      'owner': null
     });
 
 void addNewOwner(String gameId, List<dynamic> players) => Firestore.instance
@@ -104,11 +103,6 @@ void distributeRoles(String gameId, List roles, List players) {
   } on Exception catch (e) {
     print("Firebase errored while doing upload! $e");
   }
-}
-
-Future moveToCharacterRulesScreen(BuildContext context) {
-  return Navigator.push(
-      context, MaterialPageRoute(builder: (context) => CharacterRulesScreen()));
 }
 
 Future moveToHomePage(BuildContext context) {

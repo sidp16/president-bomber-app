@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NoGameFoundAlert extends StatelessWidget {
-  const NoGameFoundAlert({
+class NoRoleFoundDialog extends StatelessWidget {
+  const NoRoleFoundDialog({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Game Not Found!'),
+      title: Text('Game has not started!'),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text('Please enter a valid ID!'),
+            Text('The creator has not distributed the roles yet.'),
           ],
         ),
       ),

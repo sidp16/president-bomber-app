@@ -4,6 +4,7 @@ import 'package:presidentbomber/images/bomb_image.dart';
 import 'package:presidentbomber/images/president_image.dart';
 import 'package:presidentbomber/views/drawer/drawerTiles.dart';
 import 'package:presidentbomber/views/messages/president_bomber_title_in_drawer.dart';
+import 'package:presidentbomber/views/screens/RulesCharactersScreen.dart';
 
 import '../../utils.dart';
 
@@ -37,7 +38,7 @@ class PlayerOwnerDrawer extends StatelessWidget {
                   PresidentBomberTitleInDrawer()
                 ],
               )),
-          CustomListTile(Icons.home, 'Home', () => {Navigator.pop(context)}),
+          CustomListTile(Icons.home, 'Home', () => {moveToHomePage(context)}),
           CustomListTile(Icons.person, 'Characters',
               () => {moveToCharacterRulesScreen(context)}),
           CustomListTile(Icons.library_books, 'Rules',
@@ -49,6 +50,11 @@ class PlayerOwnerDrawer extends StatelessWidget {
       ),
     );
   }
+}
+
+Future moveToCharacterRulesScreen(BuildContext context) {
+  return Navigator.push(
+      context, MaterialPageRoute(builder: (context) => CharacterRulesScreen()));
 }
 
 class HomeScreenDrawer extends StatelessWidget {

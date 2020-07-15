@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/views/dialogs/NoRoleFoundDialog.dart';
 import 'package:presidentbomber/views/dialogs/RoleDetailsDialog.dart';
 
 StreamSubscription<DocumentSnapshot> subscription;
@@ -51,7 +52,7 @@ class PlayerInformationCard extends StatelessWidget {
                             showRoleDetailsDialog(context);
                           },
                           title: Padding(
-                            padding: const EdgeInsets.all(6.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Text(INFORMATION_TILES[index],
                                 style: TextStyle(fontSize: 19)),
                           ),
@@ -67,13 +68,27 @@ class PlayerInformationCard extends StatelessWidget {
     );
   }
 
-  void showRoleDetailsDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return RoleDetailsDialog(role: role);
-        });
+  Future<void> showRoleDetailsDialog(BuildContext context) async {
+    final roleDetailsCheck = await Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameID)
+        .get();
+
+    if (roleDetailsCheck.data[DISTRIBUTIONS][name] == null) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return NoRoleFoundDialog();
+          });
+    } else {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return RoleDetailsDialog(role: role);
+          });
+    }
   }
 }
 
