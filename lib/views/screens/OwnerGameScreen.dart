@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:presidentbomber/buttons/clear_roles.dart';
 import 'package:presidentbomber/buttons/distribute_button.dart';
 import 'package:presidentbomber/buttons/hostage_button.dart';
-import 'package:presidentbomber/buttons/leave_game_button.dart';
+import 'package:presidentbomber/buttons/owner_leave_game_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
@@ -65,7 +65,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         buildRoleRow1(),
         buildRoleRow2(),
         buildRoleRow3(),
-        buildUtilityButtons(),
+        buildUtilityButtons(snapshot),
         RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
         PlayersListMessage(snapshot.data[PLAYERS]),
         RolesListMessage(snapshot.data[ROLES]),
@@ -185,14 +185,15 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
     );
   }
 
-  Padding buildUtilityButtons() {
+  Padding buildUtilityButtons(AsyncSnapshot snapshot) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 4, 0, 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ClearRolesButton(gameId: widget.gameId),
-          LeaveGameButton(widget.gameId, widget.name),
+          OwnerLeaveGameButton(
+              widget.gameId, widget.name, snapshot.data[PLAYERS]),
         ],
       ),
     );

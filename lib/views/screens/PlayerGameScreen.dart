@@ -55,7 +55,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
             buildRoundTimer(context, snapshot)
           ];
 
-          if (snapshot.data[PLAYERS].indexOf(this.widget.name) == 0) {
+          if (snapshot.data['owner'] == this.widget.name) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -91,7 +91,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Center(
           child:
-              Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20))),
+              Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 16))),
     );
   }
 }

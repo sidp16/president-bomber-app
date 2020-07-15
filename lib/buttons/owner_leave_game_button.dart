@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
 
-class LeaveGameButton extends StatelessWidget {
+class OwnerLeaveGameButton extends StatelessWidget {
   final String gameId;
   final String name;
+  final List players;
 
-  LeaveGameButton(this.gameId, this.name);
+  OwnerLeaveGameButton(this.gameId, this.name, this.players);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,11 @@ class LeaveGameButton extends StatelessWidget {
       disabledTextColor: Colors.black,
       splashColor: Colors.redAccent,
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-      onPressed: () => removePlayerFromGame(gameId, name),
+      onPressed: () => {
+        removeOwnerFromGame(gameId, name),
+        addNewOwner(gameId, players),
+        Navigator.pop(context)
+      },
       child: Text(
         LEAVE_GAME,
         textAlign: TextAlign.center,

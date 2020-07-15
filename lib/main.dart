@@ -135,9 +135,9 @@ class MyAppState extends State<MyApp> {
     if (gameIDCheck == null || !gameIDCheck.exists) {
       return buildNoGameFoundDialog(context);
     }
-    if (snapshot.data[PLAYERS].indexOf(nameTextFieldController.text.trim()) ==
-        0) {
-      return Navigator.push(
+    if (gameIDCheck.data['owner'] == nameTextFieldController.text.trim()) {
+      print("Reached the owner check if!");
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => OwnerGameScreen(

@@ -14,6 +14,7 @@ void createGame(String gameId, String name) {
     "players": [name],
     "roles": [PRESIDENT, BOMBER],
     "distributions": {},
+    "owner": name
   };
 
   data.document(gameId).setData(doc);
@@ -64,10 +65,16 @@ void addUniqueRole(String gameId, String role) =>
       ROLES: FieldValue.arrayUnion([role])
     });
 
-void removePlayerFromGame(String gameId, String name) =>
+void removeOwnerFromGame(String gameId, String name) =>
     Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
-      PLAYERS: FieldValue.arrayRemove([name])
+      PLAYERS: FieldValue.arrayRemove([name]),
+      'owner': FieldValue.delete()
     });
+
+void addNewOwner(String gameId, List<dynamic> players) => Firestore.instance
+    .collection(COLLECTION_NAME)
+    .document(gameId)
+    .updateData({'owner': players.elementAt(1)});
 
 void distributeRoles(String gameId, List roles, List players) {
   List shuffledRoles = List.from(roles);
