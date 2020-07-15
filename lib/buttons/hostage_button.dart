@@ -18,7 +18,12 @@ class HostageButton extends StatelessWidget {
       disabledTextColor: Colors.black,
       padding: EdgeInsets.all(40.0),
       splashColor: splashColor,
-      onPressed: () => uploadRole(gameId, role),
+      onPressed: () => {
+        uploadRole(gameId, role),
+        Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Added $role Hostage!"),
+            duration: Duration(seconds: 1, milliseconds: 500)))
+      },
       child: Text(
         role,
         textAlign: TextAlign.center,

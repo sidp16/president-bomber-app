@@ -16,7 +16,7 @@ class UniqueRoleMessage extends StatelessWidget {
               .uniqueRole
               .toString()
               .replaceAll("null", WAITING_FOR_DISTRIBUTION_MESSAGE),
-          style: TextStyle(fontSize: 16.0),
+          style: TextStyle(fontSize: 18.0),
           textAlign: TextAlign.center),
     );
   }

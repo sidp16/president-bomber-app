@@ -19,7 +19,12 @@ class ClearRolesButton extends StatelessWidget {
       disabledTextColor: Colors.black,
       splashColor: Colors.blueAccent,
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-      onPressed: () => resetRoles(gameId),
+      onPressed: () => {
+        resetRoles(gameId),
+        Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("Cleared all roles!"),
+            duration: Duration(seconds: 1, milliseconds: 500)))
+      },
       child: Text(
         CLEAR,
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),

@@ -17,7 +17,7 @@ class RolesLobbyMessage extends StatelessWidget {
               this.roles.length.toString() +
               NUMBER_OF_ROLES_MESSAGE,
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 18.0,
           ),
           textAlign: TextAlign.center),
     );

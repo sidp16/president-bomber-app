@@ -54,7 +54,7 @@ class PlayerInformationCard extends StatelessWidget {
                           title: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(INFORMATION_TILES[index],
-                                style: TextStyle(fontSize: 19)),
+                                style: TextStyle(fontSize: 21)),
                           ),
                           subtitle: informationSubtext[index],
                         ),
@@ -101,7 +101,6 @@ class CharacterInformationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-//                physics: BouncingScrollPhysics(),
           shrinkWrap: true,
           itemCount: ALL_ROLES.length,
           itemBuilder: (context, index) {

@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:presidentbomber/buttons/clear_roles.dart';
 import 'package:presidentbomber/buttons/distribute_button.dart';
 import 'package:presidentbomber/buttons/hostage_button.dart';
+import 'package:presidentbomber/buttons/owner_info_button.dart';
 import 'package:presidentbomber/buttons/owner_leave_game_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
-import 'package:presidentbomber/views/messages/players_list_message.dart';
-import 'package:presidentbomber/views/messages/roles_list_message.dart';
-import 'package:presidentbomber/views/messages/roles_lobby_message.dart';
-import 'package:presidentbomber/views/messages/unique_role_message.dart';
 import 'package:presidentbomber/views/timer/round_timer.dart';
 
 class OwnerGameScreen extends StatefulWidget {
@@ -66,19 +63,13 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         buildRoleRow2(),
         buildRoleRow3(),
         buildUtilityButtons(snapshot),
-        RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
-        PlayersListMessage(snapshot.data[PLAYERS]),
-        RolesListMessage(snapshot.data[ROLES]),
-        UniqueRoleMessage(
-            snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-        buildRoundTimer(context, snapshot),
       ],
     );
   }
 
   Padding buildTopRow(AsyncSnapshot snapshot) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+      padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -91,8 +82,10 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
             height: 103,
             child: DistributeButton(
                 gameId: widget.gameId,
-                onPressed: () => distributeRoles(widget.gameId,
-                    snapshot.data[ROLES], snapshot.data[PLAYERS])),
+                onPressed: () => {
+                      distributeRoles(widget.gameId, snapshot.data[ROLES],
+                          snapshot.data[PLAYERS], context),
+                    }),
           ),
           HostageButton(
               gameId: widget.gameId,
@@ -106,7 +99,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
 
   Padding buildRoleRow1() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 15, 0, 9),
+      padding: const EdgeInsets.fromLTRB(0, 14, 0, 9),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -132,13 +125,13 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
 
   Padding buildRoleRow2() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
+      padding: const EdgeInsets.fromLTRB(0, 14, 0, 9),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SpecialRoleButton(
             gameId: widget.gameId,
-            role: TRAVELER,
+            role: TARGET,
             colour: Colors.indigo,
             splashColour: Colors.indigoAccent,
           ),
@@ -161,7 +154,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
 
   Padding buildRoleRow3() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 9, 0, 9),
+      padding: const EdgeInsets.fromLTRB(0, 14, 0, 9),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -187,13 +180,14 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
 
   Padding buildUtilityButtons(AsyncSnapshot snapshot) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 4, 0, 15),
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ClearRolesButton(gameId: widget.gameId),
+          GameInfoButton(context: context, widget: widget),
           OwnerLeaveGameButton(
-              widget.gameId, widget.name, snapshot.data[PLAYERS]),
+              widget.gameId, widget.name, snapshot.data[PLAYERS])
         ],
       ),
     );

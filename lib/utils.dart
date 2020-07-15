@@ -75,7 +75,8 @@ void addNewOwner(String gameId, List<dynamic> players) => Firestore.instance
     .document(gameId)
     .updateData({'owner': players.elementAt(1)});
 
-void distributeRoles(String gameId, List roles, List players) {
+void distributeRoles(
+    String gameId, List roles, List players, BuildContext context) {
   List shuffledRoles = List.from(roles);
   List shuffledPlayers = List.from(players);
   shuffledRoles.shuffle();

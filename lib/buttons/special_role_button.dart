@@ -17,20 +17,29 @@ class SpecialRoleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      color: colour,
-      textColor: Colors.white,
-      disabledColor: Colors.grey,
-      disabledTextColor: Colors.black,
-      padding: EdgeInsets.all(5.0),
-      splashColor: splashColour,
-      onPressed: () => addUniqueRole(gameId, role),
-      child: Text(
-        role,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w900,
+    return Container(
+      height: 100,
+      width: 120,
+      child: RaisedButton(
+        color: colour,
+        textColor: Colors.white,
+        disabledColor: Colors.grey,
+        disabledTextColor: Colors.black,
+        padding: EdgeInsets.all(5.0),
+        splashColor: splashColour,
+        onPressed: () => {
+          addUniqueRole(gameId, role),
+          Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text("Added $role!"),
+              duration: Duration(seconds: 1, milliseconds: 500)))
+        },
+        child: Text(
+          role,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+          ),
         ),
       ),
     );

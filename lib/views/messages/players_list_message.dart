@@ -12,7 +12,7 @@ class PlayersListMessage extends StatelessWidget {
       child: Center(
         child: Text(
             this.players.toString().replaceAll("[", "").replaceAll("]", ""),
-            style: TextStyle(fontSize: 16.0),
+            style: TextStyle(fontSize: 18.0),
             textAlign: TextAlign.center),
       ),
     );
