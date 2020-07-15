@@ -192,23 +192,4 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
       ),
     );
   }
-
-  Widget buildRoundTimer(BuildContext context, AsyncSnapshot snapshot) {
-    print("Got new snapshot!");
-    if (snapshot.data[GAME_END] != null) {
-      print("Got a gameEnd ${snapshot.data[GAME_END]}!");
-      int secondsLeft =
-          snapshot.data[GAME_END].toDate().difference(DateTime.now()).inSeconds;
-      print("$secondsLeft seconds left.");
-      if (secondsLeft >= 0) {
-        print("seconds left is bigger than zero");
-        return RoundTimer(snapshot.data[GAME_END]);
-      }
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 16)),
-    );
-  }
 }

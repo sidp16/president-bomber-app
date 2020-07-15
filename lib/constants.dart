@@ -33,9 +33,11 @@ const RULES_CHARACTERS_SCREEN_TITLE = 'Characters & Rules';
 const CHARACTERS = 'Characters';
 const RULES = 'Rules';
 const GAME_END = "gameEnd";
+const GAME_START = "gameStart";
 const WAITING_FOR_TIMER_MESSAGE = "Waiting for creator to start!";
 const WAITING_FOR_DISTRIBUTION_MESSAGE = "Waiting for creator to distribute!";
 const OWNER = 'owner';
+const LOADING_TIMER_MESSAGE = 'Loading...';
 const List ALL_ROLES = [
   'Bomber',
   'President',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presidentbomber/constants.dart';
 
 class TimerMessage extends StatelessWidget {
   const TimerMessage({
@@ -13,8 +14,8 @@ class TimerMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text('$_counter',
-          textAlign: TextAlign.center, style: TextStyle(fontSize: 16)),
+      child: Text('$_counter'.replaceAll("null", LOADING_TIMER_MESSAGE),
+          textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
     );
   }
 }

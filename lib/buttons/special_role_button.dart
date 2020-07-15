@@ -30,8 +30,10 @@ class SpecialRoleButton extends StatelessWidget {
         onPressed: () => {
           addUniqueRole(gameId, role),
           Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text("Added $role!"),
-              duration: Duration(seconds: 1, milliseconds: 500)))
+            content: Text("Added $role!"),
+            duration: Duration(seconds: 1, milliseconds: 500),
+            elevation: 20,
+          ))
         },
         child: Text(
           role,

@@ -8,12 +8,12 @@ import 'package:presidentbomber/main.dart';
 import 'constants.dart';
 
 void createGame(String gameId, String name) {
-  CollectionReference data = Firestore.instance.collection("data");
+  CollectionReference data = Firestore.instance.collection(COLLECTION_NAME);
   var doc = {
-    "players": [name],
-    "roles": [PRESIDENT, BOMBER],
-    "distributions": {},
-    "owner": name
+    PLAYERS: [name],
+    ROLES: [PRESIDENT, BOMBER],
+    DISTRIBUTIONS: {},
+    OWNER: name
   };
 
   data.document(gameId).setData(doc);
@@ -67,13 +67,13 @@ void addUniqueRole(String gameId, String role) =>
 void removeOwnerFromGame(String gameId, String name) =>
     Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
       PLAYERS: FieldValue.arrayRemove([name]),
-      'owner': null
+      OWNER: null
     });
 
 void addNewOwner(String gameId, List<dynamic> players) => Firestore.instance
     .collection(COLLECTION_NAME)
     .document(gameId)
-    .updateData({'owner': players.elementAt(1)});
+    .updateData({OWNER: players.elementAt(1)});
 
 void distributeRoles(
     String gameId, List roles, List players, BuildContext context) {
@@ -89,11 +89,11 @@ void distributeRoles(
   }
 
   var newDoc = {
-    "players": players,
-    "roles": roles,
-    "distributions": distributions,
-    "gameStart": new DateTime.now(),
-    "gameEnd": DateTime.now().add(new Duration(minutes: 3, seconds: 2))
+    PLAYERS: players,
+    ROLES: roles,
+    DISTRIBUTIONS: distributions,
+    GAME_START: new DateTime.now(),
+    GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2))
   };
 
   try {
