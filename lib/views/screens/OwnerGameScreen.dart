@@ -212,8 +212,8 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 20)),
+      padding: const EdgeInsets.all(2.0),
+      child: Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 16)),
     );
   }
 }

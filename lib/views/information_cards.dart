@@ -53,7 +53,7 @@ class PlayerInformationCard extends StatelessWidget {
                           title: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Text(INFORMATION_TILES[index],
-                                style: TextStyle(fontSize: 22)),
+                                style: TextStyle(fontSize: 19)),
                           ),
                           subtitle: informationSubtext[index],
                         ),

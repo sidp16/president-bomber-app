@@ -8,11 +8,11 @@ class PlayersListMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+      padding: const EdgeInsets.fromLTRB(8, 5, 8, 10),
       child: Center(
         child: Text(
             this.players.toString().replaceAll("[", "").replaceAll("]", ""),
-            style: TextStyle(fontSize: 20.0),
+            style: TextStyle(fontSize: 16.0),
             textAlign: TextAlign.center),
       ),
     );

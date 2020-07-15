@@ -14,7 +14,7 @@ class TimerMessage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text('$_counter',
-          textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+          textAlign: TextAlign.center, style: TextStyle(fontSize: 16)),
     );
   }
 }

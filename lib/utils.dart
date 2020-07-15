@@ -32,13 +32,12 @@ void uploadRole(String gameId, String role) async {
   // Add new role
   List arrayRoles = new List.from(data[ROLES]);
   arrayRoles.add(role);
-
   // Create new document
   var newDocument = {
     PLAYERS: data[PLAYERS],
     ROLES: arrayRoles,
     GAME_END: data[GAME_END],
-    DISTRIBUTIONS: {}
+    DISTRIBUTIONS: data[DISTRIBUTIONS]
   };
 
   // Upload new document
