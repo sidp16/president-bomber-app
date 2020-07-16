@@ -84,6 +84,8 @@ void distributeRoles(String gameId, List roles, List players,
   shuffledPlayers.shuffle();
   Map distributions = new HashMap<String, String>();
 
+  checkIfOwnerCanDistribute(shuffledRoles, shuffledPlayers, context);
+
   for (int i = 0; i < shuffledRoles.length; i++) {
     distributions.putIfAbsent(
         shuffledPlayers[i], () => shuffledRoles[i] as String);
@@ -105,6 +107,39 @@ void distributeRoles(String gameId, List roles, List players,
         .setData(newDoc);
   } on Exception catch (e) {
     print("Firebase errored while doing upload! $e");
+  }
+}
+
+void checkIfOwnerCanDistribute(
+    List shuffledRoles, List shuffledPlayers, BuildContext context) {
+  if (shuffledRoles.length != shuffledPlayers.length) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return CannotDistributeDialog();
+        });
+  }
+}
+
+class CannotDistributeDialog extends StatelessWidget {
+  const CannotDistributeDialog({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("Cannot distribute!"),
+      content: Text(
+          "The number of players is not equal to the number of roles. Try again later."),
+      actions: [
+        FlatButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: new Text('Cancel'),
+        ),
+      ],
+    );
   }
 }
 
