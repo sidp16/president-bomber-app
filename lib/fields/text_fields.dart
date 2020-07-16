@@ -20,7 +20,7 @@ class GameIDTextField extends StatelessWidget {
               labelText: JOIN_GAME_TEXT_FIELD_HINT,
             ),
             validator: (String value) {
-              if (value.isEmpty) {
+              if (value.trim().isEmpty) {
                 return 'Game ID is required';
               }
               return null;
@@ -56,7 +56,7 @@ class NameTextField extends StatelessWidget {
               labelText: NAME_TEXT_FIELD_HINT,
             ),
             validator: (String value) {
-              if (value.isEmpty) {
+              if (value.trim().isEmpty) {
                 return 'Name is required';
               }
               return null;

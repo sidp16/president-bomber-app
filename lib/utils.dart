@@ -25,7 +25,7 @@ void resetRoles(String gameId) {
   });
 }
 
-void uploadRole(String gameId, String role) async {
+void uploadRole(String gameId, String role, String name) async {
   // Get original data
   DocumentSnapshot data = await getDataForGameId(gameId);
 
@@ -37,7 +37,8 @@ void uploadRole(String gameId, String role) async {
     PLAYERS: data[PLAYERS],
     ROLES: arrayRoles,
     GAME_END: data[GAME_END],
-    DISTRIBUTIONS: data[DISTRIBUTIONS]
+    DISTRIBUTIONS: data[DISTRIBUTIONS],
+    OWNER: name
   };
 
   // Upload new document
@@ -109,4 +110,13 @@ void distributeRoles(
 Future moveToHomePage(BuildContext context) {
   return Navigator.push(
       context, MaterialPageRoute(builder: (context) => MyApp()));
+}
+
+Future<void> removePlayerFromGame(String gameId, String name) {
+  return Firestore.instance
+      .collection(COLLECTION_NAME)
+      .document(gameId)
+      .updateData({
+    PLAYERS: FieldValue.arrayRemove([name]),
+  });
 }

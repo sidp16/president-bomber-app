@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:presidentbomber/buttons/owner_leave_game_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
+import 'package:presidentbomber/views/dialogs/OwnerLeaveGameDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/timer/round_timer.dart';
 
@@ -24,32 +27,42 @@ class OwnerGameScreen extends StatefulWidget {
 
 class _OwnerGameScreenState extends State<OwnerGameScreen> {
   RoundTimer currentRoundTimer;
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => OwnerLeaveGameDialog(widget: widget),
+        )) ??
+        false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        title: Text("${widget.gameId} | Owner Console"),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Colors.lightBlue, Colors.blue])),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          title: Text("${widget.gameId} | Owner Console"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[Colors.lightBlue, Colors.blue])),
+          ),
         ),
-      ),
-      drawer: PlayerOwnerDrawer(),
-      body: StreamBuilder(
-        stream: Firestore.instance
-            .collection(COLLECTION_NAME)
-            .document(this.widget.gameId)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
-          return _buildContent(snapshot);
-        },
+        drawer: PlayerOwnerDrawer(),
+        body: StreamBuilder(
+          stream: Firestore.instance
+              .collection(COLLECTION_NAME)
+              .document(this.widget.gameId)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
+            return _buildContent(snapshot);
+          },
+        ),
       ),
     );
   }
@@ -76,6 +89,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
           HostageButton(
               gameId: widget.gameId,
               role: BLUE,
+              name: this.widget.name,
               color: Colors.blue,
               splashColor: Colors.blueAccent),
           Container(
@@ -90,6 +104,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
           HostageButton(
               gameId: widget.gameId,
               role: RED,
+              name: this.widget.name,
               color: Colors.red,
               splashColor: Colors.redAccent),
         ],

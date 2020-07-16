@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/views/dialogs/PlayerLeaveGameDialog.dart';
 import 'package:presidentbomber/views/information_cards.dart';
 import 'package:presidentbomber/views/messages/players_list_message.dart';
 import 'package:presidentbomber/views/messages/roles_list_message.dart';
@@ -22,58 +23,69 @@ class PlayerGameScreen extends StatefulWidget {
 }
 
 class _PlayerGameScreenState extends State<PlayerGameScreen> {
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => PlayerLeaveGameDialog(widget: widget),
+        )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        title: Text("${widget.gameId} | Player View"),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Colors.lightBlue, Colors.blue])),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          title: Text("${widget.gameId} | Player View"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[Colors.lightBlue, Colors.blue])),
+          ),
         ),
-      ),
-      drawer: PlayerOwnerDrawer(),
-      body: StreamBuilder(
-        stream: Firestore.instance
-            .collection(COLLECTION_NAME)
-            .document(this.widget.gameId)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
+        drawer: PlayerOwnerDrawer(),
+        body: StreamBuilder(
+          stream: Firestore.instance
+              .collection(COLLECTION_NAME)
+              .document(this.widget.gameId)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
 
-          List informationSubtext = [
-            RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
-            PlayersListMessage(snapshot.data[PLAYERS]),
-            RolesListMessage(snapshot.data[ROLES]),
-            UniqueRoleMessage(
-                snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-            buildRoundTimer(context, snapshot)
-          ];
+            List informationSubtext = [
+              RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
+              PlayersListMessage(snapshot.data[PLAYERS]),
+              RolesListMessage(snapshot.data[ROLES]),
+              UniqueRoleMessage(
+                  snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
+              buildRoundTimer(context, snapshot)
+            ];
 
-          if (snapshot.data[OWNER] == this.widget.name) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        OwnerGameScreen(this.widget.gameId, this.widget.name)));
-          }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              PlayerInformationCard(
-                informationSubtext: informationSubtext,
-                role: snapshot.data[DISTRIBUTIONS][widget.name],
-                gameID: this.widget.gameId,
-                name: this.widget.name,
-              ),
-            ],
-          );
-        },
+            if (snapshot.data[OWNER] == this.widget.name) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OwnerGameScreen(
+                          this.widget.gameId, this.widget.name)));
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                PlayerInformationCard(
+                  informationSubtext: informationSubtext,
+                  role: snapshot.data[DISTRIBUTIONS][widget.name],
+                  gameID: this.widget.gameId,
+                  name: this.widget.name,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -91,7 +103,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Center(
           child:
-              Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 16))),
+              Text(WAITING_FOR_TIMER_MESSAGE, style: TextStyle(fontSize: 18))),
     );
   }
 }
