@@ -24,7 +24,7 @@ const BLUE = 'Blue';
 const RED = 'Red';
 const PRESIDENT = 'President';
 const BOMBER = 'Bomber';
-const DISTRIBUTE_ROLES_BUTTON_TEXT = 'Distribute';
+const DISTRIBUTE_ROLES_BUTTON_TEXT = 'Start Game';
 const LEAVE_GAME = 'Leave Game';
 const NUMBER_OF_ROLES_MESSAGE = ' roles in game';
 const IN_LOBBY_MESSAGE = ' in lobby / ';
@@ -76,4 +76,19 @@ const List INFORMATION_TILES = [
   'Roles in Game',
   'Your Role',
   'Timer'
+];
+
+const List FUNNY_MESSAGES = [
+  "I’m not superstitious, but I am a little stitious.",
+  "Occasionally i'll hit somebody with my car. So sue me.",
+  "I DECLARE BANKRUPTCYYY!",
+  "Well well well, how the turned tables...",
+  "Well, just tell him to call me as ASAP as possible.",
+  'You know what they say, "Fool me once, strike one, but fool me twice...strike three."',
+  "Too much change is not a good thing. Ask the climate.",
+  "Wish I could, but I can't. Well can. But won't. Should, maybe, but shorn't.",
+  "The worst thing about prison was the Dementors.",
+  "Today, smoking is going to save lives.",
+  "Love inside jokes. Would love to be a part of one someday.",
+  "I learned that a while back that if I don't text 911, people will not return my calls."
 ];
