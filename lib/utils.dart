@@ -76,8 +76,8 @@ void addNewOwner(String gameId, List<dynamic> players) => Firestore.instance
     .document(gameId)
     .updateData({OWNER: players.elementAt(1)});
 
-void distributeRoles(
-    String gameId, List roles, List players, BuildContext context) {
+void distributeRoles(String gameId, List roles, List players,
+    BuildContext context, String name) {
   List shuffledRoles = List.from(roles);
   List shuffledPlayers = List.from(players);
   shuffledRoles.shuffle();
@@ -94,7 +94,8 @@ void distributeRoles(
     ROLES: roles,
     DISTRIBUTIONS: distributions,
     GAME_START: new DateTime.now(),
-    GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2))
+    GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2)),
+    OWNER: name
   };
 
   try {

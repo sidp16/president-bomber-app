@@ -7,7 +7,6 @@ import 'package:presidentbomber/buttons/clear_roles.dart';
 import 'package:presidentbomber/buttons/distribute_button.dart';
 import 'package:presidentbomber/buttons/hostage_button.dart';
 import 'package:presidentbomber/buttons/owner_info_button.dart';
-import 'package:presidentbomber/buttons/owner_leave_game_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
@@ -98,7 +97,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                 gameId: widget.gameId,
                 onPressed: () => {
                       distributeRoles(widget.gameId, snapshot.data[ROLES],
-                          snapshot.data[PLAYERS], context),
+                          snapshot.data[PLAYERS], context, this.widget.name),
                     }),
           ),
           HostageButton(
@@ -201,8 +200,6 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         children: [
           ClearRolesButton(gameId: widget.gameId),
           GameInfoButton(context: context, widget: widget),
-          OwnerLeaveGameButton(
-              widget.gameId, widget.name, snapshot.data[PLAYERS])
         ],
       ),
     );
