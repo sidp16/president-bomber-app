@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:presidentbomber/constants.dart';
 
 class GameIDTextField extends StatelessWidget {
@@ -13,6 +14,9 @@ class GameIDTextField extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: TextFormField(
+            inputFormatters: [
+              new WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
+            ],
             controller: gameIdTextFieldController,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.lock, color: Colors.grey, size: 20),
@@ -49,6 +53,9 @@ class NameTextField extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: TextFormField(
+            inputFormatters: [
+              new WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
+            ],
             controller: nameTextFieldController,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.person, color: Colors.grey, size: 20),

@@ -7,6 +7,7 @@ import 'package:presidentbomber/buttons/create_game.dart';
 import 'package:presidentbomber/buttons/join_game_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/fields/text_fields.dart';
+import 'package:presidentbomber/views/dialogs/NameConflictDialog.dart';
 import 'package:presidentbomber/views/dialogs/NoGameFoundDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/messages/no_gameid_message.dart';
@@ -113,6 +114,24 @@ class MyAppState extends State<MyApp> {
       }
       _gameIdFormKey.currentState.save();
       _nameFormKey.currentState.save();
+
+      final nameCheck = await Firestore.instance
+          .collection(COLLECTION_NAME)
+          .document(gameIdTextFieldController.text.trim())
+          .get();
+
+      if (nameCheck.data[PLAYERS]
+          .toString()
+          .toLowerCase()
+          .contains(nameTextFieldController.text.trim().toLowerCase())) {
+        return showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return NameConflictDialog();
+            });
+      }
+
       addPlayerToGame(gameIdTextFieldController.text.trim(),
           nameTextFieldController.text.trim());
 

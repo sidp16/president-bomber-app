@@ -20,7 +20,7 @@ class SpecialRoleButton extends StatelessWidget {
     return Container(
       height: 100,
       width: 120,
-      child: RaisedButton(
+      child: FlatButton(
         color: colour,
         textColor: Colors.white,
         disabledColor: Colors.grey,

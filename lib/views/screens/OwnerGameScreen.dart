@@ -70,10 +70,10 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        buildTopRow(snapshot),
         buildRoleRow1(),
         buildRoleRow2(),
         buildRoleRow3(),
+        buildTopRow(snapshot),
         buildUtilityButtons(snapshot),
       ],
     );
