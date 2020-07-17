@@ -17,7 +17,7 @@ class OwnerLeaveGameDialog extends StatelessWidget {
     return StreamBuilder(
         stream: Firestore.instance
             .collection(COLLECTION_NAME)
-            .document(this.widget.gameId)
+            .document(this.widget.gameId.toString().toLowerCase())
             .snapshots(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {

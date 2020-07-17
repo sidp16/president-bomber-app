@@ -13,14 +13,13 @@ import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/messages/no_gameid_message.dart';
 import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
 import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
-import 'package:presidentbomber/views/screens/SplashScreen.dart';
 
 import 'utils.dart';
 
 void main() {
   runApp(MaterialApp(
     title: APP_TITLE,
-    home: SplashScreen(),
+    home: MyApp(),
   ));
 }
 
@@ -59,7 +58,7 @@ class MyAppState extends State<MyApp> {
             body: StreamBuilder(
                 stream: Firestore.instance
                     .collection(COLLECTION_NAME)
-                    .document(currentGameId)
+                    .document(currentGameId.toLowerCase())
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData)
@@ -116,12 +115,19 @@ class MyAppState extends State<MyApp> {
       _gameIdFormKey.currentState.save();
       _nameFormKey.currentState.save();
 
-      final nameCheck = await Firestore.instance
+      final dataChecks = await Firestore.instance
           .collection(COLLECTION_NAME)
-          .document(gameIdTextFieldController.text.trim())
+          .document(gameIdTextFieldController.text.trim().toLowerCase())
           .get();
 
-      if (nameCheck.data[PLAYERS]
+      if (dataChecks == null || !dataChecks.exists) {
+        return buildNoGameFoundDialog(context);
+      } else {
+        addPlayerToGame(gameIdTextFieldController.text.trim(),
+            nameTextFieldController.text.trim());
+      }
+
+      if (dataChecks.data[PLAYERS]
           .toString()
           .toLowerCase()
           .contains(nameTextFieldController.text.trim().toLowerCase())) {
@@ -133,28 +139,13 @@ class MyAppState extends State<MyApp> {
             });
       }
 
-      addPlayerToGame(gameIdTextFieldController.text.trim(),
-          nameTextFieldController.text.trim());
-
-      return await moveToCorrectScreen(context, snapshot);
-    }
-  }
-
-  moveToCorrectScreen(BuildContext context, AsyncSnapshot snapshot) async {
-    final ownerGameIDChecks = await Firestore.instance
-        .collection(COLLECTION_NAME)
-        .document(gameIdTextFieldController.text.trim())
-        .get();
-
-    if (ownerGameIDChecks == null || !ownerGameIDChecks.exists) {
-      return buildNoGameFoundDialog(context);
-    }
-    if (ownerGameIDChecks.data[OWNER] == nameTextFieldController.text.trim() ||
-        ownerGameIDChecks.data[OWNER] == null) {
-      addOwnerIfGameEmpty();
-      moveToOwnerScreen(context);
-    } else {
-      return moveToPlayerScreen(context);
+      if (dataChecks.data[OWNER] == nameTextFieldController.text.trim() ||
+          dataChecks.data[OWNER] == null) {
+        addOwnerIfGameEmpty();
+        return moveToOwnerScreen(context);
+      } else {
+        return moveToPlayerScreen(context);
+      }
     }
   }
 
@@ -182,7 +173,7 @@ class MyAppState extends State<MyApp> {
     String name = nameTextFieldController.text.trim();
     Firestore.instance
         .collection(COLLECTION_NAME)
-        .document(gameIdTextFieldController.text.trim())
+        .document(gameIdTextFieldController.text.trim().toLowerCase())
         .updateData({OWNER: '$name'});
   }
 
@@ -212,7 +203,7 @@ class MyAppState extends State<MyApp> {
     gameIdTextFieldController.clear();
     _gameIdFormKey.currentState.reset();
     _nameFormKey.currentState.save();
-    createGame(gameId, nameTextFieldController.text.trim());
+    createGame(gameId.toLowerCase(), nameTextFieldController.text.trim());
 
     Navigator.push(
         context,

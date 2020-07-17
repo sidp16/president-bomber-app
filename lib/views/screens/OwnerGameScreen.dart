@@ -41,7 +41,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          title: Text("${widget.gameId} | Owner Console"),
+          title: Text("${widget.gameId.toLowerCase()} | Owner Console"),
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -54,7 +54,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         body: StreamBuilder(
           stream: Firestore.instance
               .collection(COLLECTION_NAME)
-              .document(this.widget.gameId)
+              .document(this.widget.gameId.toLowerCase())
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData)

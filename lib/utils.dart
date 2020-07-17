@@ -16,18 +16,21 @@ void createGame(String gameId, String name) {
     OWNER: name
   };
 
-  data.document(gameId).setData(doc);
+  data.document(gameId.toLowerCase()).setData(doc);
 }
 
 void resetRoles(String gameId) {
-  Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
+  Firestore.instance
+      .collection(COLLECTION_NAME)
+      .document(gameId.toLowerCase())
+      .updateData({
     ROLES: [PRESIDENT, BOMBER]
   });
 }
 
 void uploadRole(String gameId, String role, String name) async {
   // Get original data
-  DocumentSnapshot data = await getDataForGameId(gameId);
+  DocumentSnapshot data = await getDataForGameId(gameId.toLowerCase());
 
   // Add new role
   List arrayRoles = new List.from(data[ROLES]);
@@ -44,36 +47,42 @@ void uploadRole(String gameId, String role, String name) async {
   // Upload new document
   Firestore.instance
       .collection(COLLECTION_NAME)
-      .document(gameId)
+      .document(gameId.toLowerCase())
       .setData(newDocument);
 }
 
 Future<DocumentSnapshot> getDataForGameId(String gameId) async =>
     await Firestore.instance
         .collection(COLLECTION_NAME)
-        .document(gameId)
+        .document(gameId.toLowerCase())
         .snapshots()
         .first;
 
-void addPlayerToGame(String gameId, String player) async =>
-    Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
+void addPlayerToGame(String gameId, String player) async => Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameId.toLowerCase())
+        .updateData({
       PLAYERS: FieldValue.arrayUnion([player])
     });
 
-void addUniqueRole(String gameId, String role) =>
-    Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
+void addUniqueRole(String gameId, String role) => Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameId.toLowerCase())
+        .updateData({
       ROLES: FieldValue.arrayUnion([role])
     });
 
-void removeOwnerFromGame(String gameId, String name) =>
-    Firestore.instance.collection(COLLECTION_NAME).document(gameId).updateData({
+void removeOwnerFromGame(String gameId, String name) => Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(gameId.toLowerCase())
+        .updateData({
       PLAYERS: FieldValue.arrayRemove([name]),
       OWNER: null
     });
 
 void addNewOwner(String gameId, List<dynamic> players) => Firestore.instance
     .collection(COLLECTION_NAME)
-    .document(gameId)
+    .document(gameId.toLowerCase())
     .updateData({OWNER: players.elementAt(1)});
 
 void distributeRoles(String gameId, List roles, List players,
@@ -103,7 +112,7 @@ void distributeRoles(String gameId, List roles, List players,
   try {
     Firestore.instance
         .collection(COLLECTION_NAME)
-        .document(gameId)
+        .document(gameId.toLowerCase())
         .setData(newDoc);
   } on Exception catch (e) {
     print("Firebase errored while doing upload! $e");
@@ -151,7 +160,7 @@ Future moveToHomePage(BuildContext context) {
 Future<void> removePlayerFromGame(String gameId, String name) {
   return Firestore.instance
       .collection(COLLECTION_NAME)
-      .document(gameId)
+      .document(gameId.toLowerCase())
       .updateData({
     PLAYERS: FieldValue.arrayRemove([name]),
   });

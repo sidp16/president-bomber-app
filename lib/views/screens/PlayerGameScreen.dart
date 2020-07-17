@@ -38,7 +38,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          title: Text("${widget.gameId} | Player View"),
+          title: Text("${widget.gameId.toLowerCase()} | Player View"),
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -51,7 +51,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
         body: StreamBuilder(
           stream: Firestore.instance
               .collection(COLLECTION_NAME)
-              .document(this.widget.gameId)
+              .document(this.widget.gameId.toLowerCase())
               .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData)

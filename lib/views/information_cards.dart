@@ -71,7 +71,7 @@ class PlayerInformationCard extends StatelessWidget {
   Future<void> showRoleDetailsDialog(BuildContext context) async {
     final roleDetailsCheck = await Firestore.instance
         .collection(COLLECTION_NAME)
-        .document(gameID)
+        .document(gameID.toLowerCase())
         .get();
 
     if (roleDetailsCheck.data[DISTRIBUTIONS][name] == null) {

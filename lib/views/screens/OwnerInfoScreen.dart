@@ -36,7 +36,7 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
       body: StreamBuilder(
         stream: Firestore.instance
             .collection(COLLECTION_NAME)
-            .document(this.widget.gameId)
+            .document(this.widget.gameId.toLowerCase())
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData)
