@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 
-class DistributeButton extends StatelessWidget {
-  final String gameId;
+class StartGameButton extends StatelessWidget {
   final Function onPressed;
 
-  DistributeButton({
-    this.gameId,
+  StartGameButton({
     this.onPressed,
   });
 
@@ -17,12 +15,11 @@ class DistributeButton extends StatelessWidget {
       width: 180.0,
       child: RaisedButton(
         color: Colors.green,
-        splashColor: Colors.lightGreen,
         onPressed: onPressed,
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            DISTRIBUTE_ROLES_BUTTON_TEXT,
+            START_GAME_BUTTON_TEXT,
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900),

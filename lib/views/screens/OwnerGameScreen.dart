@@ -8,6 +8,7 @@ import 'package:presidentbomber/buttons/distribute_button.dart';
 import 'package:presidentbomber/buttons/hostage_button.dart';
 import 'package:presidentbomber/buttons/owner_info_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
+import 'package:presidentbomber/buttons/start_game_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/dialogs/OwnerLeaveGameDialog.dart';
@@ -70,16 +71,45 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
+        buildTopRow(snapshot),
         buildRoleRow1(),
         buildRoleRow2(),
         buildRoleRow3(),
-        buildTopRow(snapshot),
+        buildHostageRow4(snapshot),
         buildUtilityButtons(snapshot),
       ],
     );
   }
 
   Padding buildTopRow(AsyncSnapshot snapshot) {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 14, 0, 2),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Container(
+            height: 103,
+            child: DistributeButton(
+                gameId: widget.gameId,
+                onPressed: () => {
+                      distributeRoles(widget.gameId, snapshot.data[ROLES],
+                          snapshot.data[PLAYERS], context, this.widget.name),
+                    }),
+          ),
+          Container(
+            height: 103,
+            child: StartGameButton(
+                onPressed: () => {
+                      startTimer(
+                          snapshot.data[PLAYERS],
+                          snapshot.data[ROLES],
+                          this.widget.name,
+                          snapshot.data[DISTRIBUTIONS],
+                          this.widget.gameId)
+                    }),
+          ),
+        ]));
+  }
+
+  Padding buildHostageRow4(AsyncSnapshot snapshot) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 14, 0, 6),
       child: Row(
@@ -91,15 +121,6 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               name: this.widget.name,
               color: Colors.blue,
               splashColor: Colors.blueAccent),
-          Container(
-            height: 103,
-            child: DistributeButton(
-                gameId: widget.gameId,
-                onPressed: () => {
-                      distributeRoles(widget.gameId, snapshot.data[ROLES],
-                          snapshot.data[PLAYERS], context, this.widget.name),
-                    }),
-          ),
           HostageButton(
               gameId: widget.gameId,
               role: RED,

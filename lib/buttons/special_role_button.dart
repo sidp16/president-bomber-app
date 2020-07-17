@@ -18,7 +18,7 @@ class SpecialRoleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 60,
       width: 120,
       child: FlatButton(
         color: colour,
