@@ -8,7 +8,7 @@ import 'package:presidentbomber/buttons/distribute_button.dart';
 import 'package:presidentbomber/buttons/hostage_button.dart';
 import 'package:presidentbomber/buttons/owner_info_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
-import 'package:presidentbomber/buttons/start_game_button.dart';
+import 'package:presidentbomber/buttons/start_stop_game_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/dialogs/OwnerLeaveGameDialog.dart';
@@ -96,9 +96,25 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
           ),
           Container(
             height: 103,
-            child: StartGameButton(
+            child: StartStopGameButton(
+                color: Colors.green,
+                title: 'Start Timer',
                 onPressed: () => {
                       startTimer(
+                          snapshot.data[PLAYERS],
+                          snapshot.data[ROLES],
+                          this.widget.name,
+                          snapshot.data[DISTRIBUTIONS],
+                          this.widget.gameId)
+                    }),
+          ),
+          Container(
+            height: 103,
+            child: StartStopGameButton(
+                color: Colors.red,
+                title: 'Reset Timer',
+                onPressed: () => {
+                      resetTimer(
                           snapshot.data[PLAYERS],
                           snapshot.data[ROLES],
                           this.widget.name,

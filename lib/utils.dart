@@ -14,6 +14,7 @@ void createGame(String gameId, String name) {
     PLAYERS: [name],
     ROLES: [PRESIDENT, BOMBER],
     DISTRIBUTIONS: {},
+    'stopGamePress': '',
     OWNER: name
   };
 
@@ -42,6 +43,7 @@ void uploadRole(String gameId, String role, String name) async {
     ROLES: arrayRoles,
     GAME_END: data[GAME_END],
     DISTRIBUTIONS: data[DISTRIBUTIONS],
+    'stopGamePress': '',
     OWNER: name
   };
 
@@ -105,6 +107,8 @@ void distributeRoles(String gameId, List roles, List players,
     PLAYERS: players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
+    GAME_END: null,
+    'stopGamePress': '',
     OWNER: name
   };
 
@@ -150,8 +154,26 @@ void startTimer(
     PLAYERS: players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
+    'stopGamePress': '',
     GAME_START: new DateTime.now(),
     GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2)),
+    OWNER: name
+  };
+
+  Firestore.instance
+      .collection(COLLECTION_NAME)
+      .document(gameId.toLowerCase())
+      .setData(newDoc);
+}
+
+void resetTimer(
+    List players, List roles, String name, distributions, String gameId) {
+  var newDoc = {
+    PLAYERS: players,
+    ROLES: roles,
+    DISTRIBUTIONS: distributions,
+    'stopGamePress': '',
+    GAME_END: null,
     OWNER: name
   };
 
