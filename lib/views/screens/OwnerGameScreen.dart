@@ -51,7 +51,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                     colors: <Color>[Colors.lightBlue, Colors.blue])),
           ),
         ),
-        drawer: PlayerOwnerDrawer(),
+        drawer: OwnerDrawer(this.widget.gameId, this.widget.name),
         body: StreamBuilder(
           stream: Firestore.instance
               .collection(COLLECTION_NAME)

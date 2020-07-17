@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
 
@@ -32,6 +33,8 @@ class OwnerLeaveGameDialog extends StatelessWidget {
               new FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop(true);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyApp()));
                   removeOwnerFromGame(this.widget.gameId, this.widget.name);
                   addNewOwner(this.widget.gameId, snapshot.data[PLAYERS]);
                 },

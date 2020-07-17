@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
 
@@ -23,6 +24,8 @@ class PlayerLeaveGameDialog extends StatelessWidget {
         new FlatButton(
           onPressed: () => {
             Navigator.of(context).pop(true),
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MyApp())),
             removePlayerFromGame(this.widget.gameId, this.widget.name)
           },
           child: new Text('Yes'),

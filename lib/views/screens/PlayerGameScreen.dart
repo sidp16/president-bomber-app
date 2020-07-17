@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/views/dialogs/PlayerLeaveGameDialog.dart';
+import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/information_cards.dart';
 import 'package:presidentbomber/views/messages/players_list_message.dart';
 import 'package:presidentbomber/views/messages/roles_list_message.dart';
@@ -9,8 +10,6 @@ import 'package:presidentbomber/views/messages/roles_lobby_message.dart';
 import 'package:presidentbomber/views/messages/unique_role_message.dart';
 import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
 import 'package:presidentbomber/views/timer/round_timer.dart';
-
-import '../drawer/drawers.dart';
 
 class PlayerGameScreen extends StatefulWidget {
   final String gameId;
@@ -47,7 +46,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
                     colors: <Color>[Colors.lightBlue, Colors.blue])),
           ),
         ),
-        drawer: PlayerOwnerDrawer(),
+        drawer: PlayerDrawer(widget.gameId, widget.name),
         body: StreamBuilder(
           stream: Firestore.instance
               .collection(COLLECTION_NAME)
