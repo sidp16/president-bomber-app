@@ -61,17 +61,22 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (snapshot.data[STOP_GAME_BOOL]) {
                 showDialog(
-                    barrierDismissible: true,
+                    barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("Game has ended!"),
-                        content: Text(snapshot.data[DISTRIBUTIONS]
-                            .toString()
-                            .replaceAll("{", "")
-                            .replaceAll("}", "")
-                            .replaceAll(",", "\n")),
-                      );
+                          title: Text("Game has ended!"),
+                          content: Text(snapshot.data[DISTRIBUTIONS]
+                              .toString()
+                              .replaceAll("{", "")
+                              .replaceAll("}", "")
+                              .replaceAll(",", "\n")),
+                          actions: [
+                            FlatButton(
+                                child: Text("Continue"),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true))
+                          ]);
                     });
               }
             });

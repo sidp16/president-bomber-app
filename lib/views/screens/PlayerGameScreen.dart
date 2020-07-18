@@ -53,6 +53,28 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
               .document(this.widget.gameId.toLowerCase())
               .snapshots(),
           builder: (context, snapshot) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (snapshot.data[STOP_GAME_BOOL]) {
+                showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                          title: Text("Game has ended!"),
+                          content: Text(snapshot.data[DISTRIBUTIONS]
+                              .toString()
+                              .replaceAll("{", "")
+                              .replaceAll("}", "")
+                              .replaceAll(",", "\n")),
+                          actions: [
+                            FlatButton(
+                                child: Text("Continue"),
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true))
+                          ]);
+                    });
+              }
+            });
             if (!snapshot.hasData)
               return Center(child: CircularProgressIndicator());
 

@@ -47,7 +47,9 @@ class _DistributeButtonState extends State<DistributeButton> {
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            (changeValues) ? 'End Game' : DISTRIBUTE_ROLES_BUTTON_TEXT,
+            (changeValues)
+                ? END_GAME_BUTTON_TEXT
+                : DISTRIBUTE_ROLES_BUTTON_TEXT,
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900),
