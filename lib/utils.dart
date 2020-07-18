@@ -14,7 +14,7 @@ void createGame(String gameId, String name) {
     PLAYERS: [name],
     ROLES: [PRESIDENT, BOMBER],
     DISTRIBUTIONS: {},
-    'stopGamePress': '',
+    STOP_GAME_BOOL: false,
     OWNER: name
   };
 
@@ -26,7 +26,8 @@ void resetRoles(String gameId) {
       .collection(COLLECTION_NAME)
       .document(gameId.toLowerCase())
       .updateData({
-    ROLES: [PRESIDENT, BOMBER]
+    ROLES: [PRESIDENT, BOMBER],
+    STOP_GAME_BOOL: false
   });
 }
 
@@ -43,7 +44,7 @@ void uploadRole(String gameId, String role, String name) async {
     ROLES: arrayRoles,
     GAME_END: data[GAME_END],
     DISTRIBUTIONS: data[DISTRIBUTIONS],
-    'stopGamePress': '',
+    STOP_GAME_BOOL: false,
     OWNER: name
   };
 
@@ -65,14 +66,16 @@ void addPlayerToGame(String gameId, String player) async => Firestore.instance
         .collection(COLLECTION_NAME)
         .document(gameId.toLowerCase())
         .updateData({
-      PLAYERS: FieldValue.arrayUnion([player])
+      PLAYERS: FieldValue.arrayUnion([player]),
+      STOP_GAME_BOOL: false,
     });
 
 void addUniqueRole(String gameId, String role) => Firestore.instance
         .collection(COLLECTION_NAME)
         .document(gameId.toLowerCase())
         .updateData({
-      ROLES: FieldValue.arrayUnion([role])
+      ROLES: FieldValue.arrayUnion([role]),
+      STOP_GAME_BOOL: false,
     });
 
 void removeOwnerFromGame(String gameId, String name) => Firestore.instance
@@ -108,7 +111,7 @@ void distributeRoles(String gameId, List roles, List players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
     GAME_END: null,
-    'stopGamePress': '',
+    STOP_GAME_BOOL: false,
     OWNER: name
   };
 
@@ -148,13 +151,13 @@ Future<void> removePlayerFromGame(String gameId, String name) {
   });
 }
 
-void startTimer(
-    List players, List roles, String name, distributions, String gameId) {
+void startTimer(List players, List roles, String name, distributions,
+    String gameId, stopGamePress) {
   var newDoc = {
     PLAYERS: players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
-    'stopGamePress': '',
+    STOP_GAME_BOOL: stopGamePress,
     GAME_START: new DateTime.now(),
     GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2)),
     OWNER: name
@@ -166,14 +169,14 @@ void startTimer(
       .setData(newDoc);
 }
 
-void resetTimer(
-    List players, List roles, String name, distributions, String gameId) {
+void resetTimer(List players, List roles, String name, distributions,
+    String gameId, stopGamePress) {
   var doc = {
     PLAYERS: players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
-    'stopGamePress': '',
     GAME_END: null,
+    STOP_GAME_BOOL: stopGamePress,
     OWNER: name
   };
 
@@ -182,3 +185,8 @@ void resetTimer(
       .document(gameId.toLowerCase())
       .setData(doc);
 }
+
+void showAllRoles(String gameId) async => Firestore.instance
+    .collection(COLLECTION_NAME)
+    .document(gameId.toLowerCase())
+    .updateData({STOP_GAME_BOOL: true});

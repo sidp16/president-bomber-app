@@ -58,6 +58,23 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               .document(this.widget.gameId.toLowerCase())
               .snapshots(),
           builder: (context, snapshot) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (snapshot.data[STOP_GAME_BOOL]) {
+                showDialog(
+                    barrierDismissible: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Game has ended!"),
+                        content: Text(snapshot.data[DISTRIBUTIONS]
+                            .toString()
+                            .replaceAll("{", "")
+                            .replaceAll("}", "")
+                            .replaceAll(",", "\n")),
+                      );
+                    });
+              }
+            });
             if (!snapshot.hasData)
               return Center(child: CircularProgressIndicator());
             return _buildContent(snapshot);
@@ -88,13 +105,15 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
           Container(
               height: 103,
               child: DistributeButton(
-                  gameId: widget.gameId,
-                  roles: snapshot.data[ROLES],
-                  players: snapshot.data[PLAYERS],
-                  name: widget.name)),
+                gameId: widget.gameId,
+                roles: snapshot.data[ROLES],
+                players: snapshot.data[PLAYERS],
+                name: widget.name,
+                stopGameBool: snapshot.data[STOP_GAME_BOOL],
+              )),
           Container(
             height: 103,
-            child: StartStopGameButton(
+            child: StartStopTimerButton(
                 color: Colors.red,
                 title: 'Reset Timer',
                 onPressed: () => {
@@ -103,23 +122,26 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                           snapshot.data[ROLES],
                           this.widget.name,
                           snapshot.data[DISTRIBUTIONS],
-                          this.widget.gameId),
+                          this.widget.gameId,
+                          snapshot.data[STOP_GAME_BOOL]),
+                      // TODO: Create a notifcation for user that he / she has clicked reset timer button
                     }),
           ),
           Container(
-            height: 103,
-            child: StartStopGameButton(
-                color: Colors.green,
-                title: 'Start Timer',
-                onPressed: () => {
-                      startTimer(
-                          snapshot.data[PLAYERS],
-                          snapshot.data[ROLES],
-                          this.widget.name,
-                          snapshot.data[DISTRIBUTIONS],
-                          this.widget.gameId),
-                    }),
-          ),
+              height: 103,
+              child: StartStopTimerButton(
+                  color: Colors.green,
+                  title: 'Start Timer',
+                  onPressed: () => {
+                        startTimer(
+                            snapshot.data[PLAYERS],
+                            snapshot.data[ROLES],
+                            this.widget.name,
+                            snapshot.data[DISTRIBUTIONS],
+                            this.widget.gameId,
+                            snapshot.data[STOP_GAME_BOOL]),
+                        // TODO: Create a notifcation for user that he / she has clicked start timer button
+                      })),
         ]));
   }
 

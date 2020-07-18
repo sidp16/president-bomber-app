@@ -9,8 +9,6 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
       child: Container(

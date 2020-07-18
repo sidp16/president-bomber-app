@@ -7,13 +7,15 @@ class DistributeButton extends StatefulWidget {
   final List roles;
   final List players;
   final String name;
+  final bool stopGameBool;
 
   const DistributeButton(
       {Key key,
       @required this.gameId,
       @required this.roles,
       @required this.players,
-      @required this.name})
+      @required this.name,
+      @required this.stopGameBool})
       : super(key: key);
 
   @override
@@ -33,12 +35,14 @@ class _DistributeButtonState extends State<DistributeButton> {
         onPressed: () {
           setState(() {
             changeValues = !changeValues;
-            print(changeValues);
           });
-          (changeValues)
-              ? distributeRoles(widget.gameId, widget.roles, widget.players,
-                  context, widget.name)
-              : null;
+          if (changeValues) {
+            distributeRoles(widget.gameId, widget.roles, widget.players,
+                context, widget.name);
+            // TODO: Create a notifcation for user that he / she has clicked distribute button
+          } else {
+            showAllRoles(widget.gameId);
+          }
         },
         child: Container(
           alignment: Alignment.center,

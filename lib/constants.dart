@@ -39,6 +39,7 @@ const WAITING_FOR_TIMER_MESSAGE = "Waiting for creator to start!";
 const WAITING_FOR_DISTRIBUTION_MESSAGE = "Waiting for creator to distribute!";
 const OWNER = 'owner';
 const LOADING_TIMER_MESSAGE = 'Loading...';
+const STOP_GAME_BOOL = 'stopGamePress';
 const List ALL_ROLES = [
   'Bomber',
   'President',

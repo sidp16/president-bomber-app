@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class StartStopGameButton extends StatelessWidget {
+class StartStopTimerButton extends StatelessWidget {
   final Function onPressed;
   final String title;
   final Color color;
 
-  StartStopGameButton({
+  StartStopTimerButton({
     this.onPressed,
     this.title,
     this.color,
