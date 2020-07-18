@@ -22,9 +22,13 @@ class HostageButton extends StatelessWidget {
       splashColor: splashColor,
       onPressed: () => {
         uploadRole(gameId, role, name),
+        Scaffold.of(context).hideCurrentSnackBar(),
         Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Added $role Hostage!"),
-            duration: Duration(seconds: 1, milliseconds: 500)))
+          content: Text("Added $role Hostage!"),
+          duration: Duration(seconds: 1, milliseconds: 500),
+          elevation: 20.0,
+          behavior: SnackBarBehavior.floating,
+        ))
       },
       child: Text(
         role,

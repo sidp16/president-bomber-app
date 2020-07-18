@@ -86,12 +86,24 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         padding: const EdgeInsets.fromLTRB(0, 14, 0, 2),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Container(
+              height: 103,
+              child: DistributeButton(
+                  gameId: widget.gameId,
+                  roles: snapshot.data[ROLES],
+                  players: snapshot.data[PLAYERS],
+                  name: widget.name)),
+          Container(
             height: 103,
-            child: DistributeButton(
-                gameId: widget.gameId,
+            child: StartStopGameButton(
+                color: Colors.red,
+                title: 'Reset Timer',
                 onPressed: () => {
-                      distributeRoles(widget.gameId, snapshot.data[ROLES],
-                          snapshot.data[PLAYERS], context, this.widget.name),
+                      resetTimer(
+                          snapshot.data[PLAYERS],
+                          snapshot.data[ROLES],
+                          this.widget.name,
+                          snapshot.data[DISTRIBUTIONS],
+                          this.widget.gameId),
                     }),
           ),
           Container(
@@ -105,21 +117,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
                           snapshot.data[ROLES],
                           this.widget.name,
                           snapshot.data[DISTRIBUTIONS],
-                          this.widget.gameId)
-                    }),
-          ),
-          Container(
-            height: 103,
-            child: StartStopGameButton(
-                color: Colors.red,
-                title: 'Reset Timer',
-                onPressed: () => {
-                      resetTimer(
-                          snapshot.data[PLAYERS],
-                          snapshot.data[ROLES],
-                          this.widget.name,
-                          snapshot.data[DISTRIBUTIONS],
-                          this.widget.gameId)
+                          this.widget.gameId),
                     }),
           ),
         ]));

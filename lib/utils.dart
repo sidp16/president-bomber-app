@@ -168,7 +168,7 @@ void startTimer(
 
 void resetTimer(
     List players, List roles, String name, distributions, String gameId) {
-  var newDoc = {
+  var doc = {
     PLAYERS: players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
@@ -180,5 +180,5 @@ void resetTimer(
   Firestore.instance
       .collection(COLLECTION_NAME)
       .document(gameId.toLowerCase())
-      .setData(newDoc);
+      .setData(doc);
 }

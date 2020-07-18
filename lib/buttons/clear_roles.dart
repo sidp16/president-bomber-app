@@ -21,9 +21,13 @@ class ClearRolesButton extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
       onPressed: () => {
         resetRoles(gameId),
+        Scaffold.of(context).hideCurrentSnackBar(),
         Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Cleared all roles!"),
-            duration: Duration(seconds: 1, milliseconds: 500)))
+          content: Text("Cleared all roles!"),
+          duration: Duration(seconds: 1, milliseconds: 500),
+          elevation: 20.0,
+          behavior: SnackBarBehavior.floating,
+        ))
       },
       child: Text(
         CLEAR,
