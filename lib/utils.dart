@@ -157,7 +157,7 @@ void startTimer(List players, List roles, String name, distributions,
     PLAYERS: players,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
-    STOP_GAME_BOOL: stopGamePress,
+    STOP_GAME_BOOL: false,
     GAME_START: new DateTime.now(),
     GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2)),
     OWNER: name
@@ -176,7 +176,7 @@ void resetTimer(List players, List roles, String name, distributions,
     ROLES: roles,
     DISTRIBUTIONS: distributions,
     GAME_END: null,
-    STOP_GAME_BOOL: stopGamePress,
+    STOP_GAME_BOOL: false,
     OWNER: name
   };
 
