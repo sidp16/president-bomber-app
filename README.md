@@ -1,4 +1,4 @@
-# President & Bomber
+# President & Bomber Flutter App
 
 An app to play the game President & Bomber AKA Two Rooms and a Boom. Made using Flutter and Firebase.
 
