@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
-import 'package:presidentbomber/views/information_cards.dart';
+import 'package:presidentbomber/views/dialogs/NoRoleFoundDialog.dart';
+import 'package:presidentbomber/views/dialogs/RoleDetailsDialog.dart';
 import 'package:presidentbomber/views/messages/players_list_message.dart';
 import 'package:presidentbomber/views/messages/roles_list_message.dart';
 import 'package:presidentbomber/views/messages/roles_lobby_message.dart';
@@ -24,7 +25,7 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text("${widget.gameId} | Owner Game Info"),
+        title: Text("${widget.gameId.toLowerCase()} | Owner Game Info"),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -54,17 +55,65 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              PlayerInformationCard(
-                informationSubtext: informationSubtext,
-                role: snapshot.data[DISTRIBUTIONS][widget.name],
-                gameID: this.widget.gameId,
-                name: this.widget.name,
-              ),
+              buildCard(informationSubtext, 0,
+                  snapshot.data[DISTRIBUTIONS][widget.name]),
+              buildCard(informationSubtext, 1,
+                  snapshot.data[DISTRIBUTIONS][widget.name]),
+              buildCard(informationSubtext, 2,
+                  snapshot.data[DISTRIBUTIONS][widget.name]),
+              buildCard(informationSubtext, 3,
+                  snapshot.data[DISTRIBUTIONS][widget.name]),
+              buildCard(informationSubtext, 4,
+                  snapshot.data[DISTRIBUTIONS][widget.name]),
             ],
           );
         },
       ),
     );
+  }
+
+  Card buildCard(List informationSubtext, int index, String role) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {
+              showRoleDetailsDialog(context, role);
+            },
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(INFORMATION_TILES[index],
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+            ),
+            subtitle: informationSubtext[index],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> showRoleDetailsDialog(BuildContext context, String role) async {
+    final roleDetailsCheck = await Firestore.instance
+        .collection(COLLECTION_NAME)
+        .document(this.widget.gameId.toLowerCase())
+        .get();
+
+    if (roleDetailsCheck.data[DISTRIBUTIONS][this.widget.name] == null) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return NoRoleFoundDialog();
+          });
+    } else {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return RoleDetailsDialog(role: role);
+          });
+    }
   }
 
   Widget buildRoundTimer(BuildContext context, AsyncSnapshot snapshot) {

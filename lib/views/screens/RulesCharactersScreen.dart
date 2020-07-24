@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
-import 'package:presidentbomber/views/information_cards.dart';
 
 void main() => runApp(CharacterRulesScreen());
 
@@ -31,10 +30,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CharacterInformationCard(),
+        Text(
+          "Characters Page",
+          style: TextStyle(fontSize: 40),
+        )
       ],
     ),
-    Text("Rules Page"),
+    Text(
+      "Rules Page",
+      style: TextStyle(fontSize: 40),
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -67,6 +72,27 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  static Card buildCard(int index) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          ListTile(
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(ALL_ROLES[index],
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500)),
+            ),
+            subtitle: Text(ROLE_DESCRIPTIONS[index]),
+          ),
+        ],
       ),
     );
   }
