@@ -18,4 +18,4 @@ Using a deck of cards can prove to be confusing if a group was to incorporate so
 
 ## Approach
 
-Firebase DB.
+I have decided to use Flutter to create the app as I feel that it provides a comprehensive set of UI widgets bundled with an easy to learn language - Dart. I debated using React Native however I felt incorporating a DB with Flutter was easier as opposed to React since Firebase is made to be easily integrated into Flutter projects.
