@@ -116,23 +116,29 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
     );
   }
 
-  Card buildCard(List informationSubtext, int index, String role) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: [
-          ListTile(
-            onTap: () {
-              showRoleDetailsDialog(context, role);
-            },
-            title: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(INFORMATION_TILES[index],
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            ),
-            subtitle: informationSubtext[index],
+  Center buildCard(List informationSubtext, int index, String role) {
+    return Center(
+      child: Container(
+        width: 380,
+        child: Card(
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            children: [
+              ListTile(
+                onTap: () {
+                  showRoleDetailsDialog(context, role);
+                },
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(INFORMATION_TILES[index],
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+                ),
+                subtitle: informationSubtext[index],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
