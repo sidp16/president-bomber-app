@@ -13,13 +13,14 @@ import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/messages/no_gameid_message.dart';
 import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
 import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
+import 'package:presidentbomber/views/screens/SplashScreen.dart';
 
 import 'utils.dart';
 
 void main() {
   runApp(MaterialApp(
     title: APP_TITLE,
-    home: MyApp(),
+    home: SplashScreen(),
   ));
 }
 
