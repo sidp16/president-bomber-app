@@ -1,1 +1,19 @@
 theme: jekyll-theme-cayman
+
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink:           pretty
+
+# Setup
+title:               President & Bomber App
+description:         "An app made with Flutter to facilitate the game, Two Rooms and a Boom AKA President and Bomber!"
+url:                 ''
+paginate:            5
+paginate_path:       "page:num"
+
+# Version
+version:             1.0.0
+
+# About me
+author:
+  name:              Siddharth Prasad
+  email:             siddharth.prasad1609@gmail.com
