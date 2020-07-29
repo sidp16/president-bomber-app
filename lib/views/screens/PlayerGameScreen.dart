@@ -89,7 +89,7 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
             ];
 
             if (snapshot.data[OWNER] == this.widget.name) {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => OwnerGameScreen(
