@@ -33,7 +33,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         CarouselSlider(
-          options: CarouselOptions(height: 500.0),
+          options: CarouselOptions(
+            height: 500.0,
+          ),
           items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) {
             return Builder(
               builder: (BuildContext context) {
@@ -42,7 +44,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     i,
                     (i == 0 || i == 2)
                         ? Colors.red
-                        : (i == 1 || i == 3) ? Colors.blue : Colors.purple);
+                        : (i == 1 || i == 3)
+                            ? Colors.blue
+                            : Colors.deepPurpleAccent,
+                    (i == 0 || i == 1)
+                        ? Icons.stars
+                        : (i == 2 || i == 3)
+                            ? Icons.person_outline
+                            : Icons.help_outline,
+                    (i > 3)
+                        ? "This is a unique role!"
+                        : "This is a team based role!");
               },
             );
           }).toList(),
@@ -55,27 +67,42 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     ),
   ];
 
-  static Container carouselCard(BuildContext context, int i, Color color) {
+  static Container carouselCard(
+      BuildContext context, int i, Color color, IconData icon, String message) {
     return Container(
         width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.all(Radius.circular(30.0))),
+            borderRadius: BorderRadius.all(Radius.circular(25.0))),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  ALL_ROLES[i],
-                  style: TextStyle(
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
+              Row(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Tooltip(
+                          message: message,
+                          child: Icon(
+                            icon,
+                            color: Colors.white,
+                            size: 50.0,
+                          )),
+                    ),
+                  ),
+                  Text(
+                    ALL_ROLES[i],
+                    style: TextStyle(
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ],
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -83,8 +110,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(15, 7, 15, 10),
                     child: Text(ROLE_DESCRIPTIONS[i],
-                        style: TextStyle(fontSize: 24.0, color: Colors.white)),
-                  )
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.height / 33,
+                            color: Colors.white)),
+                  ),
                 ],
               ),
             ],
