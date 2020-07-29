@@ -25,7 +25,7 @@ class GameIDTextField extends StatelessWidget {
             ),
             validator: (String value) {
               if (value.trim().isEmpty) {
-                return 'Game ID is required';
+                return 'Game ID is required!';
               }
               return null;
             },
@@ -54,7 +54,7 @@ class NameTextField extends StatelessWidget {
           padding: const EdgeInsets.all(6.0),
           child: TextFormField(
             inputFormatters: [
-              new WhitelistingTextInputFormatter(RegExp("[a-zA-Z]")),
+              new WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
             ],
             controller: nameTextFieldController,
             decoration: InputDecoration(
@@ -64,7 +64,7 @@ class NameTextField extends StatelessWidget {
             ),
             validator: (String value) {
               if (value.trim().isEmpty) {
-                return 'Name is required';
+                return 'Name is required!';
               }
               return null;
             },
@@ -72,7 +72,7 @@ class NameTextField extends StatelessWidget {
               nameTextFieldController.text = value;
             },
             scrollPadding: EdgeInsets.all(10.0),
-            maxLength: 10,
+            maxLength: 15,
           ),
         ),
         width: 210);

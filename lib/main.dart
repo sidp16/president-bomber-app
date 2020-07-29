@@ -41,7 +41,6 @@ class MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
-
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
