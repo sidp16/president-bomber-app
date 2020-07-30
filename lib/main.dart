@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:presidentbomber/CustomShapeClipper.dart';
 import 'package:presidentbomber/buttons/clear_button.dart';
 import 'package:presidentbomber/buttons/create_game.dart';
 import 'package:presidentbomber/buttons/join_game_button.dart';
@@ -10,7 +11,6 @@ import 'package:presidentbomber/fields/text_fields.dart';
 import 'package:presidentbomber/views/dialogs/NameConflictDialog.dart';
 import 'package:presidentbomber/views/dialogs/NoGameFoundDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
-import 'package:presidentbomber/views/messages/no_gameid_message.dart';
 import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
 import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
 import 'package:presidentbomber/views/screens/SplashScreen.dart';
@@ -23,6 +23,8 @@ void main() {
     home: SplashScreen(),
   ));
 }
+
+ThemeData appTheme = ThemeData(primaryColor: Colors.blue, fontFamily: 'Oxygen');
 
 class MyApp extends StatefulWidget {
   @override
@@ -42,17 +44,14 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final wordPair = WordPair.random();
     return MaterialApp(
+        theme: appTheme,
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
+            extendBodyBehindAppBar: true,
             appBar: AppBar(
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
               centerTitle: true,
-              title: Text(APP_TITLE),
-              flexibleSpace: Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: <Color>[Colors.lightBlue, Colors.blue])),
-              ),
             ),
             drawer: HomeScreenDrawer(),
             body: StreamBuilder(
@@ -67,23 +66,38 @@ class MyAppState extends State<MyApp> {
                 })));
   }
 
-  Column _buildContent(
+  Stack _buildContent(
       WordPair wordPair, BuildContext context, AsyncSnapshot snapshot) {
-    return Column(
-      children: <Widget>[
-        buildUtilityButtons(wordPair, context, snapshot),
-        NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
-        Form(
-            key: _nameFormKey,
-            child: NameTextField(
-                nameTextFieldController: nameTextFieldController)),
-        Form(
-          key: _gameIdFormKey,
-          child: GameIDTextField(
-              gameIdTextFieldController: gameIdTextFieldController),
-        ),
-      ],
-    );
+    return Stack(children: <Widget>[
+      ClipPath(
+        clipper: CustomShapeClipper(),
+        child: Container(
+            height: 400.0,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: <Color>[Colors.blue, Colors.lightBlue])),
+            child: Column(children: <Widget>[
+              SizedBox(height: 40.0),
+              Text("Welcome to \nTwo Rooms And a Boom!",
+                  style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  textAlign: TextAlign.center),
+              SizedBox(height: 20.0),
+              buildUtilityButtons(wordPair, context, snapshot),
+//              NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
+              SizedBox(height: 20.0),
+              Form(
+                  key: _nameFormKey,
+                  child: NameTextField(
+                      nameTextFieldController: nameTextFieldController)),
+              SizedBox(height: 20.0),
+              Form(
+                key: _gameIdFormKey,
+                child: GameIDTextField(
+                    gameIdTextFieldController: gameIdTextFieldController),
+              )
+            ])),
+      ),
+    ]);
   }
 
   Row buildUtilityButtons(

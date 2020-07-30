@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 
-void main() => runApp(CharacterRulesScreen());
-
 /// This Widget is the main application widget.
 class CharacterRulesScreen extends StatelessWidget {
   static const String _title = 'Characters and Rules';
@@ -35,6 +33,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         CarouselSlider(
           options: CarouselOptions(
             height: 500.0,
+            enableInfiniteScroll: true,
+            enlargeCenterPage: true,
           ),
           items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) {
             return Builder(
@@ -51,7 +51,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         ? Icons.stars
                         : (i == 2 || i == 3)
                             ? Icons.person_outline
-                            : Icons.help_outline,
+                            : (i == 4) ? Icons.casino : Icons.help,
                     (i > 3)
                         ? "This is a unique role!"
                         : "This is a team based role!");
@@ -80,45 +80,51 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Tooltip(
-                          message: message,
-                          child: Icon(
-                            icon,
-                            color: Colors.white,
-                            size: 50.0,
-                          )),
-                    ),
-                  ),
-                  Text(
-                    ALL_ROLES[i],
-                    style: TextStyle(
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 7, 15, 10),
-                    child: Text(ROLE_DESCRIPTIONS[i],
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height / 33,
-                            color: Colors.white)),
-                  ),
-                ],
-              ),
+              titleAndIcon(message, icon, i),
+              roleDescription(i, context),
             ],
           ),
         ));
+  }
+
+  static Column roleDescription(int i, BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 7, 15, 10),
+          child: Text(ROLE_DESCRIPTIONS[i],
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.height / 33,
+                  color: Colors.white)),
+        ),
+      ],
+    );
+  }
+
+  static Row titleAndIcon(String message, IconData icon, int i) {
+    return Row(
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Tooltip(
+                message: message,
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 50.0,
+                )),
+          ),
+        ),
+        Text(
+          ALL_ROLES[i],
+          style: TextStyle(
+              fontSize: 35.0, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ],
+    );
   }
 
   void _onItemTapped(int index) {
@@ -149,7 +155,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue[800],
         onTap: _onItemTapped,
       ),
     );
