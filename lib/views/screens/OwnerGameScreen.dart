@@ -11,6 +11,7 @@ import 'package:presidentbomber/buttons/owner_info_button.dart';
 import 'package:presidentbomber/buttons/special_role_button.dart';
 import 'package:presidentbomber/buttons/start_stop_timer_button.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/dialogs/OwnerLeaveGameDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
@@ -40,51 +41,54 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text("${widget.gameId.toLowerCase()} | Owner Console"),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[Colors.lightBlue, Colors.blue])),
+      child: MaterialApp(
+        theme: appTheme,
+        home: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          appBar: AppBar(
+            title: Text("${widget.gameId.toLowerCase()} | Owner Console"),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: <Color>[Colors.lightBlue, Colors.blue])),
+            ),
           ),
-        ),
-        drawer: OwnerDrawer(this.widget.gameId, this.widget.name),
-        body: StreamBuilder(
-          stream: Firestore.instance
-              .collection(COLLECTION_NAME)
-              .document(this.widget.gameId.toLowerCase())
-              .snapshots(),
-          builder: (context, snapshot) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (snapshot.data[STOP_GAME_BOOL]) {
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                          title: Text("Game has ended!"),
-                          content: Text(snapshot.data[DISTRIBUTIONS]
-                              .toString()
-                              .replaceAll("{", "")
-                              .replaceAll("}", "")
-                              .replaceAll(",", "\n")),
-                          actions: [
-                            FlatButton(
-                                child: Text("Continue"),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true))
-                          ]);
-                    });
-              }
-            });
-            if (!snapshot.hasData)
-              return Center(child: CircularProgressIndicator());
-            return _buildContent(snapshot);
-          },
+          drawer: OwnerDrawer(this.widget.gameId, this.widget.name),
+          body: StreamBuilder(
+            stream: Firestore.instance
+                .collection(COLLECTION_NAME)
+                .document(this.widget.gameId.toLowerCase())
+                .snapshots(),
+            builder: (context, snapshot) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (snapshot.data[STOP_GAME_BOOL]) {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                            title: Text("Game has ended!"),
+                            content: Text(snapshot.data[DISTRIBUTIONS]
+                                .toString()
+                                .replaceAll("{", "")
+                                .replaceAll("}", "")
+                                .replaceAll(",", "\n")),
+                            actions: [
+                              FlatButton(
+                                  child: Text("Continue"),
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true))
+                            ]);
+                      });
+                }
+              });
+              if (!snapshot.hasData)
+                return Center(child: CircularProgressIndicator());
+              return _buildContent(snapshot);
+            },
+          ),
         ),
       ),
     );

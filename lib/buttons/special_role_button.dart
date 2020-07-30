@@ -41,7 +41,7 @@ class SpecialRoleButton extends StatelessWidget {
           role,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 19,
             fontWeight: FontWeight.w900,
           ),
         ),

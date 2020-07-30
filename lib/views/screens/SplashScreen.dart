@@ -26,8 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Random random = new Random();
     int randomNumber = random.nextInt(FUNNY_MESSAGES.length - 1);
-    return Scaffold(
-      body: buildContent(randomNumber),
+    return MaterialApp(
+      theme: appTheme,
+      home: Scaffold(
+        body: buildContent(randomNumber),
+      ),
     );
   }
 

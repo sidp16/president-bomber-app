@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/views/dialogs/NoRoleFoundDialog.dart';
 import 'package:presidentbomber/views/dialogs/PlayerLeaveGameDialog.dart';
 import 'package:presidentbomber/views/dialogs/RoleDetailsDialog.dart';
@@ -35,82 +36,85 @@ class _PlayerGameScreenState extends State<PlayerGameScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text("${widget.gameId.toLowerCase()} | Player View"),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[Colors.lightBlue, Colors.blue])),
+      child: MaterialApp(
+        theme: appTheme,
+        home: Scaffold(
+          resizeToAvoidBottomPadding: false,
+          appBar: AppBar(
+            title: Text("${widget.gameId.toLowerCase()} | Player View"),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: <Color>[Colors.lightBlue, Colors.blue])),
+            ),
           ),
-        ),
-        drawer: PlayerDrawer(widget.gameId, widget.name),
-        body: StreamBuilder(
-          stream: Firestore.instance
-              .collection(COLLECTION_NAME)
-              .document(this.widget.gameId.toLowerCase())
-              .snapshots(),
-          builder: (context, snapshot) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (snapshot.data[STOP_GAME_BOOL]) {
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                          title: Text("Game has ended!"),
-                          content: Text(snapshot.data[DISTRIBUTIONS]
-                              .toString()
-                              .replaceAll("{", "")
-                              .replaceAll("}", "")
-                              .replaceAll(",", "\n")),
-                          actions: [
-                            FlatButton(
-                                child: Text("Continue"),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true))
-                          ]);
-                    });
+          drawer: PlayerDrawer(widget.gameId, widget.name),
+          body: StreamBuilder(
+            stream: Firestore.instance
+                .collection(COLLECTION_NAME)
+                .document(this.widget.gameId.toLowerCase())
+                .snapshots(),
+            builder: (context, snapshot) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (snapshot.data[STOP_GAME_BOOL]) {
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                            title: Text("Game has ended!"),
+                            content: Text(snapshot.data[DISTRIBUTIONS]
+                                .toString()
+                                .replaceAll("{", "")
+                                .replaceAll("}", "")
+                                .replaceAll(",", "\n")),
+                            actions: [
+                              FlatButton(
+                                  child: Text("Continue"),
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true))
+                            ]);
+                      });
+                }
+              });
+              if (!snapshot.hasData)
+                return Center(child: CircularProgressIndicator());
+
+              List informationSubtext = [
+                RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
+                PlayersListMessage(snapshot.data[PLAYERS]),
+                RolesListMessage(snapshot.data[ROLES]),
+                UniqueRoleMessage(
+                    snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
+                buildRoundTimer(context, snapshot)
+              ];
+
+              if (snapshot.data[OWNER] == this.widget.name) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OwnerGameScreen(
+                            this.widget.gameId, this.widget.name)));
               }
-            });
-            if (!snapshot.hasData)
-              return Center(child: CircularProgressIndicator());
-
-            List informationSubtext = [
-              RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
-              PlayersListMessage(snapshot.data[PLAYERS]),
-              RolesListMessage(snapshot.data[ROLES]),
-              UniqueRoleMessage(
-                  snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-              buildRoundTimer(context, snapshot)
-            ];
-
-            if (snapshot.data[OWNER] == this.widget.name) {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => OwnerGameScreen(
-                          this.widget.gameId, this.widget.name)));
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                buildCard(informationSubtext, 0,
-                    snapshot.data[DISTRIBUTIONS][widget.name]),
-                buildCard(informationSubtext, 1,
-                    snapshot.data[DISTRIBUTIONS][widget.name]),
-                buildCard(informationSubtext, 2,
-                    snapshot.data[DISTRIBUTIONS][widget.name]),
-                buildCard(informationSubtext, 3,
-                    snapshot.data[DISTRIBUTIONS][widget.name]),
-                buildCard(informationSubtext, 4,
-                    snapshot.data[DISTRIBUTIONS][widget.name]),
-              ],
-            );
-          },
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  buildCard(informationSubtext, 0,
+                      snapshot.data[DISTRIBUTIONS][widget.name]),
+                  buildCard(informationSubtext, 1,
+                      snapshot.data[DISTRIBUTIONS][widget.name]),
+                  buildCard(informationSubtext, 2,
+                      snapshot.data[DISTRIBUTIONS][widget.name]),
+                  buildCard(informationSubtext, 3,
+                      snapshot.data[DISTRIBUTIONS][widget.name]),
+                  buildCard(informationSubtext, 4,
+                      snapshot.data[DISTRIBUTIONS][widget.name]),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

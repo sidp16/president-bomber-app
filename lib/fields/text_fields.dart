@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presidentbomber/constants.dart';
@@ -24,7 +25,7 @@ class GameIDTextField extends StatelessWidget {
             ],
             controller: gameIdTextFieldController,
             decoration: InputDecoration(
-                prefixIcon: Material(
+                suffixIcon: Material(
                     elevation: 2.0,
                     borderRadius: BorderRadius.all(Radius.circular(30.0)),
                     child: Icon(Icons.lock, color: Colors.grey)),
@@ -68,21 +69,24 @@ class NameTextField extends StatelessWidget {
         child: Container(
           width: 330.0,
           child: TextFormField(
+            textCapitalization: TextCapitalization.sentences,
             inputFormatters: [
               new WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),
             ],
             controller: nameTextFieldController,
             cursorColor: appTheme.primaryColor,
             decoration: InputDecoration(
-                prefixIcon: Material(
+                suffixIcon: Material(
                     elevation: 2.0,
                     borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    child: Icon(Icons.person, color: Colors.grey)),
+                    child: Tooltip(
+                        message: "Enter name!",
+                        child: Icon(Icons.person, color: Colors.grey))),
                 border: InputBorder.none,
                 hintText: NAME_TEXT_FIELD_HINT,
                 hintStyle: TextStyle(fontSize: 17.0),
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 62.0, vertical: 14.0)),
+                    EdgeInsets.symmetric(horizontal: 32.0, vertical: 14.0)),
             validator: (String value) {
               if (value.trim().isEmpty) {
                 return 'Name is required!';
@@ -92,7 +96,6 @@ class NameTextField extends StatelessWidget {
             onSaved: (String value) {
               nameTextFieldController.text = value;
             },
-            scrollPadding: EdgeInsets.all(10.0),
           ),
         ),
       ),

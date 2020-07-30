@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:presidentbomber/constants.dart';
+import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 
 /// This Widget is the main application widget.
@@ -12,6 +13,7 @@ class CharacterRulesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
+      theme: appTheme,
       home: MyStatefulWidget(),
     );
   }
@@ -29,37 +31,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   List<Widget> _widgetOptions = <Widget>[
     Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(
-            height: 500.0,
-            enableInfiniteScroll: true,
-            enlargeCenterPage: true,
-          ),
-          items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return carouselCard(
-                    context,
-                    i,
-                    (i == 0 || i == 2)
-                        ? Colors.red
-                        : (i == 1 || i == 3)
-                            ? Colors.blue
-                            : Colors.deepPurpleAccent,
-                    (i == 0 || i == 1)
-                        ? Icons.stars
-                        : (i == 2 || i == 3)
-                            ? Icons.person_outline
-                            : (i == 4) ? Icons.casino : Icons.help,
-                    (i > 3)
-                        ? "This is a unique role!"
-                        : "This is a team based role!");
-              },
-            );
-          }).toList(),
-        )
-      ],
+      children: [characterCarousel(500.0)],
     ),
     Text(
       "Rules Page",
@@ -67,10 +39,43 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     ),
   ];
 
-  static Container carouselCard(
-      BuildContext context, int i, Color color, IconData icon, String message) {
+  static CarouselSlider characterCarousel(double height) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: height,
+        enableInfiniteScroll: true,
+        enlargeCenterPage: true,
+      ),
+      items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return carouselCard(
+                MediaQuery.of(context).size.width,
+                context,
+                i,
+                (i == 0 || i == 2)
+                    ? Colors.red
+                    : (i == 1 || i == 3)
+                        ? Colors.blue
+                        : Colors.deepPurpleAccent,
+                (i == 0 || i == 1)
+                    ? Icons.stars
+                    : (i == 2 || i == 3)
+                        ? Icons.person_outline
+                        : (i == 4) ? Icons.casino : Icons.help,
+                (i > 3)
+                    ? "This is a unique role!"
+                    : "This is a team based role!");
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  static Container carouselCard(double width, BuildContext context, int i,
+      Color color, IconData icon, String message) {
     return Container(
-        width: MediaQuery.of(context).size.width,
+        width: width,
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
             color: color,

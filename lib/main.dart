@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
@@ -47,6 +48,7 @@ class MyAppState extends State<MyApp> {
         theme: appTheme,
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+            resizeToAvoidBottomPadding: false,
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               elevation: 0.0,
@@ -72,31 +74,62 @@ class MyAppState extends State<MyApp> {
       ClipPath(
         clipper: CustomShapeClipper(),
         child: Container(
-            height: 400.0,
+            height: MediaQuery.of(context).size.height * 0.5,
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: <Color>[Colors.blue, Colors.lightBlue])),
             child: Column(children: <Widget>[
               SizedBox(height: 40.0),
               Text("Welcome to \nTwo Rooms And a Boom!",
-                  style: TextStyle(fontSize: 25.0, color: Colors.white),
+                  style: TextStyle(fontSize: 26.0, color: Colors.white),
                   textAlign: TextAlign.center),
-              SizedBox(height: 20.0),
-              buildUtilityButtons(wordPair, context, snapshot),
 //              NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
-              SizedBox(height: 20.0),
+              SizedBox(height: 30.0),
               Form(
                   key: _nameFormKey,
                   child: NameTextField(
                       nameTextFieldController: nameTextFieldController)),
-              SizedBox(height: 20.0),
+              SizedBox(height: 30.0),
               Form(
                 key: _gameIdFormKey,
                 child: GameIDTextField(
                     gameIdTextFieldController: gameIdTextFieldController),
-              )
+              ),
             ])),
       ),
+      Container(
+        child: Column(children: [
+          SizedBox(height: MediaQuery.of(context).size.height - 350),
+          buildUtilityButtons(wordPair, context, snapshot),
+          SizedBox(height: 20),
+          CarouselSlider(
+              options: CarouselOptions(
+                  height: MediaQuery.of(context).size.height * 0.38,
+                  enableInfiniteScroll: true,
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  scrollDirection: Axis.horizontal),
+              items: [0, 1, 2, 3, 4, 5].map((i) {
+                return Builder(builder: (BuildContext context) {
+                  return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(30.0))),
+                      child: Center(
+                          child: Text('Page $i',
+                              style: TextStyle(
+                                  fontSize: 25.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold))));
+                });
+              }).toList()),
+        ]),
+      )
     ]);
   }
 

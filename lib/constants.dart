@@ -1,5 +1,5 @@
 const APP_TITLE = 'President & Bomber!';
-const JOIN_GAME_TEXT_FIELD_HINT = "  Game ID";
+const JOIN_GAME_TEXT_FIELD_HINT = "Game ID";
 const NO_GAME_ID_MESSAGE = "No Game ID found...";
 const LOADING_MESSAGE = 'Loading data...';
 const COLLECTION_NAME = 'data';
@@ -8,7 +8,7 @@ const ROLES = 'roles';
 const BACK_BUTTON_MESSAGE = 'Go back';
 const JOIN_GAME_BUTTON_MESSAGE = 'Join Game';
 const CREATE_GAME_BUTTON_MESSAGE = 'Create Game';
-const NAME_TEXT_FIELD_HINT = '  Name';
+const NAME_TEXT_FIELD_HINT = 'Name';
 const GAMBLER = 'Gambler';
 const SNIPER = 'Sniper';
 const HERO = 'Hero';

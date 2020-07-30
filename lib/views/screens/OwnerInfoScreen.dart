@@ -9,6 +9,8 @@ import 'package:presidentbomber/views/messages/roles_lobby_message.dart';
 import 'package:presidentbomber/views/messages/unique_role_message.dart';
 import 'package:presidentbomber/views/timer/round_timer.dart';
 
+import '../../main.dart';
+
 class OwnerInfoScreen extends StatefulWidget {
   final String gameId;
   final String name;
@@ -22,52 +24,55 @@ class OwnerInfoScreen extends StatefulWidget {
 class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        title: Text("${widget.gameId.toLowerCase()} | Owner Game Info"),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Colors.lightBlue, Colors.blue])),
+    return MaterialApp(
+      theme: appTheme,
+      home: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          title: Text("${widget.gameId.toLowerCase()} | Owner Game Info"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[Colors.lightBlue, Colors.blue])),
+          ),
         ),
-      ),
-      body: StreamBuilder(
-        stream: Firestore.instance
-            .collection(COLLECTION_NAME)
-            .document(this.widget.gameId.toLowerCase())
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
+        body: StreamBuilder(
+          stream: Firestore.instance
+              .collection(COLLECTION_NAME)
+              .document(this.widget.gameId.toLowerCase())
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
 
-          List informationSubtext = [
-            RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
-            PlayersListMessage(snapshot.data[PLAYERS]),
-            RolesListMessage(snapshot.data[ROLES]),
-            UniqueRoleMessage(
-                snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
-            buildRoundTimer(context, snapshot)
-          ];
+            List informationSubtext = [
+              RolesLobbyMessage(snapshot.data[PLAYERS], snapshot.data[ROLES]),
+              PlayersListMessage(snapshot.data[PLAYERS]),
+              RolesListMessage(snapshot.data[ROLES]),
+              UniqueRoleMessage(
+                  snapshot.data[DISTRIBUTIONS][widget.name], widget.name),
+              buildRoundTimer(context, snapshot)
+            ];
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              buildCard(informationSubtext, 0,
-                  snapshot.data[DISTRIBUTIONS][widget.name]),
-              buildCard(informationSubtext, 1,
-                  snapshot.data[DISTRIBUTIONS][widget.name]),
-              buildCard(informationSubtext, 2,
-                  snapshot.data[DISTRIBUTIONS][widget.name]),
-              buildCard(informationSubtext, 3,
-                  snapshot.data[DISTRIBUTIONS][widget.name]),
-              buildCard(informationSubtext, 4,
-                  snapshot.data[DISTRIBUTIONS][widget.name]),
-            ],
-          );
-        },
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                buildCard(informationSubtext, 0,
+                    snapshot.data[DISTRIBUTIONS][widget.name]),
+                buildCard(informationSubtext, 1,
+                    snapshot.data[DISTRIBUTIONS][widget.name]),
+                buildCard(informationSubtext, 2,
+                    snapshot.data[DISTRIBUTIONS][widget.name]),
+                buildCard(informationSubtext, 3,
+                    snapshot.data[DISTRIBUTIONS][widget.name]),
+                buildCard(informationSubtext, 4,
+                    snapshot.data[DISTRIBUTIONS][widget.name]),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

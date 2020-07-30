@@ -6,6 +6,6 @@ Padding PresidentBomberTitleInDrawer() {
     padding: const EdgeInsets.all(5.0),
     child: Text('President & Bomber',
         style: TextStyle(
-            color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w800)),
+            color: Colors.white, fontSize: 17.0, fontWeight: FontWeight.w800)),
   );
 }
