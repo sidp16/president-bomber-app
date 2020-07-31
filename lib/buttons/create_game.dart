@@ -11,23 +11,26 @@ class CreateGameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton.icon(
-        color: Colors.blue,
-        textColor: Colors.white,
-        disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
-        padding: EdgeInsets.all(8.0),
-        splashColor: Colors.blueAccent,
-        onPressed: this.onPressed,
-        // onPressed
-        icon: Icon(
-          Icons.add_box,
-          size: 20,
-        ),
-        label: Text(CREATE_GAME_BUTTON_MESSAGE,
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w900,
-            )));
+    return Container(
+      height: 75,
+      child: RaisedButton.icon(
+          color: Colors.blue,
+          textColor: Colors.white,
+          disabledColor: Colors.grey,
+          disabledTextColor: Colors.black,
+          padding: EdgeInsets.all(8.0),
+          splashColor: Colors.blueAccent,
+          onPressed: this.onPressed,
+          // onPressed
+          icon: Icon(
+            Icons.add_box,
+            size: 20,
+          ),
+          label: Text(CREATE_GAME_BUTTON_MESSAGE,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w900,
+              ))),
+    );
   }
 }

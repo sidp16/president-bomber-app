@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,11 +80,11 @@ class MyAppState extends State<MyApp> {
                     colors: <Color>[Colors.blue, Colors.lightBlue])),
             child: Column(children: <Widget>[
               SizedBox(height: 40.0),
-              Text("Welcome to \nTwo Rooms And a Boom!",
+              Text(WELCOME_APP_MESSAGE,
                   style: TextStyle(fontSize: 26.0, color: Colors.white),
                   textAlign: TextAlign.center),
 //              NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
-              SizedBox(height: 30.0),
+              SizedBox(height: 20.0),
               Form(
                   key: _nameFormKey,
                   child: NameTextField(
@@ -98,38 +97,12 @@ class MyAppState extends State<MyApp> {
               ),
             ])),
       ),
-      Container(
-        child: Column(children: [
-          SizedBox(height: MediaQuery.of(context).size.height - 350),
-          buildUtilityButtons(wordPair, context, snapshot),
-          SizedBox(height: 20),
-          CarouselSlider(
-              options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height * 0.38,
-                  enableInfiniteScroll: true,
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  scrollDirection: Axis.horizontal),
-              items: [0, 1, 2, 3, 4, 5].map((i) {
-                return Builder(builder: (BuildContext context) {
-                  return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(30.0))),
-                      child: Center(
-                          child: Text('Page $i',
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold))));
-                });
-              }).toList()),
-        ]),
-      )
+      Column(children: [
+        SizedBox(height: MediaQuery.of(context).size.height - 335),
+        buildUtilityButtons(wordPair, context, snapshot),
+        SizedBox(height: 20),
+        helpBox(context),
+      ])
     ]);
   }
 
@@ -257,5 +230,75 @@ class MyAppState extends State<MyApp> {
         MaterialPageRoute(
             builder: (context) => OwnerGameScreen(
                 currentGameId, nameTextFieldController.text.trim())));
+  }
+
+  Container helpBox(BuildContext context) {
+    return Container(
+        height: 220,
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(horizontal: 15.0),
+        decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.all(Radius.circular(30.0))),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            howToText(),
+            SizedBox(height: 5),
+            createGameHelp(),
+            joinGameHelp(),
+            gameIDHelp()
+          ],
+        ));
+  }
+
+  Align gameIDHelp() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Text("Find the game ID - It's on the top left of the screen!",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 17, color: Colors.white)),
+      ),
+    );
+  }
+
+  Text howToText() {
+    return Text('How To:',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold));
+  }
+
+  Align createGameHelp() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          'Create a game - Type your name and press create game!',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 17.0,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Align joinGameHelp() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Text(
+        'Join a game - Type your name, enter a Game ID and press join game!',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 17.0,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 }

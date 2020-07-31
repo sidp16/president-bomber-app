@@ -29,6 +29,11 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context, false);
+              }),
           title: Text("${widget.gameId.toLowerCase()} | Owner Game Info"),
           flexibleSpace: Container(
             decoration: BoxDecoration(

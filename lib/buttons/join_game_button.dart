@@ -13,21 +13,24 @@ class JoinGameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton.icon(
-      color: Colors.blue,
-      textColor: Colors.white,
-      disabledColor: Colors.grey,
-      disabledTextColor: Colors.black,
-      padding: EdgeInsets.all(8.0),
-      splashColor: Colors.blueAccent,
-      onPressed: this.onPressed,
-      icon: Icon(
-        Icons.arrow_forward,
-        size: 20,
-      ),
-      label: Text(
-        JOIN_GAME_BUTTON_MESSAGE,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+    return Container(
+      height: 75,
+      child: RaisedButton.icon(
+        color: Colors.blue,
+        textColor: Colors.white,
+        disabledColor: Colors.grey,
+        disabledTextColor: Colors.black,
+        padding: EdgeInsets.all(8.0),
+        splashColor: Colors.blueAccent,
+        onPressed: this.onPressed,
+        icon: Icon(
+          Icons.arrow_forward,
+          size: 20,
+        ),
+        label: Text(
+          JOIN_GAME_BUTTON_MESSAGE,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+        ),
       ),
     );
   }
