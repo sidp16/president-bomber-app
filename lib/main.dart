@@ -256,8 +256,8 @@ class MyAppState extends State<MyApp> {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Text("Find the game ID - It's on the top left of the screen!",
+        padding: const EdgeInsets.all(9.0),
+        child: Text(GAME_ID_HELP_MESSAGE,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 17, color: Colors.white)),
       ),
@@ -265,7 +265,7 @@ class MyAppState extends State<MyApp> {
   }
 
   Text howToText() {
-    return Text('How To:',
+    return Text(HELP_BOX_TITLE,
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold));
@@ -277,7 +277,7 @@ class MyAppState extends State<MyApp> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          'Create a game - Type your name and press create game!',
+          CREATE_GAME_HELP_MESSAGE,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 17.0,
@@ -292,7 +292,7 @@ class MyAppState extends State<MyApp> {
     return Align(
       alignment: Alignment.topLeft,
       child: Text(
-        'Join a game - Type your name, enter a Game ID and press join game!',
+        JOIN_GAME_HELP_MESSAGE,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 17.0,

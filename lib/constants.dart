@@ -42,6 +42,13 @@ const LOADING_TIMER_MESSAGE = 'Loading...';
 const STOP_GAME_BOOL = 'stopGamePress';
 const END_GAME_BUTTON_TEXT = 'End Game';
 const WELCOME_APP_MESSAGE = "Welcome to \nTwo Rooms And a Boom!";
+const JOIN_GAME_HELP_MESSAGE =
+    'Join a game - Type your name, enter a Game ID and press join game!';
+const CREATE_GAME_HELP_MESSAGE =
+    'Create a game - Type your name and press create game!';
+const HELP_BOX_TITLE = 'How To:';
+const GAME_ID_HELP_MESSAGE =
+    "Find the game ID - Once you've created / joined a game, look at the top left of the screen!";
 const List ALL_ROLES = [
   'Bomber',
   'President',

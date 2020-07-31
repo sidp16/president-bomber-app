@@ -49,7 +49,7 @@ android {
         targetSdkVersion 30
         multiDexEnabled true
         versionCode 7
-        versionName "1.0.5"
+        versionName "1.1.0"
     }
 
     signingConfigs {
