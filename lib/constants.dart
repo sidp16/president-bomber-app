@@ -103,3 +103,73 @@ const List FUNNY_MESSAGES = [
   "Love inside jokes. Would love to be a part of one someday.",
   "I learned that a while back that if I don't text 911, people will not return my calls."
 ];
+
+const RULES_TITLES = [
+  'Setup',
+  'Rules',
+  'Win Conditions',
+  'Rounds + Leaders',
+  'Leader Change',
+  'End of Round',
+  'Advanced Rules',
+];
+const RULES_PAGE_SUBTEXT = [
+  '''
+In Two Rooms and a Boom there are 2 teams and 2 rooms. The 2 teams are the Blue Team and the Red Team (plus maybe some special / unique roles who don't have an alliegance). The Blue Team has a President. The Red Team has a Bomber.\n
+Players are first equally distributed between 2 separate playing areas (usually 2 separate rooms) and then each player is randomly dealt a character card. Players play the game by saying what they want in order to select a leader for their room. The leader chooses hostage(s) (players who will be sent to the other room at the end of the round).
+''',
+  '''
+1. TIME IS PUBLIC.
+Round time can be kept by anyone with a stopwatch. Time is never kept secret. The end of a round should be clear to all players.
+
+2. NO COMMUNICATION BETWEEN ROOMS.
+No yelling anything to players in the other room. No eavesdropping. Even if you can see into the other room, there is no sign language permitted.
+
+3. YOUR CARD
+Do what you want with your character card. Show it to someone, everyone, or nobody.
+''',
+  '''
+After the last hostage exchange, the game ends. Everyone reveals their cards (unless you are playing with special role(s)).
+
+If the President is in the room with the Bomber, then the entire Red Team wins.
+
+If the President is not in the room with the Bomber, then the entire Blue Team wins.
+
+Look at the Characters Page to see the win conditions of the other characters in the game.
+  ''',
+  '''
+The game consists of 3 timed rounds (a universal timer that accounts for both rooms). Each round is shorter than the previous round. At the end of each round, the hostages selected by the leaders will be traded into opposing rooms. The game ends after the last hostage exchange. Everyone reveals their card.
+
+The leader is the player who holds the leader card and chooses the hostages to leave the room at the end of the round & cannot choose themself.
+
+The first leader of a room is the player who is appointed by another player. To appoint a player, point to them and say, "I appoint you as leader!" A player can never appoint themselves. 
+  ''',
+  '''
+Want a different leader? Here are the 2 ways to do that!
+
+1. Leader Abdicates.
+If you are leader and don't want to be (usually because you want to be a hostage), then simply hand the leader card to a willing player. The player may accept or refuse leadership, but if they do accept leadership, you can't become leader again until the next round.
+
+2. Leader Is Usurped.
+If there is still time in a round and you want a different leader, raise one hand into the air (so your usurping attempt is clearly visible) and point your other hand toward the player you want as the new leader.
+  ''',
+  '''
+At the end of every round, the room leaders must perform the following 3 steps in order:
+
+1. Indicate your hostage selection to the players in your room. Players in your room need to know who was selected as hostages because you can't change your mind once hostages are selected and you can't choose yourself.
+
+2. Leaders parley by meeting between the 2 rooms without hostages, exchange the hostages and return to their respective room (provided this isn't the last round).
+
+3. Start the universal timer again if there are more rounds to be played.
+  ''',
+  '''
+1. Showing Colors
+If you have more than 10 players, players are no longer limited to revealing their entire card. Instead, players may choose to reveal only part of their card.
+
+2. More Characters
+You can play with advanced character cards that modify the basic rules of the game. If an advanced character card contradicts a basic game rule, then the advanced character s rule should be followed.
+
+3. More Rounds
+Try adding a 5 minute round and a 4 minute round, but only if you have more than 10 players. If you don't have enough players, stick with 3 rounds
+  ''',
+];

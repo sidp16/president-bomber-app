@@ -84,7 +84,7 @@ class MyAppState extends State<MyApp> {
                   style: TextStyle(fontSize: 26.0, color: Colors.white),
                   textAlign: TextAlign.center),
 //              NoGameIDMessage(pressed: pressed, currentGameId: currentGameId),
-              SizedBox(height: 20.0),
+              SizedBox(height: 30.0),
               Form(
                   key: _nameFormKey,
                   child: NameTextField(

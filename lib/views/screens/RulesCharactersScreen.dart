@@ -33,31 +33,88 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [characterCarousel(500.0)],
     ),
-    Text(
-      "Rules Page",
-      style: TextStyle(fontSize: 40),
-    ),
+    Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [ruleCarousel()],
+    )
   ];
+
+  static CarouselSlider ruleCarousel() {
+    return CarouselSlider(
+      options: CarouselOptions(
+          height: 500.0, enableInfiniteScroll: true, enlargeCenterPage: true),
+      items: [0, 1, 2, 3, 4, 5, 6].map((i) {
+        return Builder(builder: (BuildContext context) {
+          return rulesCarouselCard(context, i);
+        });
+      }).toList(),
+    );
+  }
+
+  static Container rulesCarouselCard(BuildContext context, int i) {
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(horizontal: 5.0),
+        decoration: BoxDecoration(
+            color: Colors.indigo,
+            borderRadius: BorderRadius.all(Radius.circular(25.0))),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [ruleTItle(i), ruleDescription(i, context)],
+            ),
+          ),
+        ));
+  }
+
+  static Column ruleDescription(int i, BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 7, 15, 10),
+          child: Text(RULES_PAGE_SUBTEXT[i],
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.height / 44,
+                  color: Colors.white)),
+        ),
+      ],
+    );
+  }
+
+  static Row ruleTItle(int i) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(17.0),
+          child: Text(
+            RULES_TITLES[i],
+            style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+          ),
+        ),
+      ],
+    );
+  }
 
   static CarouselSlider characterCarousel(double height) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: height,
-        enableInfiniteScroll: true,
-        enlargeCenterPage: true,
-      ),
+          height: height, enableInfiniteScroll: true, enlargeCenterPage: true),
       items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) {
         return Builder(
           builder: (BuildContext context) {
-            return carouselCard(
+            return characterCarouselCard(
                 MediaQuery.of(context).size.width,
                 context,
                 i,
                 (i == 0 || i == 2)
                     ? Colors.red
-                    : (i == 1 || i == 3)
-                        ? Colors.blue
-                        : Colors.deepPurpleAccent,
+                    : (i == 1 || i == 3) ? Colors.blue : Colors.indigo,
                 (i == 0 || i == 1)
                     ? Icons.stars
                     : (i == 2 || i == 3)
@@ -72,27 +129,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  static Container carouselCard(double width, BuildContext context, int i,
-      Color color, IconData icon, String message) {
+  static Container characterCarouselCard(double width, BuildContext context,
+      int i, Color color, IconData icon, String message) {
     return Container(
         width: width,
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.all(Radius.circular(25.0))),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              titleAndIcon(message, icon, i),
-              roleDescription(i, context),
-            ],
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                titleAndIcon(message, icon, i, ALL_ROLES),
+                roleDescriptionText(i, context),
+              ],
+            ),
           ),
         ));
   }
 
-  static Column roleDescription(int i, BuildContext context) {
+  static Column roleDescriptionText(int i, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -107,7 +166,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  static Row titleAndIcon(String message, IconData icon, int i) {
+  static Row titleAndIcon(String message, IconData icon, int i, List subtext) {
     return Row(
       children: [
         Align(
@@ -124,9 +183,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
         ),
         Text(
-          ALL_ROLES[i],
+          subtext[i],
           style: TextStyle(
-              fontSize: 35.0, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ],
     );
