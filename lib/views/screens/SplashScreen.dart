@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 3, milliseconds: 500),
         () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MyApp())));
   }
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Random random = new Random();
-    int randomNumber = random.nextInt(FUNNY_MESSAGES.length - 1);
+    int randomNumber = random.nextInt(FUNNY_MESSAGES.length);
     return MaterialApp(
       theme: appTheme,
       home: Scaffold(

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:presidentbomber/character_icons_icons.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
@@ -112,7 +113,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ? Icons.stars
                     : (i == 2 || i == 3)
                         ? Icons.person_outline
-                        : (i == 4) ? Icons.casino : Icons.help,
+                        : (i == 4)
+                            ? Icons.casino
+                            : (i == 5)
+                                ? CharacterIcons.sniper
+                                : (i == 6)
+                                    ? CharacterIcons.on_target
+                                    : (i == 7)
+                                        ? CharacterIcons.fish
+                                        : (i == 8)
+                                            ? CharacterIcons.brain_freeze
+                                            : (i == 9)
+                                                ? CharacterIcons.fire
+                                                : (i == 10)
+                                                    ? CharacterIcons.hero
+                                                    : (i == 11)
+                                                        ? CharacterIcons.skull
+                                                        : (i == 12)
+                                                            ? CharacterIcons
+                                                                .walking
+                                                            : null,
                 (i > 3)
                     ? "This is a unique role!"
                     : "This is a team based role!");

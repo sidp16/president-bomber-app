@@ -15,7 +15,8 @@ void createGame(String gameId, String name) {
     ROLES: [PRESIDENT, BOMBER],
     DISTRIBUTIONS: {},
     STOP_GAME_BOOL: false,
-    OWNER: name
+    OWNER: name,
+    'gameCreation': DateTime.now()
   };
 
   data.document(gameId.toLowerCase()).setData(doc);
@@ -45,7 +46,8 @@ void uploadRole(String gameId, String role, String name) async {
     GAME_END: data[GAME_END],
     DISTRIBUTIONS: data[DISTRIBUTIONS],
     STOP_GAME_BOOL: false,
-    OWNER: name
+    OWNER: name,
+    'gameCreation': DateTime.now()
   };
 
   // Upload new document
@@ -112,7 +114,8 @@ void distributeRoles(String gameId, List roles, List players,
     DISTRIBUTIONS: distributions,
     GAME_END: null,
     STOP_GAME_BOOL: false,
-    OWNER: name
+    OWNER: name,
+    'gameCreation': DateTime.now()
   };
 
   try {
@@ -160,7 +163,8 @@ void startTimer(List players, List roles, String name, distributions,
     STOP_GAME_BOOL: false,
     GAME_START: new DateTime.now(),
     GAME_END: DateTime.now().add(new Duration(minutes: 3, seconds: 2)),
-    OWNER: name
+    OWNER: name,
+    'gameCreation': DateTime.now()
   };
 
   Firestore.instance
@@ -177,7 +181,8 @@ void resetTimer(List players, List roles, String name, distributions,
     DISTRIBUTIONS: distributions,
     GAME_END: null,
     STOP_GAME_BOOL: false,
-    OWNER: name
+    OWNER: name,
+    'gameCreation': DateTime.now()
   };
 
   Firestore.instance

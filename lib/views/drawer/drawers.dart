@@ -10,6 +10,7 @@ import 'package:presidentbomber/views/screens/OwnerGameScreen.dart';
 import 'package:presidentbomber/views/screens/PlayerGameScreen.dart';
 import 'package:presidentbomber/views/screens/RulesCharactersScreen.dart';
 
+import '../../constants.dart';
 import '../../utils.dart';
 
 class OwnerDrawer extends StatelessWidget {
@@ -45,7 +46,7 @@ class OwnerDrawer extends StatelessWidget {
               )),
           CustomListTile(
             Icons.home,
-            'Home / Leave Game',
+            LEAVE_GAME,
             () => {
               showDialog(
                   context: context,
@@ -56,13 +57,12 @@ class OwnerDrawer extends StatelessWidget {
                   }),
             },
           ),
-          CustomListTile(Icons.person, 'Characters',
+          CustomListTile(Icons.person, CHARACTERS,
               () => {moveToCharacterRulesScreen(context)}),
-          CustomListTile(Icons.library_books, 'Rules',
+          CustomListTile(Icons.library_books, RULES,
               () => {moveToCharacterRulesScreen(context)}),
-          CustomListTile(Icons.build, 'App Usage', () => {}),
-          CustomListTile(Icons.accessibility, 'About Me', () => {}),
-          CustomListTile(Icons.report_problem, 'Report', () => {}),
+          CustomListTile(Icons.report_problem, REPORT, () => {}),
+          CustomListTile(Icons.accessibility, ABOUT, () => {}),
         ],
       ),
     );
@@ -105,13 +105,12 @@ class HomeScreenDrawer extends StatelessWidget {
                   PresidentBomberTitleInDrawer()
                 ],
               ))),
-          CustomListTile(Icons.person, 'Characters',
+          CustomListTile(Icons.person, CHARACTERS,
               () => {moveToCharacterRulesScreen(context)}),
-          CustomListTile(Icons.library_books, 'Rules',
+          CustomListTile(Icons.library_books, RULES,
               () => {moveToCharacterRulesScreen(context)}),
-          CustomListTile(Icons.build, 'App Usage', () => {}),
-          CustomListTile(Icons.accessibility, 'About Me', () => {}),
-          CustomListTile(Icons.report_problem, 'Report', () => {}),
+          CustomListTile(Icons.report_problem, REPORT, () => {}),
+          CustomListTile(Icons.accessibility, ABOUT, () => {}),
         ],
       ),
     );
@@ -146,9 +145,8 @@ class CharacterRulesDrawer extends StatelessWidget {
                 ],
               )),
           CustomListTile(Icons.home, 'Home', () => {moveToHomePage(context)}),
-          CustomListTile(Icons.build, 'App Usage', () => {}),
-          CustomListTile(Icons.accessibility, 'About Me', () => {}),
-          CustomListTile(Icons.report_problem, 'Report', () => {}),
+          CustomListTile(Icons.report_problem, REPORT, () => {}),
+          CustomListTile(Icons.accessibility, ABOUT, () => {}),
         ],
       ),
     );
@@ -188,7 +186,7 @@ class PlayerDrawer extends StatelessWidget {
               )),
           CustomListTile(
             Icons.home,
-            'Home / Leave Game',
+            LEAVE_GAME,
             () => {
               showDialog(
                   context: context,
@@ -199,13 +197,12 @@ class PlayerDrawer extends StatelessWidget {
                   }),
             },
           ),
-          CustomListTile(Icons.person, 'Characters',
+          CustomListTile(Icons.person, CHARACTERS,
               () => {moveToCharacterRulesScreen(context)}),
-          CustomListTile(Icons.library_books, 'Rules',
+          CustomListTile(Icons.library_books, RULES,
               () => {moveToCharacterRulesScreen(context)}),
-          CustomListTile(Icons.build, 'App Usage', () => {}),
-          CustomListTile(Icons.accessibility, 'About Me', () => {}),
-          CustomListTile(Icons.report_problem, 'Report', () => {}),
+          CustomListTile(Icons.report_problem, REPORT, () => {}),
+          CustomListTile(Icons.accessibility, ABOUT, () => {}),
         ],
       ),
     );

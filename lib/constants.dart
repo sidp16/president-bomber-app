@@ -1,4 +1,4 @@
-const APP_TITLE = 'President & Bomber!';
+const APP_TITLE = 'Two Rooms and a Boom!';
 const JOIN_GAME_TEXT_FIELD_HINT = "Game ID";
 const NO_GAME_ID_MESSAGE = "No Game ID found...";
 const LOADING_MESSAGE = 'Loading data...';
@@ -26,13 +26,15 @@ const PRESIDENT = 'President';
 const BOMBER = 'Bomber';
 const DISTRIBUTE_ROLES_BUTTON_TEXT = 'Give Roles';
 const START_GAME_BUTTON_TEXT = 'Start Game';
-const LEAVE_GAME = 'Leave Game';
+const LEAVE_GAME = 'Home / Leave Game';
 const NUMBER_OF_ROLES_MESSAGE = ' roles in game';
 const IN_LOBBY_MESSAGE = ' player in lobby / ';
 const DISTRIBUTIONS = 'distributions';
 const RULES_CHARACTERS_SCREEN_TITLE = 'Characters & Rules';
 const CHARACTERS = 'Characters';
 const RULES = 'Rules';
+const ABOUT = 'About';
+const REPORT = 'Report';
 const GAME_END = "gameEnd";
 const GAME_START = "gameStart";
 const WAITING_FOR_TIMER_MESSAGE = "Waiting for creator to start!";
@@ -99,9 +101,11 @@ const List FUNNY_MESSAGES = [
   "Too much change is not a good thing. Ask the climate.",
   "Wish I could, but I can't. Well can. But won't. Should, maybe, but shorn't.",
   "The worst thing about prison was the Dementors.",
-  "Today, smoking is going to save lives.",
   "Love inside jokes. Would love to be a part of one someday.",
-  "I learned that a while back that if I don't text 911, people will not return my calls."
+  "I learned that a while back that if I don't text 911, people will not return my calls.",
+  "I knew exactly what to do. But in a much more real sense, I had no idea what to do.",
+  "Saw Inception. Or at least I dreamt I did.",
+  "Seems awfully mean. But sometimes the ends justify the mean."
 ];
 
 const RULES_TITLES = [
