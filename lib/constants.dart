@@ -115,7 +115,7 @@ const RULES_TITLES = [
 ];
 const RULES_PAGE_SUBTEXT = [
   '''
-In Two Rooms and a Boom there are 2 teams and 2 rooms. The 2 teams are the Blue Team and the Red Team (plus maybe some special / unique roles who don't have an alliegance). The Blue Team has a President. The Red Team has a Bomber.\n
+In Two Rooms and a Boom there are 2 teams, 2 rooms and a minimum of 6 players going up to 30. The 2 teams are the Blue Team and the Red Team (plus maybe some special / unique roles who don't have an alliegance). The Blue Team has a President. The Red Team has a Bomber.\n
 Players are first equally distributed between 2 separate playing areas (usually 2 separate rooms) and then each player is randomly dealt a character card. Players play the game by saying what they want in order to select a leader for their room. The leader chooses hostage(s) (players who will be sent to the other room at the end of the round).
 ''',
   '''
@@ -125,7 +125,7 @@ Round time can be kept by anyone with a stopwatch. Time is never kept secret. Th
 2. NO COMMUNICATION BETWEEN ROOMS.
 No yelling anything to players in the other room. No eavesdropping. Even if you can see into the other room, there is no sign language permitted.
 
-3. YOUR CARD
+3. YOUR CARD.
 Do what you want with your character card. Show it to someone, everyone, or nobody.
 ''',
   '''

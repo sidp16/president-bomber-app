@@ -79,7 +79,7 @@ class MyAppState extends State<MyApp> {
                 gradient: LinearGradient(
                     colors: <Color>[Colors.blue, Colors.lightBlue])),
             child: Column(children: <Widget>[
-              SizedBox(height: 40.0),
+              SizedBox(height: 45.0),
               Text(WELCOME_APP_MESSAGE,
                   style: TextStyle(fontSize: 26.0, color: Colors.white),
                   textAlign: TextAlign.center),

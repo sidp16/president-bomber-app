@@ -5,7 +5,6 @@ import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 
-/// This Widget is the main application widget.
 class CharacterRulesScreen extends StatelessWidget {
   static const String _title = 'Characters and Rules';
 
@@ -28,21 +27,13 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [characterCarousel(500.0)],
-    ),
-    Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [ruleCarousel()],
-    )
-  ];
 
-  static CarouselSlider ruleCarousel() {
+  static CarouselSlider rulesCarousel(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          height: 500.0, enableInfiniteScroll: true, enlargeCenterPage: true),
+          height: MediaQuery.of(context).size.height - 180,
+          enableInfiniteScroll: true,
+          enlargeCenterPage: true),
       items: [0, 1, 2, 3, 4, 5, 6].map((i) {
         return Builder(builder: (BuildContext context) {
           return rulesCarouselCard(context, i);
@@ -77,7 +68,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           padding: const EdgeInsets.fromLTRB(15, 7, 15, 10),
           child: Text(RULES_PAGE_SUBTEXT[i],
               style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.height / 44,
+                  fontSize: MediaQuery.of(context).size.height / 45,
                   color: Colors.white)),
         ),
       ],
@@ -101,10 +92,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 
-  static CarouselSlider characterCarousel(double height) {
+  static CarouselSlider characterCarousel(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          height: height, enableInfiniteScroll: true, enlargeCenterPage: true),
+          height: MediaQuery.of(context).size.height - 180,
+          enableInfiniteScroll: true,
+          enlargeCenterPage: true),
       items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) {
         return Builder(
           builder: (BuildContext context) {
@@ -199,6 +192,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = <Widget>[
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [characterCarousel(context)],
+      ),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [rulesCarousel(context)],
+      )
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(RULES_CHARACTERS_SCREEN_TITLE),
