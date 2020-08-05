@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:presidentbomber/CustomShapeClipper.dart';
 import 'package:presidentbomber/buttons/clear_button.dart';
 import 'package:presidentbomber/buttons/create_game.dart';
 import 'package:presidentbomber/buttons/join_game_button.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/fields/text_fields.dart';
+import 'package:presidentbomber/presentation/CustomShapeClipper.dart';
 import 'package:presidentbomber/views/dialogs/NameConflictDialog.dart';
 import 'package:presidentbomber/views/dialogs/NoGameFoundDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
@@ -18,6 +18,17 @@ import 'package:presidentbomber/views/screens/SplashScreen.dart';
 import 'utils.dart';
 
 void main() {
+//  assert(() {
+//    fb.initializeApp(
+//        apiKey: "AIzaSyCW0FH0-Fgr0v9xLGLxaroCrItlRBTC1EQ",
+//        authDomain: "president-bomber-65536.firebaseapp.com",
+//        databaseURL: "https://president-bomber-65536.firebaseio.com",
+//        projectId: "president-bomber-65536",
+//        storageBucket: "president-bomber-65536.appspot.com",
+//        messagingSenderId: "506810616716");
+//    return true;
+//  }());
+
   runApp(MaterialApp(
     title: APP_TITLE,
     home: SplashScreen(),
@@ -47,24 +58,25 @@ class MyAppState extends State<MyApp> {
         theme: appTheme,
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            resizeToAvoidBottomPadding: false,
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              elevation: 0.0,
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-            ),
-            drawer: HomeScreenDrawer(),
-            body: StreamBuilder(
-                stream: Firestore.instance
-                    .collection(COLLECTION_NAME)
-                    .document(currentGameId.toLowerCase())
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData)
-                    return Center(child: CircularProgressIndicator());
-                  return _buildContent(wordPair, context, snapshot);
-                })));
+          resizeToAvoidBottomPadding: false,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+          ),
+          drawer: HomeScreenDrawer(),
+          body: StreamBuilder(
+              stream: Firestore.instance
+                  .collection(COLLECTION_NAME)
+                  .document(currentGameId.toLowerCase())
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator());
+                return _buildContent(wordPair, context, snapshot);
+              }),
+        ));
   }
 
   Stack _buildContent(

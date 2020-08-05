@@ -16,6 +16,7 @@ import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/dialogs/OwnerLeaveGameDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 import 'package:presidentbomber/views/timer/round_timer.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class OwnerGameScreen extends StatefulWidget {
   final String gameId;
@@ -29,6 +30,7 @@ class OwnerGameScreen extends StatefulWidget {
 
 class _OwnerGameScreenState extends State<OwnerGameScreen> {
   RoundTimer currentRoundTimer;
+
   Future<bool> _onWillPop() async {
     return (await showDialog(
           context: context,
@@ -56,38 +58,61 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
             ),
           ),
           drawer: OwnerDrawer(this.widget.gameId, this.widget.name),
-          body: StreamBuilder(
-            stream: Firestore.instance
-                .collection(COLLECTION_NAME)
-                .document(this.widget.gameId.toLowerCase())
-                .snapshots(),
-            builder: (context, snapshot) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (snapshot.data[STOP_GAME_BOOL]) {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                            title: Text("Game has ended!"),
-                            content: Text(snapshot.data[DISTRIBUTIONS]
-                                .toString()
-                                .replaceAll("{", "")
-                                .replaceAll("}", "")
-                                .replaceAll(",", "\n")),
-                            actions: [
-                              FlatButton(
-                                  child: Text("Continue"),
-                                  onPressed: () =>
-                                      Navigator.of(context).pop(true))
-                            ]);
-                      });
-                }
-              });
-              if (!snapshot.hasData)
-                return Center(child: CircularProgressIndicator());
-              return _buildContent(snapshot);
-            },
+          body: SlidingUpPanel(
+            panel: Center(child: Text("This is a sliding panel!")),
+            collapsed: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text("Swipe up!",
+                        style: TextStyle(
+                            fontSize: 30.0,
+//                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                    Icon(
+                      Icons.keyboard_arrow_up,
+                      size: 50.0,
+//                      color: Colors.white,
+                    )
+                  ],
+                ),
+                decoration: BoxDecoration(
+//                    gradient: LinearGradient(
+//                        colors: <Color>[Colors.lightBlue, Colors.blue]),
+                    )),
+            body: StreamBuilder(
+              stream: Firestore.instance
+                  .collection(COLLECTION_NAME)
+                  .document(this.widget.gameId.toLowerCase())
+                  .snapshots(),
+              builder: (context, snapshot) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (snapshot.data[STOP_GAME_BOOL]) {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              title: Text("Game has ended!"),
+                              content: Text(snapshot.data[DISTRIBUTIONS]
+                                  .toString()
+                                  .replaceAll("{", "")
+                                  .replaceAll("}", "")
+                                  .replaceAll(",", "\n")),
+                              actions: [
+                                FlatButton(
+                                    child: Text("Continue"),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true))
+                              ]);
+                        });
+                  }
+                });
+                if (!snapshot.hasData)
+                  return Center(child: CircularProgressIndicator());
+                return _buildContent(snapshot);
+              },
+            ),
           ),
         ),
       ),

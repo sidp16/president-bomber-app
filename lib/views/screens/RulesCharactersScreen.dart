@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:presidentbomber/character_icons_icons.dart';
 import 'package:presidentbomber/constants.dart';
 import 'package:presidentbomber/main.dart';
+import 'package:presidentbomber/presentation/character_icons_icons.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
 
 class CharacterRulesScreen extends StatelessWidget {
