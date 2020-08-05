@@ -15,6 +15,7 @@ import 'package:presidentbomber/main.dart';
 import 'package:presidentbomber/utils.dart';
 import 'package:presidentbomber/views/dialogs/OwnerLeaveGameDialog.dart';
 import 'package:presidentbomber/views/drawer/drawers.dart';
+import 'package:presidentbomber/views/screens/OwnerInfoScreen.dart';
 import 'package:presidentbomber/views/timer/round_timer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -30,6 +31,7 @@ class OwnerGameScreen extends StatefulWidget {
 
 class _OwnerGameScreenState extends State<OwnerGameScreen> {
   RoundTimer currentRoundTimer;
+  PanelController controller;
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
@@ -52,34 +54,57 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
             flexibleSpace: Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
                       colors: <Color>[Colors.lightBlue, Colors.blue])),
             ),
           ),
           drawer: OwnerDrawer(this.widget.gameId, this.widget.name),
           body: SlidingUpPanel(
-            panel: Center(child: Text("This is a sliding panel!")),
+            controller: controller,
+            maxHeight: MediaQuery.of(context).size.height - 100,
+            panel: OwnerInfoScreen(this.widget.gameId, this.widget.name),
+            backdropEnabled: true,
             collapsed: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Column(
                   children: [
-                    Text("Swipe up!",
-                        style: TextStyle(
-                            fontSize: 30.0,
-//                            color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                    Icon(
-                      Icons.keyboard_arrow_up,
-                      size: 50.0,
-//                      color: Colors.white,
-                    )
+//                    SizedBox(height: 20.0),
+//                    Padding(
+//                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+//                      child: Container(
+//                        height: 2.0,
+//                        width: MediaQuery.of(context).size.width,
+//                        color: Colors.white,
+//                      ),
+//                    ),
+                    SizedBox(height: 23.0),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Game Info",
+                            style: TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              controller.open();
+                            });
+                          },
+                          icon: Icon(
+                            Icons.keyboard_arrow_up,
+                            size: 40.0,
+                          ),
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
                   ],
                 ),
                 decoration: BoxDecoration(
-//                    gradient: LinearGradient(
-//                        colors: <Color>[Colors.lightBlue, Colors.blue]),
-                    )),
+                  gradient: LinearGradient(
+                      colors: <Color>[Colors.blue, Colors.blueAccent]),
+                )),
             body: StreamBuilder(
               stream: Firestore.instance
                   .collection(COLLECTION_NAME)
@@ -128,7 +153,6 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
         buildRoleRow2(),
         buildRoleRow3(),
         buildHostageRow4(snapshot),
-        buildUtilityButtons(snapshot),
       ],
     );
   }
@@ -203,6 +227,7 @@ class _OwnerGameScreenState extends State<OwnerGameScreen> {
               name: this.widget.name,
               color: Colors.red,
               splashColor: Colors.redAccent),
+          ClearRolesButton(gameId: widget.gameId),
         ],
       ),
     );

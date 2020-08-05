@@ -25,24 +25,10 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: appTheme,
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context, false);
-              }),
-          title: Text("${widget.gameId.toLowerCase()} | Owner Game Info"),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[Colors.lightBlue, Colors.blue])),
-          ),
-        ),
         body: StreamBuilder(
           stream: Firestore.instance
               .collection(COLLECTION_NAME)
@@ -62,7 +48,7 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
             ];
 
             return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 buildCard(informationSubtext, 0,
                     snapshot.data[DISTRIBUTIONS][widget.name]),
@@ -85,7 +71,7 @@ class _OwnerInfoScreenState extends State<OwnerInfoScreen> {
   Center buildCard(List informationSubtext, int index, String role) {
     return Center(
       child: Container(
-        width: 380,
+        width: MediaQuery.of(context).size.width - 30,
         child: Card(
           clipBehavior: Clip.antiAlias,
           child: Column(
