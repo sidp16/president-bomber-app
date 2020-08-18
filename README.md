@@ -18,3 +18,7 @@ The few elements of the game are still difficult to organise, regardless of loca
     2. A timer
 
 Using a deck of cards can prove to be confusing if a group was to incorporate some of the unique roles the game has to offer. Alongside this, each room needs to have a timer that ideally, would be started at the same time to avoid a room having potentially more time than the other to discuss because the timer was not started at the correct time.
+
+## App Screenshots
+
+<img src="https://user-images.githubusercontent.com/63413238/90529711-ee100900-e16b-11ea-956c-fca995c4e01c.jpg" alt="drawing" width="300"/><img src="https://user-images.githubusercontent.com/63413238/90529682-e7819180-e16b-11ea-9f98-7e7a7f6cd120.jpg" alt="drawing" width="300"/><img src="https://user-images.githubusercontent.com/63413238/90529695-eb151880-e16b-11ea-8d77-8a532bd5db5e.jpg" alt="drawing" width="300"/><img src="https://user-images.githubusercontent.com/63413238/90529716-ef413600-e16b-11ea-8dfa-9c13ec51921a.jpg" alt="drawing" width="300"/><img src="https://user-images.githubusercontent.com/63413238/90529706-ecdedc00-e16b-11ea-821d-2be5a5df4b25.jpg" alt="drawing" width="300"/>
